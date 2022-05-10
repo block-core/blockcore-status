@@ -1,0 +1,24 @@
+﻿@model UserProfileUpdateNotificationViewModel
+@{
+    Layout = "~/Areas/Admin/Views/EmailTemplates/_EmailsLayout.cshtml";
+}
+&nbsp; Hi
+<br />
+&nbsp; Your account settings have been edited with the following specifications:
+<br />
+<div align="center" dir="rtl" style="font-family: Tahoma; font-size: 9pt">
+   UserName : @Model.User.UserName
+    <br />
+    DisplayName : @Model.User.DisplayName
+</div>
+<br />
+<br />
+&nbsp;Regards<br />
+&nbsp;<a style="direction:ltr" href="@Url.Action("Index", "Home", values: new { area = "" }, protocol: this.Context.Request.Scheme)">@Model.EmailSignature</a>
+
+<br />
+<span lang="en" dir="ltr">
+    &nbsp;&nbsp;
+    @Model.MessageDateTime
+</span>
+<br />

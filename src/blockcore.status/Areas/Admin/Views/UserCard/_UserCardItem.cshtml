@@ -1,0 +1,45 @@
+﻿@model UserCardItemViewModel
+
+@{
+    var user = Model.User;
+    var adminPartIsActive = Model.ActiveTab == UserCardItemActiveTab.UserAdmin ? "active" : "";
+    var userPartIsActive = Model.ActiveTab == UserCardItemActiveTab.UserInfo ? "active" : "";
+}
+
+<div class="card mt-5">
+    <div class="card-body">
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        <a asp-action="Index" asp-controller="UserCard" asp-route-id="@user.Id">@user.DisplayName</a>
+                    </h2>
+                </div>
+            </div>
+            <div>
+                <ul class="nav nav-tabs mt-5" id="ucTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link @userPartIsActive" href="#info-@user.Id" aria-controls="info-@user.Id" role="tab" data-toggle="tab">Information</a>
+                    </li>
+                    @if (Model.ShowAdminParts)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @adminPartIsActive" href="#admin-@user.Id" aria-controls="admin-@user.Id" role="tab" data-toggle="tab">user manager</a>
+                        </li>
+                    }
+                </ul>
+                <div class="tab-content" id="ucTabContent">
+                    <div role="tabpanel" class="tab-pane @userPartIsActive" id="info-@user.Id">
+                        <partial name="~/Areas/Admin/Views/UserCard/_UserInfoPart.cshtml" model="Model" />
+                    </div>
+                    @if (Model.ShowAdminParts)
+                    {
+                        <div role="tabpanel" class="tab-pane @adminPartIsActive" id="admin-@user.Id">
+                            <partial name="~/Areas/Admin/Views/UserCard/_UserAdminPart.cshtml" model="Model" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

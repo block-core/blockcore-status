@@ -1,0 +1,84 @@
+﻿@{
+    var pageTitle = ViewData["Title"] ?? "Blockcore Status";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:title" content="Blockcore Status">
+    <meta property="og:description" content="Blockcore is a platform that enables you to build your own blockchains.">
+    <meta property="og:image" content="https://www.blockcore.net/assets/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <title>@pageTitle</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="navbar bg-dark navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand d-sm-inline-block">Blockcore Status</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#myToggle" aria-controls="myToggle" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="myToggle">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <partial name="_UserMenu" />
+                    if (User.IsInRole(ConstantRoles.Admin))
+                    {
+                        <partial name="_AdminMenu" />
+                    }
+                }
+                else
+                {
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link btn btn-outline-primary" asp-area="@AreaConstants.AdminArea" asp-controller="Login" asp-action="Index">
+                            Login
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5 pt-5">
+                <breadcrumb asp-homepage-title="Home"
+                            asp-bootstrap-version="V4"
+                            asp-homepage-url="@Url.Action("Index", "Home", new { area = "" })"
+                            asp-homepage-glyphicon="fas fa-home">
+                </breadcrumb>
+            </div>
+        </div>
+    </div>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-12 order-md-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <footer id="footer" dir="ltr" class="navbar bg-dark navbar-light navbar-expand-sm fixed-bottom">
+        <div class="container">
+            <div class="text-center footer-text">
+                <span class="copyright-text">
+                    <span class="fas fa-heart" style="color:DarkRed" aria-hidden="true"></span>
+                    <a href="http://www.blockcore.net/" target="_blank" class="text-white">Blockcore, @DateTime.UtcNow.Year.ToString()</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/js/site.min.js" type="text/javascript" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", false)
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+    "version": "2.0.0",
+    "command": "dotnet",
+    "args": [],
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceRoot}/src/blockcore.status/blockcore.status.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        }
+    ]
+}

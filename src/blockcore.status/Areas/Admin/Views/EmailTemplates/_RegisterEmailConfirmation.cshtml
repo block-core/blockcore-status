@@ -1,0 +1,44 @@
+﻿@model RegisterEmailConfirmationViewModel
+@{
+    Layout = "~/Areas/Admin/Views/EmailTemplates/_EmailsLayout.cshtml";
+}
+&nbsp; Hi
+<br />
+&nbsp; Your account has been created with the following specifications:
+<br />
+<br />
+<div align="center" dir="rtl" style="font-family: Tahoma; font-size: 9pt">
+    UserName : @Model.User.UserName
+    <br />
+    DisplayName : @Model.User.DisplayName
+    <br />
+    <br />
+    Please click the following link to activate your account:
+    <br />
+    <div align="center">
+        <a href="@Url.Action("ConfirmEmail", "Register", values: new { userId = Model.User.Id, code = Model.EmailConfirmationToken, area = AreaConstants.AdminArea }, protocol: this.Context.Request.Scheme)">
+            Confirm Email
+        </a>
+    </div>
+    <br />
+    <br />
+    You can also use the following address at any time to recover your forgotten password:
+    <br />
+    <div align="center">
+        <a href="@Url.Action("Index","ForgotPassword", values: new { area = AreaConstants.AdminArea }, protocol: this.Context.Request.Scheme)">
+            Forgot Password
+        </a>
+    </div>
+</div>
+<br />
+<br />
+&nbsp;Regards
+<br />
+&nbsp;<a style="direction:ltr" href="@Url.Action("Index", "Home", values: new { area = "" }, protocol: this.Context.Request.Scheme)">@Model.EmailSignature</a>
+
+<br />
+<span lang="en" dir="ltr">
+    &nbsp;&nbsp;
+    @Model.MessageDateTime
+</span>
+<br />

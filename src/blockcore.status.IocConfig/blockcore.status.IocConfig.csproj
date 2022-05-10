@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\blockcore.status.Common\blockcore.status.Common.csproj" />
+    <ProjectReference Include="..\blockcore.status.DataLayer\blockcore.status.DataLayer.csproj" />
+    <ProjectReference Include="..\blockcore.status.Entities\blockcore.status.Entities.csproj" />
+    <ProjectReference Include="..\blockcore.status.ViewModels\blockcore.status.ViewModels.csproj" />
+    <ProjectReference Include="..\blockcore.status.Services\blockcore.status.Services.csproj" />
+
+    <ProjectReference Include="..\blockcore.status.DataLayer.InMemoryDatabase\blockcore.status.DataLayer.InMemoryDatabase.csproj" />
+    <ProjectReference Include="..\blockcore.status.DataLayer.MSSQL\blockcore.status.DataLayer.MSSQL.csproj" />
+    <ProjectReference Include="..\blockcore.status.DataLayer.SQLite\blockcore.status.DataLayer.SQLite.csproj" />
+
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+</Project>
