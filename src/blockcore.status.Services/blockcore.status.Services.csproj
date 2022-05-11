@@ -12,7 +12,7 @@
     <ProjectReference Include="..\blockcore.status.ViewModels\blockcore.status.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Common.Web.Core" Version="1.0.0" />
+    <PackageReference Include="Common.Web.Core" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />

@@ -1,5 +1,5 @@
 ﻿using blockcore.status.Entities.Admin;
-using DNTPersianUtils.Core;
+using PersianUtils.Core;
 
 namespace blockcore.status.ViewModels.Admin;
 

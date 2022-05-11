@@ -1,5 +1,5 @@
 ﻿using blockcore.status.Common.PersianToolkit;
-using DNTPersianUtils.Core;
+using PersianUtils.Core;
 using Microsoft.AspNetCore.Identity;
 
 namespace blockcore.status.Services.Admin;

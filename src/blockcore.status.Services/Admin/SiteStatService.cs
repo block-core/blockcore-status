@@ -3,7 +3,7 @@ using blockcore.status.DataLayer.Context;
 using blockcore.status.Entities.Admin;
 using blockcore.status.Services.Contracts.Admin;
 using blockcore.status.ViewModels.Admin;
-using DNTPersianUtils.Core;
+using PersianUtils.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace blockcore.status.Services.Admin;

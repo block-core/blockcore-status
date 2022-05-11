@@ -1,6 +1,6 @@
 using System.Data;
 using System.Data.Common;
-using DNTPersianUtils.Core;
+using PersianUtils.Core;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace blockcore.status.Common.PersianToolkit;

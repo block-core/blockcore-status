@@ -18,7 +18,7 @@
   <ItemGroup>
     <PackageReference Include="BreadCrumb.Core" Version="1.0.1" />
     <PackageReference Include="Captcha.Core" Version="1.0.0" />
-    <PackageReference Include="Common.Web.Core" Version="1.0.0" />
+    <PackageReference Include="Common.Web.Core" Version="1.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

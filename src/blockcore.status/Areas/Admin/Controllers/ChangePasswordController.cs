@@ -6,7 +6,7 @@ using blockcore.status.ViewModels.Admin.Emails;
 using blockcore.status.ViewModels.Admin.Settings;
 using BreadCrumb.Core;
 using Common.Web.Core;
-using DNTPersianUtils.Core;
+using PersianUtils.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

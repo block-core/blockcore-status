@@ -1,4 +1,4 @@
-﻿using DNTPersianUtils.Core;
+﻿using PersianUtils.Core;
 
 namespace blockcore.status.Common.GuardToolkit;
 
