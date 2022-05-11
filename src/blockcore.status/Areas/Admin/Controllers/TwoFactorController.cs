@@ -55,7 +55,7 @@ public class TwoFactorController : Controller
             {
                 Token = code,
                 EmailSignature = _siteOptions.Value.Smtp.FromName,
-                MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                MessageDateTime = DateTime.UtcNow.ToShortTimeString()
             });
 
         return RedirectToAction(

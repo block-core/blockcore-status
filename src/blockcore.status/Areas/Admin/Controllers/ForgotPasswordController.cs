@@ -77,7 +77,7 @@ public class ForgotPasswordController : Controller
                         UserId = user.Id,
                         Token = code,
                         EmailSignature = _siteOptions.Value.Smtp.FromName,
-                        MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                        MessageDateTime = DateTime.UtcNow.ToShortTimeString()
                     })
                 ;
 

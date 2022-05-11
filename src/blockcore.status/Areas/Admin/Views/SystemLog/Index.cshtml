@@ -96,7 +96,7 @@
                     <input type="hidden" id="id" name="id" value="@item.Id" />
                     <input type="submit" value='Delete' class="btn btn-sm btn-danger text-right" />
                 <div class="mr-2">
-                    <span>@item.CreatedDateTime.ToShortPersianDateTimeString()</span>
+                    <span>@item.CreatedDateTime.Value.ToLocalTime()</span>
                     <span class="text-right">
                         @Uow.GetShadowPropertyValue(item, AuditableShadowProperties.CreatedByIp)
                     </span>

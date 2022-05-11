@@ -3,8 +3,7 @@
 <form asp-action="AddRole" method="post">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <div class="modal-header">             
                 @if (string.IsNullOrEmpty(Model?.Id))
                 {
                     <h4 class="modal-title">New</h4>
@@ -12,7 +11,8 @@
                 else
                 {
                     <h4 class="modal-title">Edit</h4>
-                }
+                }  
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <div class="form-group row">

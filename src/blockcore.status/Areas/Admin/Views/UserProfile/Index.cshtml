@@ -84,7 +84,7 @@
                         <option value="">-- Month --</option>
                     </select> /
                     <select asp-for="DateOfBirthYear" class="form-control"
-                            asp-items="Enumerable.Range(1300, 90).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() })">
+                            asp-items="Enumerable.Range(1900, 2022).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() })">
                         <option value="">-- Year --</option>
                     </select>
                 </div>

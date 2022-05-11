@@ -144,7 +144,7 @@ public class UserProfileController : Controller
                     {
                         User = user,
                         EmailSignature = _siteOptions.Value.Smtp.FromName,
-                        MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                        MessageDateTime = DateTime.UtcNow.ToShortTimeString()
                     });
 
                 return RedirectToAction(nameof(Index), "UserCard", new { id = user.Id });
@@ -183,8 +183,8 @@ public class UserProfileController : Controller
             model.DateOfBirthDay.HasValue)
         {
             var date =
-                $"{model.DateOfBirthYear.Value.ToString(CultureInfo.InvariantCulture)}/{model.DateOfBirthMonth.Value.ToString("00", CultureInfo.InvariantCulture)}/{model.DateOfBirthDay.Value.ToString("00", CultureInfo.InvariantCulture)}";
-            user.BirthDate = date.ToGregorianDateTime(true);
+                $"{model.DateOfBirthYear}/{model.DateOfBirthMonth}/{model.DateOfBirthDay}";
+            user.BirthDate = DateTime.Parse(date, CultureInfo.InvariantCulture);
         }
         else
         {
@@ -213,7 +213,7 @@ public class UserProfileController : Controller
 
         if (user.BirthDate.HasValue)
         {
-            var pDateParts = user.BirthDate.Value.ToPersianYearMonthDay();
+            var pDateParts = user.BirthDate.Value.ToLocalTime();
             userProfile.DateOfBirthYear = pDateParts.Year;
             userProfile.DateOfBirthMonth = pDateParts.Month;
             userProfile.DateOfBirthDay = pDateParts.Day;
@@ -279,7 +279,7 @@ public class UserProfileController : Controller
                     User = user,
                     EmailConfirmationToken = code,
                     EmailSignature = _siteOptions.Value.Smtp.FromName,
-                    MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                    MessageDateTime = DateTime.UtcNow.ToShortTimeString()
                 });
         }
 

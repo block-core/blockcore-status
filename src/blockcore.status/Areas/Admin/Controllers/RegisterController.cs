@@ -127,7 +127,7 @@ public class RegisterController : Controller
                             User = user,
                             EmailConfirmationToken = code,
                             EmailSignature = _siteOptions.Value.Smtp.FromName,
-                            MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                            MessageDateTime = DateTime.UtcNow.ToShortTimeString()
                         });
 
                     return RedirectToAction(nameof(ConfirmYourEmail));
