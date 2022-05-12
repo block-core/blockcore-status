@@ -3,6 +3,7 @@ using blockcore.status.Services.Admin.Logger;
 using blockcore.status.ViewModels.Admin.Settings;
 using Captcha.Core;
 using Common.Web.Core;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureLogging(builder.Logging, builder.Environment, builder.Configuration);
@@ -31,12 +32,24 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
             .AbsoluteExpiration(7)
             .ShowThousandsSeparators(false)
             .WithNoise(25, 3)
+            
             .WithEncryptionKey("This is my secure key!");
     });
     services.AddCloudscribePagination();
 
     services.AddControllersWithViews(options => { options.Filters.Add(typeof(ApplyCorrectYeKeFilterAttribute)); });
     services.AddRazorPages();
+    services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Blockcore Status",
+        Description = "Service Status API that monitors the different services and networks related to Blockcore.",
+
+    });
+});
+
 }
 
 void ConfigureLogging(ILoggingBuilder logging, IHostEnvironment env, IConfiguration configuration)
@@ -60,6 +73,10 @@ void ConfigureMiddlewares(IApplicationBuilder app, IHostEnvironment env)
     {
         app.UseHsts();
     }
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+
 
     //app.UseHttpsRedirection();
 

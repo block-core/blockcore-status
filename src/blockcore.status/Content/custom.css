@@ -1,41 +1,23 @@
 ﻿body {
     font-size: 14px;
-    font-family: 'Samim',Tahoma;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url(/images/top-background.png);
     background-repeat: repeat-x;
 }
 
-@font-face {
-  font-family: Samim;
-  src: url('/fonts/Samim.eot?v=1.0.2');
-  src: url('/fonts/Samim.eot?v=1.0.2#iefix') format('embedded-opentype'),
-       url('/fonts/Samim.woff?v=1.0.2') format('woff'),
-       url('/fonts/Samim.ttf?v=1.0.2') format('truetype');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: Samim;
-  src: url('/fonts/Samim-Bold.eot?v=1.0.2');
-  src: url('/fonts/Samim-Bold.eot?v=1.0.2#iefix') format('embedded-opentype'),
-       url('/fonts/Samim-Bold.woff?v=1.0.2') format('woff'),
-       url('/fonts/Samim-Bold.ttf?v=1.0.2') format('truetype');
-  font-weight: bold;
-}
-
-#footer{
+#footer {
     min-height: 50px;
-    vertical-align:central;
+    vertical-align: central;
 }
 
 
 h3, h4, h5, h1, h6 {
-    font-family: 'Samim', arial, Sans-Serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
 
 h2 {
-    font-family: 'Samim', Sans-Serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 17px;
     font-weight: bold;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
@@ -44,7 +26,7 @@ h2 {
 
 
 ul.nav.navbar-nav {
-    font-family: 'Samim', arial, Sans-Serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
 
@@ -140,7 +122,7 @@ ul.nav.navbar-nav {
 }
 
 .navbar-nav > li > a {
-   line-height: 40px;
+    line-height: 40px;
 }
 
 .navbar-brand {
@@ -186,8 +168,7 @@ ul.nav.navbar-nav {
     padding: 5px 14px;
 }
 
-.pagerSpan:hover {
+    .pagerSpan:hover {
         background-color: #eee;
         text-decoration: none;
     }
-

@@ -17,7 +17,7 @@
                 <img class="img-thumbnail userImage" src="@photoUrl" alt="@user.DisplayName" asp-append-version="true"
                      onerror="this.style.visibility = 'hidden';this.width = 0;this.height = 0;" />
                 <a asp-action="Index" asp-controller="UserCard" asp-area="@AreaConstants.AdminArea" asp-route-id="@user.Id">@user.DisplayName</a>
-                <span class="badge badge-info badge-pill">@user.BirthDate.Value.GetAge()</span>
+                <span class="badge badge-info">@user.BirthDate.Value.GetAge()</span>
             </li>
         }
     </ul>
@@ -27,7 +27,7 @@
             <span>
               Average age of users
             </span>
-            <span class="badge badge-info badge-pill"><abbr title="@Model.AgeStat.MinMax">@Model.AgeStat.AverageAge</abbr></span>
+            <span class="badge badge-info"><abbr title="@Model.AgeStat.MinMax">@Model.AgeStat.AverageAge</abbr></span>
         </div>
     }
 </div>

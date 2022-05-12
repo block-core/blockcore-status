@@ -24,20 +24,25 @@
                             </td>
                             <td class="text-center">@user.UserName</td>
                             <td class="text-center">
-                                <a asp-controller="UserProfile"
-                                   asp-action="AdminEdit"
-                                   asp-route-id="@user.Id"
-                                   class="btn btn-info btn-sm">
-                                    Edit
-                                    <span aria-hidden="true" class="fas fa-edit"></span>
-                                </a>
-                                <a asp-controller="ChangeUserPassword"
-                                   asp-action="Index"
-                                   asp-route-id="@user.Id"
-                                   class="btn btn-info btn-sm mt-2">
-                                    Change User Password
-                                    <span aria-hidden="true" class="fas fa-edit"></span>
-                                </a>
+
+                                <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                    <a asp-controller="UserProfile"
+                                       asp-action="AdminEdit"
+                                       asp-route-id="@user.Id"
+                                       class="btn btn-info btn-sm">
+                                        Edit
+                                        <span aria-hidden="true" class="fas fa-edit"></span>
+                                    </a>
+                                    <a asp-controller="ChangeUserPassword"
+                                       asp-action="Index"
+                                       asp-route-id="@user.Id"
+                                       class="btn btn-info btn-sm">
+                                        Change Password
+                                        <span aria-hidden="true" class="fas fa-edit"></span>
+                                    </a>
+                                </div>
+
+
                             </td>
                         </tr>
                         <tr>
@@ -48,11 +53,11 @@
                             <td class="text-center">
                                 @if (user.IsActive)
                                 {
-                                    <span class="badge badge-success badge-pill text-white">Active</span>
+                                    <span class="badge badge-success text-white">Active</span>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-warning badge-pill text-white">DeActive</span>
+                                    <span class="badge badge-warning text-white">DeActive</span>
                                 }
                             </td>
                             <td class="text-center">
@@ -70,7 +75,7 @@
                                     @if (user.IsActive)
                                     {
                                         <input name="activate" value="false" type="hidden" />
-                                        <button type="submit" class="btn btn-danger btn-sm">
+                                        <button type="submit" class="btn btn-danger btn-sm  w-100">
                                             DeActive
                                             <span aria-hidden="true" class="fas fa-thumbs-down"></span>
                                         </button>
@@ -78,7 +83,7 @@
                                     else
                                     {
                                         <input name="activate" value="true" type="hidden" />
-                                        <button type="submit" class="btn btn-info btn-sm">
+                                        <button type="submit" class="btn btn-info btn-sm  w-100">
                                             Active
                                             <span aria-hidden="true" class="fas fa-thumbs-up"></span>
                                         </button>
@@ -96,11 +101,11 @@
                             <td class="text-center">
                                 @if (user.EmailConfirmed)
                                 {
-                                    <span class="badge badge-success badge-pill text-white">Confirmed</span>
+                                    <span class="badge badge-success text-white">Confirmed</span>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-warning badge-pill text-white">Not confirmed</span>
+                                    <span class="badge badge-warning text-white">Not confirmed</span>
                                 }
                             </td>
                             <td class="text-center">
@@ -116,7 +121,7 @@
                                       data-ajax-failure="dataAjaxFailure"
                                       data-ajax-update="#usercard-@user.Id">
                                         <input name="userId" value="@user.Id" type="hidden" />
-                                        <button type="submit" class="btn btn-info btn-sm">
+                                        <button type="submit" class="btn btn-info btn-sm  w-100">
                                             confirm
                                             <span aria-hidden="true" class="fas fa-thumbs-up"></span>
                                         </button>
@@ -134,11 +139,11 @@
                             <td class="text-center">
                                 @if (user.LockoutEnabled)
                                 {
-                                    <span class="badge badge-success badge-pill text-white">Active</span>
+                                    <span class="badge badge-success text-white">Active</span>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-warning badge-pill text-white">DeActive</span>
+                                    <span class="badge badge-warning text-white">DeActive</span>
                                 }
                             </td>
                             <td class="text-center">
@@ -155,16 +160,16 @@
                                     @if (user.LockoutEnabled)
                                     {
                                         <input name="activate" value="false" type="hidden" />
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            Disable
+                                        <button type="submit" class="btn btn-danger btn-sm w-100">
+                                            DeActive
                                             <span aria-hidden="true" class="fas fa-thumbs-down"></span>
                                         </button>
                                     }
                                     else
                                     {
                                         <input name="activate" value="true" type="hidden" />
-                                        <button type="submit" class="btn btn-info btn-sm">
-                                            Enable
+                                        <button type="submit" class="btn btn-info btn-sm w-100">
+                                            Active
                                             <span aria-hidden="true" class="fas fa-thumbs-up"></span>
                                         </button>
                                     }
@@ -215,11 +220,11 @@
                             <td class="text-center">
                                 @if (user.TwoFactorEnabled)
                                 {
-                                    <span class="badge badge-success badge-pill text-white">Active</span>
+                                    <span class="badge badge-success text-white">Active</span>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-warning badge-pill text-white">DeActive</span>
+                                    <span class="badge badge-warning text-white">DeActive</span>
                                 }
                             </td>
                             <td class="text-center">
@@ -236,16 +241,16 @@
                                     @if (user.TwoFactorEnabled)
                                     {
                                         <input name="activate" value="false" type="hidden" />
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            Disable
+                                        <button type="submit" class="btn btn-danger btn-sm w-100">
+                                            DeActive
                                             <span aria-hidden="true" class="fas fa-thumbs-down"></span>
                                         </button>
                                     }
                                     else
                                     {
                                         <input name="activate" value="true" type="hidden" />
-                                        <button type="submit" class="btn btn-info btn-sm">
-                                            Enable
+                                        <button type="submit" class="btn btn-info btn-sm w-100">
+                                            Active
                                             <span aria-hidden="true" class="fas fa-thumbs-up"></span>
                                         </button>
                                     }
@@ -288,7 +293,7 @@
                                             @role.Name
                                         </div>
                                     }
-                                    <button type="submit" class="btn btn-info btn-sm top10">
+                                    <button type="submit" class="btn btn-info btn-sm top10 w-100">
                                         Apply role changes
                                         <span aria-hidden="true" class="fas fa-thumbs-up"></span>
                                     </button>

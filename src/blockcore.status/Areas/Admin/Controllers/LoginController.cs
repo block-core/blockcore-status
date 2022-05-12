@@ -35,9 +35,8 @@ public class LoginController : Controller
         return View();
     }
 
-    //[HttpPost, ValidateAntiForgeryToken, ValidateCaptcha(CaptchaGeneratorLanguage = Language.English,
-    //     CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits)]
-    [HttpPost, ValidateAntiForgeryToken]
+    [HttpPost, ValidateAntiForgeryToken, ValidateCaptcha(CaptchaGeneratorLanguage = Language.English,
+         CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits ,ErrorMessage = "Please enter the security code correctly")]
     public async Task<IActionResult> Index(LoginViewModel model, string returnUrl = null)
     {
         if (model is null)
