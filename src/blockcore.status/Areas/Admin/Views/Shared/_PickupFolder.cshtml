@@ -1,0 +1,5 @@
+﻿@inject IOptionsSnapshot<SiteSettings> SiteSettings
+
+@if (SiteSettings.Value.Smtp.UsePickupFolder)
+{
+<div> You can view this email at @SiteSettings.Value.Smtp.PickupFolder, as it is configured to use PickupFolder to store emails locally. </div>}

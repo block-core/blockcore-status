@@ -1,0 +1,7 @@
+﻿@model UserCardItemViewModel
+
+@{
+    ViewData["Title"] = $"profile: {Model.User.DisplayName}";
+}
+
+<partial name="_UserCardItem" model="Model" />

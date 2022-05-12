@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Not Found!";
+    this.Context.Response.StatusCode = (int)HttpStatusCode.Gone;
+}
+
+<div class="mt-5">
+    <div class="alert alert-warning">
+        <h1><span aria-hidden="true" class="fas fa-warning"></span>Error</h1>
+        <h3>The requested information was not found.</h3>
+    </div>
+</div>

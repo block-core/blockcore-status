@@ -1,0 +1,21 @@
+﻿@model PagedUsersListViewModel
+
+@{
+    var roleId = (string)this.Context.GetRouteValue("Id");
+    var roleName = $"«{Model.Roles.First(x => x.Id.ToString() == roleId).Name}»";
+    ViewData["Title"] = $"Role users {roleName}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-info mt-5">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <ul>
+        <li> To add a new user to the @roleName role, first search for him/her and then select the desired role in his/her user management tab and then apply it. </li>
+        <li> To delete users listed on the current page from the @roleName role, uncheck the @roleName role in their user management tab, and then apply the changes. </li>
+    </ul>
+</div>
+
+<div id="gridcontainer" class="mt-5">
+    <partial name="~/Areas/Admin/Views/UsersManager/_UsersList.cshtml" model="Model" />
+</div>

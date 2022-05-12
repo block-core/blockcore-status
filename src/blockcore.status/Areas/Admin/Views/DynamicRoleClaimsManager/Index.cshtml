@@ -1,0 +1,80 @@
+﻿@model DynamicRoleClaimsManagerViewModel
+
+<h2>Dynamic Role Claims Manager «@Model.RoleIncludeRoleClaims.Name»</h2>
+
+<div class = "alert alert-info">
+     <a href="#" class="close" data-dismiss="alert"> × </a>
+     <ul>
+         <li>
+             The special role of Admin has full access to all the pages listed here and will not be affected by any editing.
+         </li>
+         <li>
+             Dynamic access can also be granted to any fixed role here. In this case, controller or action methods with dynamic access level policy will be listed and selectable
+             <span dir = "ltr">. ([Authorize (Policy = ConstantPolicies.DynamicPermission)]) </span>
+         </li>
+     </ul>
+</div>
+
+<div id="dynamicPermissions">
+    <form method="post"
+          asp-controller="DynamicRoleClaimsManager"
+          asp-action="Index"
+          role="form"
+          data-ajax="true"
+          data-ajax-begin="dataAjaxBegin"
+          data-ajax-success="dataAjaxSuccess"
+          data-ajax-failure="dataAjaxFailure">
+        <input name="RoleId" value="@Model.RoleIncludeRoleClaims.Id" type="hidden" />
+        @foreach (var controller in Model.SecuredControllerActions.OrderBy(x => x.ControllerDisplayName))
+        {
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        @{
+                            var displayName = controller.ControllerDisplayName;
+                            if(string.IsNullOrWhiteSpace(displayName))
+                            {
+                                displayName = controller.ToString();
+                            }
+                        }
+                        @displayName</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var action in controller.MvcActions.OrderBy(x => x.ActionDisplayName))
+                    {
+                        var isSelected = Model.RoleIncludeRoleClaims.Claims
+                            .Any(roleClaim => roleClaim.ClaimType == ConstantPolicies.DynamicPermissionClaimType &&
+                                            roleClaim.ClaimValue == action.ActionId);
+                        var selected = isSelected ? "checked" : "";
+                        var selectedClass = isSelected ? "list-group-item-success" : "";
+                        var actionDisplayName = $"{action.ActionDisplayName}::{action}::{action.ActionId}";
+                        <li class="list-group-item @selectedClass" role="presentation">
+                            <input type="checkbox" name="actionIds" value="@action.ActionId" @selected />
+                            @actionDisplayName
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <button type="submit" class="btn btn-info top15">
+            Submit
+            <span aria-hidden="true" class="fas fa-thumbs-up"></span>
+        </button>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[name="actionIds"]').click(function () {
+                if ($(this).is(':checked')) {
+                    $(this).parent().addClass('list-group-item-success');
+                } else {
+                    $(this).parent().removeClass('list-group-item-success');
+                }
+            });
+        });
+    </script>
+}
