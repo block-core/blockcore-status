@@ -8,7 +8,7 @@ public class RegisterViewModel
     [Display(Name = "Username")]
     [Remote("ValidateUsername", "Register",
                  AdditionalFields = nameof(Email) + "," + ViewModelConstants.AntiForgeryToken, HttpMethod = "POST")]
-    [RegularExpression("^ [a-zA-Z _] * $", ErrorMessage = "Please use only English letters")]
+    [RegularExpression("^[a-zA-Z_]*$", ErrorMessage = "Please use only English letters")]
     public string Username { get; set; }
 
     [Display(Name = "FirstName")]

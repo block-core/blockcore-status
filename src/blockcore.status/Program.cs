@@ -61,7 +61,8 @@ void ConfigureMiddlewares(IApplicationBuilder app, IHostEnvironment env)
         app.UseHsts();
     }
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
+
     app.UseExceptionHandler("/error/index/500");
     app.UseStatusCodePagesWithReExecute("/error/index/{0}");
 
