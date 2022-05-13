@@ -32,7 +32,6 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
             .AbsoluteExpiration(7)
             .ShowThousandsSeparators(false)
             .WithNoise(25, 3)
-            
             .WithEncryptionKey("This is my secure key!");
     });
     services.AddCloudscribePagination();

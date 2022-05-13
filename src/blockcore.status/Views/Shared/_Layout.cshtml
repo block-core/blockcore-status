@@ -41,8 +41,8 @@
                 else
                 {
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link btn btn-outline-primary" asp-area="@AreaConstants.AdminArea" asp-controller="Login" asp-action="Index">
-                            Login
+                        <a class="btn btn-light btn-sm" asp-area="@AreaConstants.AdminArea" asp-controller="Login" asp-action="Index">
+                            <i class="fa fa-unlock"></i> Login
                         </a>
                     </div>
                 }
@@ -68,13 +68,15 @@
         </div>
     </div>
     <footer id="footer" dir="ltr" class="navbar bg-dark navbar-light navbar-expand-sm fixed-bottom">
-        <div class="container">
+        <div class="container align-content-between">
             <div class="text-center footer-text">
                 <span class="copyright-text">
                     <span class="fas fa-heart" style="color:DarkRed" aria-hidden="true"></span>
                     <a href="http://www.blockcore.net/" target="_blank" class="text-white">Blockcore, @DateTime.UtcNow.Year.ToString()</a>
                 </span>
             </div>
+            <a href="/swagger/index.html" class="btn btn-light btn-sm" target="_blank"><i class="fa fa-code"></i> API</a>
+
         </div>
     </footer>
     <script src="~/js/site.min.js" type="text/javascript" asp-append-version="true"></script>
