@@ -3,15 +3,12 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="C:\Users\miladsoft\.nuget\packages\common.web.core\1.0.0\contentFiles\any\net6.0\icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\blockcore.status.Entities\blockcore.status.Entities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="cloudscribe.Web.Pagination" Version="6.0.0" />
-    <PackageReference Include="Common.Web.Core" Version="1.0.1" />
+    <PackageReference Include="Common.Web.Core" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
@@ -20,7 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="Meziantou.Analyzer" Version="1.0.701">
+    <PackageReference Update="Meziantou.Analyzer" Version="1.0.702">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -48,7 +45,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="8.38.0.46746">
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="8.39.0.47922">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
