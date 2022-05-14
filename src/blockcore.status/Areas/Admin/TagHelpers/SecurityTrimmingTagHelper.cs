@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace blockcore.status.Areas.Identity.TagHelpers;
+namespace blockcore.status.Areas.Admin.TagHelpers;
 
 [HtmlTargetElement("security-trimming")]
 public class SecurityTrimmingTagHelper : TagHelper

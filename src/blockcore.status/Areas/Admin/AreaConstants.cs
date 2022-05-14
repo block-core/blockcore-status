@@ -1,4 +1,4 @@
-﻿namespace blockcore.status.Areas.Identity;
+﻿namespace blockcore.status.Areas.Admin;
 
 public static class AreaConstants
 {

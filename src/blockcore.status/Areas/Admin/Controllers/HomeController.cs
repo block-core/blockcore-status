@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Identity.Controllers;
+namespace blockcore.status.Areas.Admin.Controllers;
 
 [Area(AreaConstants.AdminArea), Authorize, BreadCrumb(Title = "Admin", UseDefaultRouteUrl = true, Order = 0)]
 public class HomeController : Controller

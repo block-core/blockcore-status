@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Areas.Identity.Controllers;
+namespace blockcore.status.Areas.Admin.Controllers;
 
 [Area(AreaConstants.AdminArea), AllowAnonymous,
  BreadCrumb(Title = "Login", UseDefaultRouteUrl = true, Order = 0)]

@@ -2,7 +2,7 @@
 using blockcore.status.ViewModels.Admin;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Identity.ViewComponents;
+namespace blockcore.status.Areas.Admin.ViewComponents;
 
 public class OnlineUsersViewComponent : ViewComponent
 {

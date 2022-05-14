@@ -6,7 +6,7 @@ using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Identity.Controllers;
+namespace blockcore.status.Areas.Admin.Controllers;
 
 [AllowAnonymous, Area(AreaConstants.AdminArea),
  BreadCrumb(Title = "User Card", UseDefaultRouteUrl = true, Order = 0)]

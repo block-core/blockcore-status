@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Areas.Identity.Controllers;
+namespace blockcore.status.Areas.Admin.Controllers;
 
 [Authorize(Roles = ConstantRoles.Admin), Area(AreaConstants.AdminArea),
  BreadCrumb(Title = "Change the user's password", UseDefaultRouteUrl = true, Order = 0)]

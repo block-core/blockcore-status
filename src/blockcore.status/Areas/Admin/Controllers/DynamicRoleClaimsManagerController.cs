@@ -7,7 +7,7 @@ using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Identity.Controllers;
+namespace blockcore.status.Areas.Admin.Controllers;
 
 [Authorize(Roles = ConstantRoles.Admin), Area(AreaConstants.AdminArea),
  BreadCrumb(Title = "Dynamic Role Claims Manager", UseDefaultRouteUrl = true, Order = 0)]

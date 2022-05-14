@@ -20,12 +20,12 @@ public class GithubController : Controller
     [HttpGet("[action]/{name}")]
     public async Task<IActionResult> GetOrganizationInfo(string name)
     {
-        var orgname = await _github.GetOrganizationInfo(name);
-        if (orgname == null)
+        var org = await _github.GetOrganizationInfo(name);
+        if (org == null)
         {
             return NotFound();
         }
-        return Ok(orgname);
+        return Ok(org);
     }
 
 }

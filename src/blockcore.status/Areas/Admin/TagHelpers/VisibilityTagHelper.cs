@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace blockcore.status.Areas.Identity.TagHelpers;
+namespace blockcore.status.Areas.Admin.TagHelpers;
 
 
 [HtmlTargetElement("div")]
