@@ -89,6 +89,7 @@ public class RegisterController : Controller
         return View();
     }
 
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Index(RegisterViewModel model)
     {
         if (model is null)

@@ -46,7 +46,7 @@ public class ForgotPasswordController : Controller
     {
         return View();
     }
-
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Index(ForgotPasswordViewModel model)
     {
         if (model is null)

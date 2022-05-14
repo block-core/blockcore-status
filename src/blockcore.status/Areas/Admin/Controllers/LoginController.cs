@@ -34,6 +34,7 @@ public class LoginController : Controller
         return View();
     }
 
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Index(LoginViewModel model, string returnUrl = null)
     {
         if (model is null)
