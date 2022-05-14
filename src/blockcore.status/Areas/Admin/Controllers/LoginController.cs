@@ -2,7 +2,6 @@
 using blockcore.status.ViewModels.Admin;
 using blockcore.status.ViewModels.Admin.Settings;
 using BreadCrumb.Core;
-using Captcha.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,8 +34,6 @@ public class LoginController : Controller
         return View();
     }
 
-    [HttpPost, ValidateAntiForgeryToken, ValidateCaptcha(CaptchaGeneratorLanguage = Language.English,
-         CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits ,ErrorMessage = "Please enter the security code correctly")]
     public async Task<IActionResult> Index(LoginViewModel model, string returnUrl = null)
     {
         if (model is null)

@@ -5,14 +5,12 @@ using blockcore.status.ViewModels.Admin;
 using blockcore.status.ViewModels.Admin.Emails;
 using blockcore.status.ViewModels.Admin.Settings;
 using BreadCrumb.Core;
-using Captcha.Core;
 using Common.Web.Core;
 using PersianUtils.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Language = Captcha.Core.Language;
 
 namespace blockcore.status.Areas.Identity.Controllers;
 
@@ -91,8 +89,6 @@ public class RegisterController : Controller
         return View();
     }
 
-    [HttpPost, ValidateAntiForgeryToken, ValidateCaptcha(CaptchaGeneratorLanguage = Language.English,
-         CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits, ErrorMessage = "Please enter the security code correctly")]
     public async Task<IActionResult> Index(RegisterViewModel model)
     {
         if (model is null)

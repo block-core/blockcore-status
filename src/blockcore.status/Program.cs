@@ -1,7 +1,6 @@
 ﻿using blockcore.status.IocConfig;
 using blockcore.status.Services.Admin.Logger;
 using blockcore.status.ViewModels.Admin.Settings;
-using Captcha.Core;
 using Common.Web.Core;
 using Microsoft.OpenApi.Models;
 
@@ -26,28 +25,20 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.AddMvc(options => options.UseYeKeModelBinder());
 
     services.AddCommonWeb();
-    services.AddCaptcha(options =>
-    {
-        options.UseCookieStorageProvider()
-            .AbsoluteExpiration(7)
-            .ShowThousandsSeparators(false)
-            .WithNoise(25, 3)
-            .WithEncryptionKey("This is my secure key!");
-    });
     services.AddCloudscribePagination();
 
     services.AddControllersWithViews(options => { options.Filters.Add(typeof(ApplyCorrectYeKeFilterAttribute)); });
     services.AddRazorPages();
-    services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Blockcore Status",
-        Description = "Service Status API that monitors the different services and networks related to Blockcore.",
 
+    services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Blockcore Status",
+            Description = "Service Status API that monitors the different services and networks related to Blockcore.",
+        });
     });
-});
 
 }
 

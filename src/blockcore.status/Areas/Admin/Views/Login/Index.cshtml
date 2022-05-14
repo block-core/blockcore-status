@@ -40,28 +40,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col col-md-2 col-form-label text-md-left">
-                   Security code
-                </label>
-                <div class="col col-md-10">
-                    <captcha asp-captcha-generator-max="999"
-                                 asp-captcha-generator-min="100"
-                                 asp-captcha-generator-language="English"
-                                 asp-captcha-generator-display-mode="ShowDigits"
-                                 asp-font-name="Tahoma"
-                                 asp-font-size="20"
-                                 asp-refresh-button-class="fas fa-redo btn-sm"
-                                 asp-fore-color="#333333"
-                                 asp-back-color="#ccc"
-                                 asp-text-box-class="text-box form-control"
-                                 asp-text-box-template="<div class='input-group'><span class='input-group-prepend'><span class='input-group-text'><i class='fas fa-lock'></i></span></span>{0}</div>"
-                                 asp-validation-message-class="text-danger"
-                                 asp-placeholder="Enter the security code"
-                                 asp-validation-error-message="Please Enter the security code" />
-                                
-                </div>
-            </div>
-            <div class="form-group row">
                 <div class="offset-md-2 col-md-10">
                     <div class="form-check">
                         <label asp-for="RememberMe" class="form-check-label">
