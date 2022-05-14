@@ -2,6 +2,8 @@
 using blockcore.status.Entities;
 using blockcore.status.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Octokit;
+using ProductHeaderValue = Octokit.ProductHeaderValue;
 
 namespace blockcore.status.Services;
 
@@ -15,4 +17,25 @@ public class EfGithubService : IGithubService
 
     }
 
+    public async Task<Organization> GetOrganizationInfo(string name)
+    {
+        if (name == null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+        var github = new GitHubClient(new ProductHeaderValue("blockcore"));
+
+        try
+        {
+            var organization = await github.Organization.Get(name);
+
+            return organization;
+        }
+        catch 
+        {
+            return null;
+        }
+
+
+    }
 }
