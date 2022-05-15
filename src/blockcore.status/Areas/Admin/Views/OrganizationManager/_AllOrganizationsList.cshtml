@@ -6,6 +6,7 @@
             <tr>
                 <th class="text-center"> Organization Name </th>
                 <th class="text-center"> Organization Management </th>
+                <th class="text-center"> Manage Repositories </th>
             </tr>
         </thead>
         <tbody>
@@ -19,12 +20,17 @@
             {
                 foreach (var item in Model)
                 {
-                    
+
                     <tr>
                         <td class="text-center">@item.OrganizationName</td>
                         <td class="text-center">
                             <a href="#" id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
                             <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-info" asp-action="RepositoryInOrganization" asp-route-id="@item.Id">
+                                View and change repository lists
+                            </a>
                         </td>
                     </tr>
                 }

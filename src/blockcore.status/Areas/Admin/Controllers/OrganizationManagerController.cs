@@ -173,6 +173,26 @@ public class OrganizationManagerController : Controller
         return PartialView("_Delete", model);
     }
 
+    [BreadCrumb(Title = "List of Repository in Organization", Order = 1)]
+    public async Task<IActionResult> RepositoryInOrganization(int? id)
+    {
+        if (id == null)
+        {
+            return View("Error");
+        }
+        var organization = await _githubService.GetOrganization(id.Value);
+        var model = await _githubService.GetAllPublicRepositories(organization.OrganizationName);
+        var publicrepo = model.Select(r => new GithubRepository()
+        {
+            CreatedDateTime = r.CreatedAt.UtcDateTime,
+            Id = (int)r.Id,
+            RepositoryName = r.Name,
+            OrganizationId= id.Value
+
+        }).ToList();
+        return View(publicrepo);
+    }
+
 }
 
 
