@@ -28,4 +28,28 @@ public class GithubController : Controller
         return Ok(org);
     }
 
+
+    [HttpGet("[action]/{owner}/{name}")]
+    public async Task<IActionResult> GetRepositoryInfo(string owner ,string name)
+    {
+        var repo = await _github.GetRepositoryInfo(owner, name);
+        if (repo == null)
+        {
+            return NotFound();
+        }
+        return Ok(repo);
+    }
+
+
+    [HttpGet("[action]/{owner}/{name}")]
+    public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
+    {
+        var releases = await _github.GetLatestRepositoryRelease(owner, name);
+        if (releases == null)
+        {
+            return NotFound();
+        }
+        var lastTag = releases;
+        return Ok(lastTag);
+    }
 }
