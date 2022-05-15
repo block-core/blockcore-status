@@ -32,11 +32,15 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 
     services.AddSwaggerGen(options =>
     {
-        options.SwaggerDoc("v1", new OpenApiInfo
+        options.SwaggerDoc("status", new OpenApiInfo
         {
             Version = "v1",
             Title = "Blockcore Status",
             Description = "Service Status API that monitors the different services and networks related to Blockcore.",
+            Contact = new OpenApiContact
+            {
+                Name = "Blockcore Status",
+            },
         });
     });
 
@@ -63,12 +67,7 @@ void ConfigureMiddlewares(IApplicationBuilder app, IHostEnvironment env)
     {
         app.UseHsts();
     }
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-
-
-    //app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
     app.UseExceptionHandler("/error/index/500");
     app.UseStatusCodePagesWithReExecute("/error/index/{0}");
@@ -81,6 +80,16 @@ void ConfigureMiddlewares(IApplicationBuilder app, IHostEnvironment env)
 
     app.UseAuthentication();
     app.UseAuthorization();
+
+    app.UseSwagger(c =>
+    {
+        c.RouteTemplate = "docs/{documentName}/openapi.json";
+    });
+    app.UseSwaggerUI(c =>
+    {
+        c.RoutePrefix = "docs";
+        c.SwaggerEndpoint("/docs/status/openapi.json", "Blockcore Status API");
+    });
 }
 
 void ConfigureEndpoints(IApplicationBuilder app)
