@@ -5,7 +5,7 @@
             renderModalPartialViewUrl: null,
             renderModalPartialViewData: null,
             postUrl: '/',
-            loginUrl: '/identity/login',
+            loginUrl: '/Admin/login',
             beforePostHandler: null,
             completeHandler: null,
             errorHandler: null

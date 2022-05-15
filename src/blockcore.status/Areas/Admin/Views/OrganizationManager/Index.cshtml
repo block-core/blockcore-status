@@ -1,7 +1,8 @@
-﻿@model IEnumerable<RoleAndUsersCountViewModel>
+﻿
+@model IEnumerable<GithubOrganization>
 
 @{
-    ViewData["Title"] = "Roles Manager";
+    ViewData["Title"] = "Organization Manager";
 }
 
 <div class="card mt-5">
@@ -9,10 +10,10 @@
         <h5 class="card-title">@ViewData["Title"]</h5>
     </div>
     <div class="card-body">
-        <partial name="_AllRolesList" model="Model" />
+        <partial name="_AllOrganizationsList" model="Model" />
     </div>
     <footer class="card-footer">
-        <a class="btn btn-success" href="#" id="btnCreate">New Role</a>
+        <a class="btn btn-success" href="#" id="btnCreate">New Organization</a>
     </footer>
 </div>
 
@@ -24,8 +25,8 @@
                 e.preventDefault(); 
 
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("AddRole", "RolesManager")',
-                    renderModalPartialViewUrl: '@Url.Action("RenderRole", "RolesManager")',
+                    postUrl: '@Url.Action("AddOrganization", "OrganizationManager")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderOrganization", "OrganizationManager")',
                     renderModalPartialViewData: JSON.stringify({ "id": 0 }),
                     loginUrl: '/Admin/login',
                     beforePostHandler: function () {
@@ -40,12 +41,12 @@
 
             $("a[id^='btnEdit']").click(function (e) {
                 e.preventDefault();
-                var roleId = $(this).data("edit-id");
+                var organizationId = $(this).data("edit-id");
 
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("EditRole", "RolesManager")',
-                    renderModalPartialViewUrl: '@Url.Action("RenderRole", "RolesManager")',
-                    renderModalPartialViewData: JSON.stringify({ "id": roleId }),
+                    postUrl: '@Url.Action("EditOrganization", "OrganizationManager")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderOrganization", "OrganizationManager")',
+                    renderModalPartialViewData: JSON.stringify({ "id": organizationId }),
                     loginUrl: '/Admin/login',
                     beforePostHandler: function () {
                     },
@@ -59,12 +60,12 @@
 
             $("a[id^='btnDelete']").click(function (e) {
                 e.preventDefault(); 
-                var roleId = $(this).data("delete-id");
+                var organizationId = $(this).data("delete-id");
 
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("Delete", "RolesManager")',
-                    renderModalPartialViewUrl: '@Url.Action("RenderDeleteRole", "RolesManager")',
-                    renderModalPartialViewData: JSON.stringify({ "id": roleId }),
+                    postUrl: '@Url.Action("Delete", "OrganizationManager")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDeleteOrganization", "OrganizationManager")',
+                    renderModalPartialViewData: JSON.stringify({ "id": organizationId }),
                     loginUrl: '/Admin/login',
                     beforePostHandler: function () {
                     },

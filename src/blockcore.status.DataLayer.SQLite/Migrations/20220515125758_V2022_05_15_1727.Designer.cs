@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using blockcore.status.DataLayer.SQLite;
 
@@ -10,9 +11,10 @@ using blockcore.status.DataLayer.SQLite;
 namespace blockcore.status.DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(SQLiteDbContext))]
-    partial class SQLiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220515125758_V2022_05_15_1727")]
+    partial class V2022_05_15_1727
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

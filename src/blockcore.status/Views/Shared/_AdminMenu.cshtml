@@ -6,18 +6,26 @@
             Admin Menu
         </a>
         <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                <a class="dropdown-item" asp-controller="UsersManager" asp-action="Index" asp-area="@AreaConstants.AdminArea">
-                    <i class="fas fa-user mr-1" aria-hidden="true"></i>
-                    Users Manager
-                </a>
-                <a class="dropdown-item" asp-controller="RolesManager" asp-action="Index" asp-area="@AreaConstants.AdminArea">
-                    <i class="fas fa-object-group mr-1" aria-hidden="true"></i>
-                    Roles Manager
-                </a>
-                <a class="dropdown-item" asp-controller="SystemLog" asp-action="Index" asp-area="@AreaConstants.AdminArea">
-                    <i class="fas fa-bell mr-1" aria-hidden="true"></i>
-                    System Log
-                </a>
+            <a class="dropdown-item" asp-area="@AreaConstants.AdminArea" asp-controller="OrganizationManager" asp-action="Index">
+                <span class="mr-1 fas fa-cog" aria-hidden="true"></span>
+                Github Organization Manager
+            </a>
+                        <a class="dropdown-item" asp-area="@AreaConstants.AdminArea" asp-controller="RepositoriesManager" asp-action="Index">
+                <span class="mr-1 fas fa-cog" aria-hidden="true"></span>
+                Github Repositories Manager
+            </a>
+            <a class="dropdown-item" asp-controller="UsersManager" asp-action="Index" asp-area="@AreaConstants.AdminArea">
+                <i class="fas fa-user mr-1" aria-hidden="true"></i>
+                Users Manager
+            </a>
+            <a class="dropdown-item" asp-controller="RolesManager" asp-action="Index" asp-area="@AreaConstants.AdminArea">
+                <i class="fas fa-object-group mr-1" aria-hidden="true"></i>
+                Roles Manager
+            </a>
+            <a class="dropdown-item" asp-controller="SystemLog" asp-action="Index" asp-area="@AreaConstants.AdminArea">
+                <i class="fas fa-bell mr-1" aria-hidden="true"></i>
+                System Log
+            </a>
         </div>
     </div>
 </div>

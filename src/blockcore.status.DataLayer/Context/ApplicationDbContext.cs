@@ -6,6 +6,7 @@ using blockcore.status.Entities.Admin;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using blockcore.status.Entities.Github;
 
 namespace blockcore.status.DataLayer.Context;
 
@@ -22,7 +23,8 @@ public class ApplicationDbContext :
     {
     }
 
-
+    public virtual DbSet<GithubOrganization> Organizations { set; get; }
+    public virtual DbSet<GithubRepository> Repositories { set; get; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

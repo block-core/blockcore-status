@@ -14,7 +14,7 @@ public class GithubController : Controller
 
     public GithubController(IGithubService github)
     {
-        _github = github;
+        _github = github ?? throw new ArgumentNullException(nameof(github));
     }
 
     [HttpGet("[action]/{name}")]
@@ -28,9 +28,20 @@ public class GithubController : Controller
         return Ok(org);
     }
 
+    [HttpGet("[action]/{owner}")]
+    public async Task<IActionResult> GetAllPublicRepositories(string owner)
+    {
+        var repo = await _github.GetAllPublicRepositories(owner);
+        if (repo == null)
+        {
+            return NotFound();
+        }
+        return Ok(repo);
+    }
+
 
     [HttpGet("[action]/{owner}/{name}")]
-    public async Task<IActionResult> GetRepositoryInfo(string owner ,string name)
+    public async Task<IActionResult> GetRepositoryInfo(string owner, string name)
     {
         var repo = await _github.GetRepositoryInfo(owner, name);
         if (repo == null)

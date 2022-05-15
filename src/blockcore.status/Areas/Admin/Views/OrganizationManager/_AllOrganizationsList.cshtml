@@ -1,0 +1,34 @@
+﻿@model IEnumerable<GithubOrganization>
+
+<div class="table-responsive">
+    <table id="all-roles-list" class="table table-striped table-hover table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th class="text-center"> Organization Name </th>
+                <th class="text-center"> Organization Management </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No Organization found</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    
+                    <tr>
+                        <td class="text-center">@item.OrganizationName</td>
+                        <td class="text-center">
+                            <a href="#" id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

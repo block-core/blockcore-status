@@ -1,4 +1,4 @@
-dotnet tool update --global dotnet-ef --version 6.0.1
+dotnet tool update --global dotnet-ef
 dotnet build
 dotnet ef --startup-project ../blockcore.status/ database update --context SQLiteDbContext
 pause
