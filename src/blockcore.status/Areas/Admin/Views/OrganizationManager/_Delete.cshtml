@@ -1,4 +1,5 @@
-﻿@model GithubOrganization
+﻿@using blockcore.status.ViewModels.Github
+@model OrganizationViewModel
 <partial name="_CustomValidationSummary" />
 <form asp-action="Delete" method="post" class="form-horizontal">
     <div class="modal-dialog">
@@ -9,10 +10,10 @@
             </div>
             <div class="modal-body">
                 <span class="text-center">
-                    Do you want to delete the <strong> @Model.OrganizationName </strong>?
+                    Do you want to delete the <strong> @Model.Login </strong>?
                 </span>
-                <input asp-for="Id" />
-                <input type="hidden" asp-for="OrganizationName">
+                <input asp-for="OrganizationId" />
+                <input type="hidden" asp-for="Login">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" type="submit">Submit</button>

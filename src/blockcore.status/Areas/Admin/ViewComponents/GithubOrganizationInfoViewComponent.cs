@@ -15,9 +15,20 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
         _github = github;
     }
 
+
     public async Task<IViewComponentResult> InvokeAsync(string OrgName)
     {
-        var org = await _github.GetOrganizationInfo(OrgName);
+        var orgInfo = await _github.GetOrganizationByName(OrgName);
+        var reposlist = orgInfo.GithubRepository.Select(c => new RepositoryInfoViewModel()
+        {
+            LastVersion = "-",
+            Name = c.Name,
+            RepositoryURL = c.HtmlUrl
+        }).ToList();
+ 
+ 
+
+        var org = await _github.GetOrganizationInfo(OrgName).ConfigureAwait(false);
         if (org == null)
         {
             return View("~/Areas/Admin/Views/Shared/Components/Github/OrganizationInfo.cshtml", new OrganizationInfoViewModel());
@@ -25,12 +36,14 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
         return View("~/Areas/Admin/Views/Shared/Components/Github/OrganizationInfo.cshtml",
             new OrganizationInfoViewModel
             {
-                name = org.Name,
-                description = org.Description,  
-                avatarUrl = org.AvatarUrl,
-                blog=org.Blog,
-                login=org.Login,
-                apiurl = org.Url
+                Name = org.Name,
+                Description = org.Description,
+                AvatarUrl = org.AvatarUrl,
+                Blog = org.Blog,
+                Login = org.Login,
+                Apiurl = org.Url,
+                Repositories = reposlist
             });
     }
+
 }

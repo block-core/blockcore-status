@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using blockcore.status.Services.Contracts;
 using blockcore.status.Entities.Github;
+using blockcore.status.ViewModels.Github;
 
 namespace blockcore.status.Areas.Admin.Controllers;
 
@@ -50,22 +51,22 @@ public class OrganizationManagerController : Controller
 
         if (model.Id == 0)
         {
-            return PartialView("_Create", new GithubOrganization() { Id = 0 });
+            return PartialView("_Create", new OrganizationViewModel() { OrganizationId = 0 });
         }
 
-        var org = await _githubService.GetOrganization(model.Id);
+        var org = await _githubService.GetOrganizationById(model.Id);
         if (org == null)
         {
             ModelState.AddModelError("", OrganizationNotFound);
-            return PartialView("_Create", new GithubOrganization());
+            return PartialView("_Create", new OrganizationViewModel());
         }
 
         return PartialView("_Create",
-            new GithubOrganization { Id = org.Id, OrganizationName = org.OrganizationName });
+            new OrganizationViewModel { OrganizationId = org.GithubOrganizationId, Login = org.Login });
     }
 
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditOrganization(GithubOrganization model)
+    public async Task<IActionResult> EditOrganization(OrganizationViewModel model)
     {
         if (model is null)
         {
@@ -74,15 +75,15 @@ public class OrganizationManagerController : Controller
 
         if (ModelState.IsValid)
         {
-            var org = await _githubService.GetOrganization(model.Id);
+            var org = await _githubService.GetOrganizationById(model.OrganizationId);
             if (org == null)
             {
                 ModelState.AddModelError("", OrganizationNotFound);
             }
             else
             {
-                org.OrganizationName = model.OrganizationName;
-                var result = await _githubService.EditOrganization(org);
+              
+                var result = await _githubService.EditOrganization(model);
                 if (result)
                 {
                     return Json(new { success = true });
@@ -96,7 +97,7 @@ public class OrganizationManagerController : Controller
     }
 
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> AddOrganization(GithubOrganization model)
+    public async Task<IActionResult> AddOrganization(OrganizationViewModel model)
     {
         if (model is null)
         {
@@ -130,19 +131,19 @@ public class OrganizationManagerController : Controller
             return BadRequest("model is null.");
         }
 
-        var org = await _githubService.GetOrganization(model.Id);
+        var org = await _githubService.GetOrganizationById(model.Id);
         if (org == null)
         {
             ModelState.AddModelError("", OrganizationNotFound);
-            return PartialView("_Delete", new GithubOrganization());
+            return PartialView("_Delete", new OrganizationViewModel());
         }
 
         return PartialView("_Delete",
-            new GithubOrganization { Id = org.Id, OrganizationName = org.OrganizationName });
+            new OrganizationViewModel { OrganizationId = org.GithubOrganizationId, Login = org.Login });
     }
 
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(GithubOrganization model)
+    public async Task<IActionResult> Delete(OrganizationViewModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -154,14 +155,14 @@ public class OrganizationManagerController : Controller
             return BadRequest("model is null.");
         }
 
-        var org = await _githubService.GetOrganization(model.Id);
+        var org = await _githubService.GetOrganizationById(model.OrganizationId);
         if (org == null)
         {
             ModelState.AddModelError("", OrganizationNotFound);
         }
         else
         {
-            var result = await _githubService.DeleteOrganization(org);
+            var result = await _githubService.DeleteOrganization(model);
             if (result)
             {
                 return Json(new { success = true });
@@ -180,20 +181,10 @@ public class OrganizationManagerController : Controller
         {
             return View("Error");
         }
-        var organization = await _githubService.GetOrganization(id.Value);
-        var model = await _githubService.GetAllPublicRepositories(organization.OrganizationName);
-        var publicrepo = model.Select(r => new GithubRepository()
-        {
-            CreatedDateTime = r.CreatedAt.UtcDateTime,
-            Id = (int)r.Id,
-            RepositoryName = r.Name,
-            OrganizationId = id.Value
+        var organization = await _githubService.GetOrganizationById(id.Value).ConfigureAwait(true);
+        var model = organization.GithubRepository;
 
-        }).ToList();
-
-        ViewData["SelectedRepo"] = await _githubService.GetOrganizationsRepositories(id.Value);
-
-        return View(publicrepo);
+        return View(model);
     }
 
     [HttpPost, BreadCrumb(Title = "List of Repository in Organization (Post)", Order = 1)]

@@ -1,10 +1,11 @@
-﻿@model GithubOrganization
+﻿@using blockcore.status.ViewModels.Github
+@model OrganizationViewModel
 <partial name="_CustomValidationSummary" />
 <form asp-action="AddOrganization" method="post">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">             
-                @if (Model.Id == 0)
+                @if (Model.OrganizationId == 0)
                 {
                     <h4 class="modal-title">New Organization</h4>
                 }
@@ -16,11 +17,11 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label asp-for="OrganizationName" class="col-md-3 col-form-label text-md-left"></label>
+                    <label asp-for="Login" class="col-md-3 col-form-label text-md-left"></label>
                     <div class="col-md-9">
-                        <input asp-for="Id" />
-                        <input dir="ltr" asp-for="OrganizationName" class="form-control" />
-                        <span asp-validation-for="OrganizationName" class="text-danger"></span>
+                        <input asp-for="OrganizationId" />
+                        <input dir="ltr" asp-for="Login" class="form-control" />
+                        <span asp-validation-for="Login" class="text-danger"></span>
                     </div>
                 </div>
             </div>

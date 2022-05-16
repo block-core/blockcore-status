@@ -11,8 +11,8 @@ using blockcore.status.DataLayer.SQLite;
 namespace blockcore.status.DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(SQLiteDbContext))]
-    [Migration("20220515125758_V2022_05_15_1727")]
-    partial class V2022_05_15_1727
+    [Migration("20220516194227_V2022_05_17_0012")]
+    partial class V2022_05_17_0012
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -664,9 +664,24 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
 
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubOrganization", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("GithubOrganizationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Blog")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Company")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedByBrowserName")
                         .HasMaxLength(1000)
@@ -684,6 +699,63 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Property<DateTime?>("CreatedDateTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("EventsUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("Followers")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Following")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("HasOrganizationProjects")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("HasRepositoryProjects")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("HooksUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("HtmlUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IssuesUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("LatestDataUpdate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("MembersUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
                     b.Property<string>("ModifiedByBrowserName")
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT")
@@ -700,20 +772,133 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Property<DateTime?>("ModifiedDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OrganizationName")
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT")
                         .UseCollation("NOCASE");
 
-                    b.HasKey("Id");
+                    b.Property<int>("PublicGists")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PublicMembersUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("PublicRepos")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ReposUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.HasKey("GithubOrganizationId");
 
                     b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRelease", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("GithubReleaseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("AssetsUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Draft")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GithubRepositoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("HtmlUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LatestDataUpdate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("NodeId")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<bool>("Prerelease")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TagName")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("TarballUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("TargetCommitish")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("UploadUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("ZipballUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.HasKey("GithubReleaseId");
+
+                    b.HasIndex("GithubRepositoryId");
+
+                    b.ToTable("Releases");
+                });
+
+            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+                {
+                    b.Property<int>("GithubRepositoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Archived")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CloneUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedByBrowserName")
                         .HasMaxLength(1000)
@@ -731,6 +916,65 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Property<DateTime?>("CreatedDateTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DefaultBranch")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("ForksCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("GitUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("GithubOrganizationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("HasDownloads")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("HasIssues")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("HasPages")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("HasWiki")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Homepage")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("HtmlUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSelect")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("LatestDataUpdate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MirrorUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
                     b.Property<string>("ModifiedByBrowserName")
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT")
@@ -747,16 +991,50 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Property<DateTime?>("ModifiedDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("RepositoryName")
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT")
                         .UseCollation("NOCASE");
 
-                    b.HasKey("Id");
+                    b.Property<string>("NodeId")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
 
-                    b.HasIndex("OrganizationId");
+                    b.Property<int>("OpenIssuesCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PushedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SshUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("StargazersCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SubscribersCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SvnUrl")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<int>("WatchersCount")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("GithubRepositoryId");
+
+                    b.HasIndex("GithubOrganizationId");
 
                     b.ToTable("Repositories");
                 });
@@ -835,15 +1113,26 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRelease", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Github.GithubOrganization", "Organization")
-                        .WithMany("Repository")
-                        .HasForeignKey("OrganizationId")
+                    b.HasOne("blockcore.status.Entities.Github.GithubRepository", "GithubRepository")
+                        .WithMany("GithubRelease")
+                        .HasForeignKey("GithubRepositoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Organization");
+                    b.Navigation("GithubRepository");
+                });
+
+            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+                {
+                    b.HasOne("blockcore.status.Entities.Github.GithubOrganization", "GithubOrganization")
+                        .WithMany("GithubRepository")
+                        .HasForeignKey("GithubOrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GithubOrganization");
                 });
 
             modelBuilder.Entity("blockcore.status.Entities.Admin.Role", b =>
@@ -868,7 +1157,12 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
 
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubOrganization", b =>
                 {
-                    b.Navigation("Repository");
+                    b.Navigation("GithubRepository");
+                });
+
+            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+                {
+                    b.Navigation("GithubRelease");
                 });
 #pragma warning restore 612, 618
         }

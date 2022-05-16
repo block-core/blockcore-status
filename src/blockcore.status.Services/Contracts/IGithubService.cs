@@ -1,4 +1,5 @@
 ﻿using blockcore.status.Entities.Github;
+using blockcore.status.ViewModels.Github;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,13 @@ public interface IGithubService
     Task<Release> GetLatestRepositoryRelease(string owner, string name);
 
 
-    Task<bool> AddOrganization(GithubOrganization org);
-    Task<bool> EditOrganization(GithubOrganization org);
-    Task<bool> DeleteOrganization(GithubOrganization org);
-    Task<GithubOrganization> GetOrganization(int id);
+    Task<bool> AddOrganization(OrganizationViewModel org);
+    Task<bool> EditOrganization(OrganizationViewModel org);
+    Task<bool> DeleteOrganization(OrganizationViewModel org);
+    Task<GithubOrganization> GetOrganizationById(int id);
+    Task<GithubOrganization> GetOrganizationByName(string name);
     Task<IReadOnlyList<GithubOrganization>> GetAllOrganization();
 
-
-    Task<IReadOnlyList<GithubRepository>> GetOrganizationsRepositories( int orgId);
-    Task<bool> UpdateOrganizationsRepositories(string[] repositories , int orgId);
+    Task<bool> UpdateOrganizationsRepositories(string[] repositories, int orgId);
 
 }

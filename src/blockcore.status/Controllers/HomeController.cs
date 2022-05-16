@@ -1,4 +1,6 @@
-﻿using BreadCrumb.Core;
+﻿using blockcore.status.Services.Contracts;
+using blockcore.status.ViewModels.Home;
+using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,27 @@ namespace blockcore.status.Controllers;
 [BreadCrumb(Title = "Home", UseDefaultRouteUrl = true, Order = 0)]
 public class HomeController : Controller
 {
-    [BreadCrumb(Title = "Index", Order = 1)]
-    public IActionResult Index()
+    private readonly IGithubService _github;
+
+    public HomeController(IGithubService github)
     {
-        return View();
+        _github = github ?? throw new ArgumentNullException(nameof(github));
+    }
+
+    [BreadCrumb(Title = "Index", Order = 1)]
+    public async Task<IActionResult> Index()
+    {
+       
+        var orgs = await _github.GetAllOrganization();
+        List<string> OrganizationsList = new List<string>();
+        foreach (var item in orgs)
+        {
+            OrganizationsList.Add(item.Name);
+        }
+        var model = new HomeViewModel() { 
+        Organizations=OrganizationsList
+        };
+        return View(model);
     }
 
     [BreadCrumb(Title = "Error", Order = 1)]

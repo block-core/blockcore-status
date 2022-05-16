@@ -1,10 +1,10 @@
-﻿@model IEnumerable<GithubRepository>
+﻿@using blockcore.status.Entities.Github
+@model IEnumerable<GithubRepository>
 
 @{
     var id = (string)this.Context.GetRouteValue("Id");
     var orgId = int.Parse(id);
-    var selectedRepo = (List<GithubRepository>)ViewData["SelectedRepo"];
-    ViewData["Title"] = "Repository List";
+     ViewData["Title"] = "Repository List";
 }
 <form method="post"
       asp-controller="OrganizationManager"
@@ -23,12 +23,12 @@
             <ul class="list-group w-100">
                 @foreach (var item in Model)
                 {
-                     var selected = selectedRepo.Any(c => c.RepositoryName == item.RepositoryName) ? "checked" : "";
+                     var selected = item.IsSelect ? "checked" : "";
                     <li class="list-group-item list-group-item-action">
                         <div>
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="@item.Id" name="Repositories" value="@item.RepositoryName" @selected>
-                                <label class="custom-control-label" for="@item.Id">@item.RepositoryName</label>
+                                <input type="checkbox" class="custom-control-input" id="@item.GithubRepositoryId" name="Repositories" value="@item.Name" @selected>
+                                <label class="custom-control-label" for="@item.GithubRepositoryId">@item.Name</label>
                             </div>
                         </div>
                     </li>
