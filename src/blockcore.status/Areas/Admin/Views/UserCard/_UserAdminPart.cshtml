@@ -273,33 +273,37 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <form method="post"
+                              asp-controller="UsersManager"
+                              asp-action="ChangeUserRoles"
+                              role="form"
+                              data-ajax="true"
+                              data-ajax-begin="dataAjaxBegin"
+                              data-ajax-success="dataAjaxSuccess"
+                              data-ajax-failure="dataAjaxFailure"
+                              data-ajax-update="#usercard-@user.Id">
+                            <input name="userId" value="@user.Id" type="hidden" />
+                            @foreach (var role in Model.Roles)
+                            {
+                                var selected = user.Roles.Any(userRole => userRole.RoleId == role.Id) ? "checked" : "";
+                            <tr>
+                                <td>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="@role.Id" name="roleIds" value="@role.Id" @selected>
+                                        <label class="custom-control-label" for="@role.Id">@role.Name</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
                         <tr>
                             <td>
-                                <form method="post"
-                                      asp-controller="UsersManager"
-                                      asp-action="ChangeUserRoles"
-                                      role="form"
-                                      data-ajax="true"
-                                      data-ajax-begin="dataAjaxBegin"
-                                      data-ajax-success="dataAjaxSuccess"
-                                      data-ajax-failure="dataAjaxFailure"
-                                      data-ajax-update="#usercard-@user.Id">
-                                    <input name="userId" value="@user.Id" type="hidden" />
-                                    @foreach (var role in Model.Roles)
-                                    {
-                                        var selected = user.Roles.Any(userRole => userRole.RoleId == role.Id) ? "checked" : "";
-                                        <div>
-                                            <input type="checkbox" name="roleIds" value="@role.Id" @selected />
-                                            @role.Name
-                                        </div>
-                                    }
-                                    <button type="submit" class="btn btn-info btn-sm top10 w-100">
-                                        Apply role changes
-                                        <span aria-hidden="true" class="fas fa-thumbs-up"></span>
-                                    </button>
-                                </form>
+                                <button type="submit" class="btn btn-info btn-sm top10 w-100">
+                                    Apply role changes
+                                    <span aria-hidden="true" class="fas fa-thumbs-up"></span>
+                                </button>
                             </td>
                         </tr>
+                        </form>
                     </tbody>
                 </table>
             </div>

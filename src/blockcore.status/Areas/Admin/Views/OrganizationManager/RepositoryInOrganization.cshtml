@@ -3,24 +3,42 @@
 @{
     var id = (string)this.Context.GetRouteValue("Id");
     var orgId = int.Parse(id);
-
+    var selectedRepo = (List<GithubRepository>)ViewData["SelectedRepo"];
     ViewData["Title"] = "Repository List";
 }
-
-<div class="card flex-md-row box-shadow">
-    
-    <div class="card-body d-flex flex-column align-items-start">
-@foreach (var item in Model)
-{
-
-    <div>
-        <input type="checkbox" name="Repositories" value="@item.Id" />
-        @item.RepositoryName
+<form method="post"
+      asp-controller="OrganizationManager"
+      asp-action="RepositoryInOrganization"
+      role="form"
+      data-ajax="true"
+      data-ajax-begin="dataAjaxBegin"
+      data-ajax-success="dataAjaxSuccess"
+      data-ajax-failure="dataAjaxFailure">
+      <input hidden id="OrgId" name="OrgId" value="@orgId" />
+    <div class="card mb-5">
+        <div class="card-header">
+            Select Repository to show in main page
+        </div>
+        <div class="card-body">
+            <ul class="list-group w-100">
+                @foreach (var item in Model)
+                {
+                     var selected = selectedRepo.Any(c => c.RepositoryName == item.RepositoryName) ? "checked" : "";
+                    <li class="list-group-item list-group-item-action">
+                        <div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="@item.Id" name="Repositories" value="@item.RepositoryName" @selected>
+                                <label class="custom-control-label" for="@item.Id">@item.RepositoryName</label>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
     </div>
-    <br />
-}
-    </div>
-</div>
-
+</form>
 
 

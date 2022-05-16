@@ -11,6 +11,7 @@ namespace blockcore.status.Services;
 public class EfGithubService : IGithubService
 {
     private readonly DbSet<GithubOrganization> githubOrganizations;
+    private readonly DbSet<GithubRepository> githubRepositories;
     private readonly IUnitOfWork _uow;
     private readonly GitHubClient github;
 
@@ -19,7 +20,7 @@ public class EfGithubService : IGithubService
         _uow = uow ?? throw new ArgumentNullException(nameof(uow));
 
         githubOrganizations = _uow.Set<GithubOrganization>();
-
+        githubRepositories = _uow.Set<GithubRepository>();
         github = new GitHubClient(new ProductHeaderValue("blockcore"));
     }
 
@@ -167,5 +168,48 @@ public class EfGithubService : IGithubService
     public async Task<IReadOnlyList<GithubOrganization>> GetAllOrganization()
     {
         return await githubOrganizations.ToListAsync();
+    }
+
+    public async Task<bool> UpdateOrganizationsRepositories(string[] repositories, int orgId)
+    {
+        if (repositories == null)
+        {
+            throw new ArgumentNullException(nameof(repositories));
+        }
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
+        try
+        {
+            var repo = await githubRepositories.Where(c => c.OrganizationId == orgId).ToListAsync();
+            foreach (var item in repo)
+            {
+                githubRepositories.Remove(item);
+            }
+            await _uow.SaveChangesAsync();
+
+            foreach (var item in repositories)
+            {
+                var newrepo = new GithubRepository() { OrganizationId = orgId, CreatedDateTime = DateTime.UtcNow, RepositoryName = item };
+                githubRepositories.Add(newrepo);
+            }
+            await _uow.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+
+        }
+    }
+
+    public async Task<IReadOnlyList<GithubRepository>> GetOrganizationsRepositories(int orgId)
+    {
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
+        return await githubRepositories.Where(c => c.OrganizationId == orgId).Select(c => c).ToListAsync();
     }
 }

@@ -187,12 +187,31 @@ public class OrganizationManagerController : Controller
             CreatedDateTime = r.CreatedAt.UtcDateTime,
             Id = (int)r.Id,
             RepositoryName = r.Name,
-            OrganizationId= id.Value
+            OrganizationId = id.Value
 
         }).ToList();
+
+        ViewData["SelectedRepo"] = await _githubService.GetOrganizationsRepositories(id.Value);
+
         return View(publicrepo);
     }
 
+    [HttpPost, BreadCrumb(Title = "List of Repository in Organization (Post)", Order = 1)]
+    public async Task<IActionResult> RepositoryInOrganization(string[] Repositories, int OrgId)
+    {
+
+        var result = await _githubService.UpdateOrganizationsRepositories(Repositories, OrgId);
+        if (result)
+        {
+            return Json(new { success = true });
+        }
+        else
+        {
+            ModelState.AddModelError("", "An error occurred while Updating");
+            return BadRequest("An error occurred while Updating");
+        }
+
+    }
 }
 
 

@@ -22,4 +22,7 @@ public interface IGithubService
     Task<IReadOnlyList<GithubOrganization>> GetAllOrganization();
 
 
+    Task<IReadOnlyList<GithubRepository>> GetOrganizationsRepositories( int orgId);
+    Task<bool> UpdateOrganizationsRepositories(string[] repositories , int orgId);
+
 }
