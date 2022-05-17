@@ -29,11 +29,12 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
                 Blog = org.Blog,
                 Login = org.Login,
                 Apiurl = org.Url,
-                Repositories = org.GithubRepository.Select(c => new RepositoryInfoViewModel()
+                Repositories = org.GithubRepository.Where(c=>c.IsSelect).Select(c => new RepositoryInfoViewModel()
                 {
                     LastVersion = "-",
                     Name = c.Name,
-                    RepositoryURL = c.HtmlUrl
+                    RepositoryURL = c.HtmlUrl,
+                    UpdatedAt = c.UpdatedAt,
                 }).ToList()
             });
     }

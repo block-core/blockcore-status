@@ -9,7 +9,7 @@
         <a href="@Model.Blog">@Model.Blog</a>
     </div>
 </div>
-<div class="card-deck mb-3 text-center">
+<div class="mb-3 text-center">
     <div class="row">
         @if (Model.Repositories != null)
         {
@@ -23,7 +23,7 @@
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled mt-3 mb-4">
-                                <li>Last Version: @item.LastVersion</li>
+                                <li>Updated At: @item.UpdatedAt.ToLocalTime().ToString()</li>
                             </ul>
                             <a href="@item.RepositoryURL" target="_blank" class="btn btn-lg btn-block btn-outline-primary">Go to Repository</a>
                         </div>

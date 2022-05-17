@@ -14,7 +14,7 @@ public class GithubRepository : IAuditableEntity
     public string SshUrl { get; set; }
     public string SvnUrl { get; set; }
     public string MirrorUrl { get; set; }
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string NodeId { get; set; }
     public string Name { get; set; }
     public string FullName { get; set; }
@@ -26,15 +26,14 @@ public class GithubRepository : IAuditableEntity
     public int WatchersCount { get; set; }
     public string DefaultBranch { get; set; }
     public int OpenIssuesCount { get; set; }
-    public DateTime PushedAt { get; set; }
+    public DateTime? PushedAt { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public bool HasIssues { get; set; }
     public bool HasWiki { get; set; }
     public bool HasDownloads { get; set; }
     public bool HasPages { get; set; }
-    public int SubscribersCount { get; set; }
-    public int Size { get; set; }
+    public long Size { get; set; }
     public bool Archived { get; set; }
     public bool IsSelect { get; set; }
     public DateTime LatestDataUpdate { get; set; }

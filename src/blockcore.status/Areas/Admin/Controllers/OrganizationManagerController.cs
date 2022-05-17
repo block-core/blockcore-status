@@ -29,6 +29,7 @@ public class OrganizationManagerController : Controller
         _githubService = githubService ?? throw new ArgumentNullException(nameof(githubService));
     }
 
+   
     [DisplayName("Index"), BreadCrumb(Order = 1)]
     public async Task<IActionResult> Index()
     {
@@ -36,6 +37,7 @@ public class OrganizationManagerController : Controller
         return View(organizations);
     }
 
+   
     [AjaxOnly]
     public async Task<IActionResult> RenderOrganization([FromBody] ModelIdViewModel model)
     {
@@ -65,6 +67,7 @@ public class OrganizationManagerController : Controller
             new OrganizationViewModel { OrganizationId = org.GithubOrganizationId, Login = org.Login });
     }
 
+  
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> EditOrganization(OrganizationViewModel model)
     {
@@ -96,6 +99,7 @@ public class OrganizationManagerController : Controller
         return PartialView("_Create", model);
     }
 
+   
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> AddOrganization(OrganizationViewModel model)
     {
@@ -118,6 +122,7 @@ public class OrganizationManagerController : Controller
         return PartialView("_Create", model);
     }
 
+  
     [AjaxOnly]
     public async Task<IActionResult> RenderDeleteOrganization([FromBody] ModelIdViewModel model)
     {
@@ -142,6 +147,7 @@ public class OrganizationManagerController : Controller
             new OrganizationViewModel { OrganizationId = org.GithubOrganizationId, Login = org.Login });
     }
 
+  
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(OrganizationViewModel model)
     {
@@ -174,6 +180,7 @@ public class OrganizationManagerController : Controller
         return PartialView("_Delete", model);
     }
 
+    
     [BreadCrumb(Title = "List of Repository in Organization", Order = 1)]
     public async Task<IActionResult> RepositoryInOrganization(int? id)
     {
@@ -187,11 +194,29 @@ public class OrganizationManagerController : Controller
         return View(model);
     }
 
-    [HttpPost, BreadCrumb(Title = "List of Repository in Organization (Post)", Order = 1)]
+
+    [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> RepositoryInOrganization(string[] Repositories, int OrgId)
     {
 
-        var result = await _githubService.UpdateOrganizationsRepositories(Repositories, OrgId);
+        var result = await _githubService.UpdateOrganizationsRepositoriesSelected(Repositories, OrgId);
+        if (result)
+        {
+            return Json(new { success = true });
+        }
+        else
+        {
+            ModelState.AddModelError("", "An error occurred while Updating");
+            return BadRequest("An error occurred while Updating");
+        }
+
+    }
+
+
+    [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> GetRepositoryInOrganization( int OrgId)
+    {
+        var result =await _githubService.GetRepositoryInOrganization(OrgId);
         if (result)
         {
             return Json(new { success = true });

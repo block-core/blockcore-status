@@ -4,26 +4,40 @@
 @{
     var id = (string)this.Context.GetRouteValue("Id");
     var orgId = int.Parse(id);
-     ViewData["Title"] = "Repository List";
+    ViewData["Title"] = "Repository List";
 }
-<form method="post"
-      asp-controller="OrganizationManager"
-      asp-action="RepositoryInOrganization"
-      role="form"
-      data-ajax="true"
-      data-ajax-begin="dataAjaxBegin"
-      data-ajax-success="dataAjaxSuccess"
-      data-ajax-failure="dataAjaxFailure">
-      <input hidden id="OrgId" name="OrgId" value="@orgId" />
-    <div class="card mb-5">
-        <div class="card-header">
-            Select Repository to show in main page
-        </div>
+
+
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        Select Repository to show in Home page
+             <form method="post"
+                  asp-controller="OrganizationManager"
+                  asp-action="GetRepositoryInOrganization"
+                  role="form"
+                  data-ajax="true"
+                  data-ajax-begin="dataAjaxBegin"
+                  data-ajax-success="dataAjaxSuccess"
+                  data-ajax-failure="dataAjaxFailure">
+                <input hidden id="OrgId" name="OrgId" value="@orgId" />
+                <button type="submit" class="btn btn-sm btn-primary">Get Repositories</button>
+            </form>
+ 
+    </div>
+    <form method="post"
+          asp-controller="OrganizationManager"
+          asp-action="RepositoryInOrganization"
+          role="form"
+          data-ajax="true"
+          data-ajax-begin="dataAjaxBegin"
+          data-ajax-success="dataAjaxSuccess"
+          data-ajax-failure="dataAjaxFailure">
+        <input hidden id="OrgId" name="OrgId" value="@orgId" />
         <div class="card-body">
             <ul class="list-group w-100">
                 @foreach (var item in Model)
                 {
-                     var selected = item.IsSelect ? "checked" : "";
+                    var selected = item.IsSelect ? "checked" : "";
                     <li class="list-group-item list-group-item-action">
                         <div>
                             <div class="custom-control custom-switch">
@@ -38,7 +52,8 @@
         <div class="card-footer">
             <button class="btn btn-primary" type="submit">Submit</button>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
 
 

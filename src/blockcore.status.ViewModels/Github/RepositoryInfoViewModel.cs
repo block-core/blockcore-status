@@ -9,6 +9,7 @@ namespace blockcore.status.ViewModels.Github;
 {
     public string Name { get; set; }
     public string LastVersion { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public string RepositoryURL { get; set; }
 
 }
