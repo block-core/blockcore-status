@@ -26,7 +26,7 @@ public class EfGithubService : IGithubService
         github = new GitHubClient(new ProductHeaderValue("blockcore"));
     }
 
-    public async Task<Organization> GetOrganizationInfo(string login)
+    public async Task<Organization> GetOrganizationInfoFromGithub(string login)
     {
         if (login == null)
         {
@@ -45,7 +45,7 @@ public class EfGithubService : IGithubService
 
     }
 
-    public async Task<Repository> GetRepositoryInfo(string owner, string name)
+    public async Task<Repository> GetRepositoryInfoFromGithub(string owner, string name)
     {
         if (owner == null)
         {
@@ -66,7 +66,7 @@ public class EfGithubService : IGithubService
         }
     }
 
-    public async Task<Release> GetLatestRepositoryRelease(string owner, string name)
+    public async Task<Release> GetLatestRepositoryReleaseFromGithub(string owner, string name)
     {
         if (owner == null)
         {
@@ -87,7 +87,7 @@ public class EfGithubService : IGithubService
         }
     }
 
-    public async Task<IReadOnlyList<Repository>> GetAllPublicRepositories(string owner)
+    public async Task<IReadOnlyList<Repository>> GetAllRepositoriesFromGithub(string owner)
     {
         if (owner == null)
         {
@@ -111,7 +111,7 @@ public class EfGithubService : IGithubService
     /// <param name="org"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<bool> AddOrganization(OrganizationViewModel org)
+    public async Task<bool> AddOrganizationToDB(OrganizationViewModel org)
     {
         if (org == null)
         {
@@ -119,7 +119,7 @@ public class EfGithubService : IGithubService
         }
         try
         {
-            var organization = await GetOrganizationInfo(org.Login).ConfigureAwait(false);
+            var organization = await GetOrganizationInfoFromGithub(org.Login).ConfigureAwait(false);
             if (organization != null)
             {
                 githubOrganizations.Add(new GithubOrganization()
@@ -174,7 +174,7 @@ public class EfGithubService : IGithubService
     /// <param name="org"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<bool> EditOrganization(OrganizationViewModel org)
+    public async Task<bool> EditOrganizationFromDB(OrganizationViewModel org)
     {
         if (org == null)
         {
@@ -183,7 +183,7 @@ public class EfGithubService : IGithubService
         try
         {
 
-            var organization = await GetOrganizationInfo(org.Login).ConfigureAwait(false);
+            var organization = await GetOrganizationInfoFromGithub(org.Login).ConfigureAwait(false);
             if (organization != null)
             {
                 var oldorganization = await GetOrganizationById(org.OrganizationId).ConfigureAwait(false);
@@ -238,7 +238,7 @@ public class EfGithubService : IGithubService
     /// <param name="org"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<bool> DeleteOrganization(OrganizationViewModel org)
+    public async Task<bool> DeleteOrganizationFromDB(OrganizationViewModel org)
     {
         if (org == null)
         {
@@ -355,16 +355,16 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> GetRepositoryInOrganization(int orgId)
+    public async Task<bool> AddRepositoriesInOrganizationToDB(int orgId)
     {
         try
         {
             var org = await GetOrganizationById(orgId);
             var orgsreposname = org.GithubRepositories.Select(c => c.Name).ToList();
 
-            var publicRepos = await GetAllPublicRepositories(org.Login);
+            var allRepos = await GetAllRepositoriesFromGithub(org.Login);
 
-            foreach (var item in publicRepos)
+            foreach (var item in allRepos)
             {
                 if (!orgsreposname.Contains(item.Name))
                 {
@@ -419,14 +419,14 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> GetRepositoryInfoInOrganization(int orgId)
+    public async Task<bool> UpdateRepositoriesInfoInOrganization(int orgId)
     {
         try
         {
             var org = await GetOrganizationById(orgId);
             var orgsrepos = org.GithubRepositories;
 
-            var publicRepos = await GetAllPublicRepositories(org.Login);
+            var publicRepos = await GetAllRepositoriesFromGithub(org.Login);
 
             foreach (var pubRepo in publicRepos)
             {
@@ -463,6 +463,8 @@ public class EfGithubService : IGithubService
                     localRepo.Size = pubRepo.Size;
                     localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value.UtcDateTime : null;
                     localRepo.OpenIssuesCount = pubRepo.OpenIssuesCount;
+                   
+                    
                     githubRepositories.Update(localRepo);
                     await _uow.SaveChangesAsync();
                 }
@@ -528,6 +530,13 @@ public class EfGithubService : IGithubService
             return repo;
     }
 
+    /// <summary>
+    /// get all repositories 
+    /// </summary>
+    /// <param name="orgId"></param>
+    /// <param name="page"></param>
+    /// <param name="pageSize"></param>
+    /// <returns></returns>
     public async Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10)
     {
         return await githubRepositories.Where(c => c.GithubOrganizationId == orgId).Take(page * pageSize).Skip((page - 1) * pageSize).Select(c => new GithubRepository()

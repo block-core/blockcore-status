@@ -11,23 +11,28 @@ namespace blockcore.status.Services.Contracts;
 public interface IGithubService
 {
     //get data from github with Octokit
-    Task<Organization> GetOrganizationInfo(string login);
-    Task<IReadOnlyList<Repository>> GetAllPublicRepositories(string owner);
-    Task<Repository> GetRepositoryInfo(string owner, string name);
-    Task<Release> GetLatestRepositoryRelease(string owner, string name);
+    Task<Organization> GetOrganizationInfoFromGithub(string login);
+    Task<IReadOnlyList<Repository>> GetAllRepositoriesFromGithub(string owner);
+    Task<Repository> GetRepositoryInfoFromGithub(string owner, string name);
+    Task<Release> GetLatestRepositoryReleaseFromGithub(string owner, string name);
     //-------------------------------------------------------------------
 
-    Task<bool> AddOrganization(OrganizationViewModel org);
-    Task<bool> EditOrganization(OrganizationViewModel org);
-    Task<bool> DeleteOrganization(OrganizationViewModel org);
+    Task<bool> AddOrganizationToDB(OrganizationViewModel org);
+    Task<bool> EditOrganizationFromDB(OrganizationViewModel org);
+    Task<bool> DeleteOrganizationFromDB(OrganizationViewModel org);
+
+   
+    Task<bool> AddRepositoriesInOrganizationToDB(int orgId);
+    Task<bool> UpdateRepositoriesInfoInOrganization(int orgId);
+    Task<bool> UpdateOrganizationsRepositoriesSelected(string[] repositories, int orgId);
+
+
     Task<GithubOrganization> GetOrganizationById(int id);
     Task<GithubOrganization> GetOrganizationByName(string login, bool withRepositories = true);
     Task<GithubRepository> GetRepositoryByName(string owner, string name);
+
+   
     Task<IReadOnlyList<GithubOrganization>> GetAllOrganization();
     Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10);
-    Task<bool> GetRepositoryInOrganization(int orgId);
-    Task<bool> GetRepositoryInfoInOrganization(int orgId);
-
-    Task<bool> UpdateOrganizationsRepositoriesSelected(string[] repositories, int orgId);
 
 }

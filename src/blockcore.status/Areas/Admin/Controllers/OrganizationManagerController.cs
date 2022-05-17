@@ -86,7 +86,7 @@ public class OrganizationManagerController : Controller
             else
             {
               
-                var result = await _githubService.EditOrganization(model);
+                var result = await _githubService.EditOrganizationFromDB(model);
                 if (result)
                 {
                     return Json(new { success = true });
@@ -110,7 +110,7 @@ public class OrganizationManagerController : Controller
 
         if (ModelState.IsValid)
         {
-            var result = await _githubService.AddOrganization(model);
+            var result = await _githubService.AddOrganizationToDB(model);
             if (result)
             {
                 return Json(new { success = true });
@@ -168,7 +168,7 @@ public class OrganizationManagerController : Controller
         }
         else
         {
-            var result = await _githubService.DeleteOrganization(model);
+            var result = await _githubService.DeleteOrganizationFromDB(model);
             if (result)
             {
                 return Json(new { success = true });
@@ -216,7 +216,7 @@ public class OrganizationManagerController : Controller
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> GetRepositoryInOrganization( int OrgId)
     {
-        var result =await _githubService.GetRepositoryInOrganization(OrgId);
+        var result =await _githubService.GetRepositoriesInOrganization(OrgId);
         if (result)
         {
             return Json(new { success = true });
