@@ -27,7 +27,7 @@ public class HomeController : Controller
         List<string> OrganizationsList = new List<string>();
         foreach (var item in orgs)
         {
-            OrganizationsList.Add(item.Name);
+            OrganizationsList.Add(item.Login);
         }
         var model = new HomeViewModel() { 
         Organizations=OrganizationsList
