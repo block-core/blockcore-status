@@ -20,30 +20,42 @@ public class GithubController : Controller
     [HttpGet("[action]/{name}")]
     public async Task<IActionResult> GetOrganizationInfo(string name)
     {
-        var org = await _github.GetOrganizationInfo(name);
+        var org = await _github.GetOrganizationByName(name, false);
         if (org == null)
         {
             return NotFound();
         }
-        return Ok(org);
+        try
+        {
+            return Ok(org);
+        }
+        catch (Exception ex)
+        {
+
+            return Ok(ex.Message);
+        }
+
     }
 
     [HttpGet("[action]/{owner}")]
-    public async Task<IActionResult> GetAllPublicRepositories(string owner)
+    public async Task<IActionResult> GetRepositories(string owner, int page = 1)
     {
-        var repo = await _github.GetAllPublicRepositories(owner);
-        if (repo == null)
+        var orgInfo = await _github.GetOrganizationByName(owner, false);
+
+        var repos = await _github.GetAllRepositories(orgInfo.GithubOrganizationId, page);
+
+        if (repos == null)
         {
             return NotFound();
         }
-        return Ok(repo);
+        return Ok(repos);
     }
 
 
     [HttpGet("[action]/{owner}/{name}")]
     public async Task<IActionResult> GetRepositoryInfo(string owner, string name)
     {
-        var repo = await _github.GetRepositoryInfo(owner, name);
+        var repo = await _github.GetRepositoryByName(owner, name);
         if (repo == null)
         {
             return NotFound();
@@ -52,15 +64,15 @@ public class GithubController : Controller
     }
 
 
-    [HttpGet("[action]/{owner}/{name}")]
-    public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
-    {
-        var releases = await _github.GetLatestRepositoryRelease(owner, name);
-        if (releases == null)
-        {
-            return NotFound();
-        }
-        var lastTag = releases;
-        return Ok(lastTag);
-    }
+    //[HttpGet("[action]/{owner}/{name}")]
+    //public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
+    //{
+    //    var releases = await _github.GetLatestRepositoryRelease(owner, name);
+    //    if (releases == null)
+    //    {
+    //        return NotFound();
+    //    }
+    //    var lastTag = releases;
+    //    return Ok(lastTag);
+    //}
 }

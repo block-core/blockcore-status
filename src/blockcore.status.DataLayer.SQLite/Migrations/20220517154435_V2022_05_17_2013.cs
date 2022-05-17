@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace blockcore.status.DataLayer.SQLite.Migrations
 {
-    public partial class V2022_05_17_0012 : Migration
+    public partial class V2022_05_17_2013 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,7 +76,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     SshUrl = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     SvnUrl = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     MirrorUrl = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<long>(type: "INTEGER", nullable: false),
                     NodeId = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     Name = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     FullName = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
@@ -88,15 +88,14 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     WatchersCount = table.Column<int>(type: "INTEGER", nullable: false),
                     DefaultBranch = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     OpenIssuesCount = table.Column<int>(type: "INTEGER", nullable: false),
-                    PushedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PushedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     HasIssues = table.Column<bool>(type: "INTEGER", nullable: false),
                     HasWiki = table.Column<bool>(type: "INTEGER", nullable: false),
                     HasDownloads = table.Column<bool>(type: "INTEGER", nullable: false),
                     HasPages = table.Column<bool>(type: "INTEGER", nullable: false),
-                    SubscribersCount = table.Column<int>(type: "INTEGER", nullable: false),
-                    Size = table.Column<int>(type: "INTEGER", nullable: false),
+                    Size = table.Column<long>(type: "INTEGER", nullable: false),
                     Archived = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsSelect = table.Column<bool>(type: "INTEGER", nullable: false),
                     LatestDataUpdate = table.Column<DateTime>(type: "TEXT", nullable: false),

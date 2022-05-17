@@ -45,19 +45,19 @@ public class EfGithubService : IGithubService
 
     }
 
-    public async Task<Repository> GetRepositoryInfo(string owner, string login)
+    public async Task<Repository> GetRepositoryInfo(string owner, string name)
     {
         if (owner == null)
         {
             throw new ArgumentNullException(nameof(owner));
         }
-        if (login == null)
+        if (name == null)
         {
-            throw new ArgumentNullException(nameof(login));
+            throw new ArgumentNullException(nameof(name));
         }
         try
         {
-            var repository = await github.Repository.Get(owner, login);
+            var repository = await github.Repository.Get(owner, name);
             return repository;
         }
         catch
@@ -66,19 +66,19 @@ public class EfGithubService : IGithubService
         }
     }
 
-    public async Task<Release> GetLatestRepositoryRelease(string owner, string login)
+    public async Task<Release> GetLatestRepositoryRelease(string owner, string name)
     {
         if (owner == null)
         {
             throw new ArgumentNullException(nameof(owner));
         }
-        if (login == null)
+        if (name == null)
         {
-            throw new ArgumentNullException(nameof(login));
+            throw new ArgumentNullException(nameof(name));
         }
         try
         {
-            var releases = await github.Repository.Release.GetLatest(owner, login);
+            var releases = await github.Repository.Release.GetLatest(owner, name);
             return releases;
         }
         catch
@@ -269,7 +269,7 @@ public class EfGithubService : IGithubService
         {
             throw new ArgumentNullException(nameof(id));
         }
-        return await githubOrganizations.Where(c => c.GithubOrganizationId == id).Include(c => c.GithubRepository).Select(c => c).FirstOrDefaultAsync();
+        return await githubOrganizations.Where(c => c.GithubOrganizationId == id).Include(c => c.GithubRepositories).Select(c => c).FirstOrDefaultAsync();
     }
 
     /// <summary>
@@ -278,13 +278,23 @@ public class EfGithubService : IGithubService
     /// <param name="login"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<GithubOrganization> GetOrganizationByName(string login)
+    public async Task<GithubOrganization> GetOrganizationByName(string login, bool withRepositories = true)
     {
         if (login == null)
         {
             throw new ArgumentNullException(nameof(login));
         }
-        return await githubOrganizations.Where(c => c.Login == login).Include(c => c.GithubRepository).Select(c => c).FirstOrDefaultAsync();
+        if (withRepositories)
+        {
+            return await githubOrganizations.Where(c => c.Login == login).Include(c => c.GithubRepositories).Select(c => c).FirstOrDefaultAsync();
+
+        }
+
+        else
+        {
+            return await githubOrganizations.Where(c => c.Login == login).Select(c => c).FirstOrDefaultAsync();
+
+        }
     }
 
     /// <summary>
@@ -295,7 +305,7 @@ public class EfGithubService : IGithubService
     {
         return await githubOrganizations.ToListAsync();
     }
-    
+
     /// <summary>
     /// update repository selection for show in home page  
     /// </summary>
@@ -350,7 +360,7 @@ public class EfGithubService : IGithubService
         try
         {
             var org = await GetOrganizationById(orgId);
-            var orgsreposname = org.GithubRepository.Select(c => c.Name).ToList();
+            var orgsreposname = org.GithubRepositories.Select(c => c.Name).ToList();
 
             var publicRepos = await GetAllPublicRepositories(org.Login);
 
@@ -414,7 +424,7 @@ public class EfGithubService : IGithubService
         try
         {
             var org = await GetOrganizationById(orgId);
-            var orgsrepos = org.GithubRepository;
+            var orgsrepos = org.GithubRepositories;
 
             var publicRepos = await GetAllPublicRepositories(org.Login);
 
@@ -467,4 +477,93 @@ public class EfGithubService : IGithubService
     }
 
 
+    /// <summary>
+    /// get repository by name
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<GithubRepository> GetRepositoryByName(string owner, string name)
+    {
+        var org = await GetOrganizationByName(owner);
+        var allrepos = org.GithubRepositories.ToList();
+        var repo = allrepos.Select(c => new GithubRepository()
+        {
+            GithubOrganizationId = c.GithubOrganizationId,
+            Name = c.Name,
+            Archived = c.Archived,
+            CloneUrl = c.CloneUrl,
+            CreatedAt = c.CreatedAt,
+            DefaultBranch = c.DefaultBranch,
+            Description = c.Description,
+            ForksCount = c.ForksCount,
+            FullName = c.FullName,
+            GitUrl = c.GitUrl,
+            HasDownloads = c.HasDownloads,
+            HasIssues = c.HasIssues,
+            HasPages = c.HasPages,
+            HasWiki = c.HasWiki,
+            Homepage = c.Homepage,
+            Id = c.Id,
+            HtmlUrl = c.HtmlUrl,
+            Language = c.Language,
+            LatestDataUpdate = c.LatestDataUpdate,
+            MirrorUrl = c.MirrorUrl,
+            NodeId = c.NodeId,
+            OpenIssuesCount = c.OpenIssuesCount,
+            PushedAt = c.PushedAt,
+            Size = c.Size,
+            SshUrl = c.SshUrl,
+            StargazersCount = c.StargazersCount,
+            SvnUrl = c.SvnUrl,
+            UpdatedAt = c.UpdatedAt,
+            WatchersCount = c.WatchersCount,
+            Url = c.Url
+        }).FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
+
+        if (repo == null)
+            return null;
+        else
+            return repo;
+    }
+
+    public async Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10)
+    {
+        return await githubRepositories.Where(c => c.GithubOrganizationId == orgId).Take(page * pageSize).Skip((page - 1) * pageSize).Select(c => new GithubRepository()
+        {
+            GithubOrganizationId = c.GithubOrganizationId,
+            Name = c.Name,
+            Archived = c.Archived,
+            CloneUrl = c.CloneUrl,
+            CreatedAt = c.CreatedAt,
+            DefaultBranch = c.DefaultBranch,
+            Description = c.Description,
+            ForksCount = c.ForksCount,
+            FullName = c.FullName,
+            GitUrl = c.GitUrl,
+            HasDownloads = c.HasDownloads,
+            HasIssues = c.HasIssues,
+            HasPages = c.HasPages,
+            HasWiki = c.HasWiki,
+            Homepage = c.Homepage,
+            Id = c.Id,
+            HtmlUrl = c.HtmlUrl,
+            Language = c.Language,
+            LatestDataUpdate = c.LatestDataUpdate,
+            MirrorUrl = c.MirrorUrl,
+            NodeId = c.NodeId,
+            OpenIssuesCount = c.OpenIssuesCount,
+            PushedAt = c.PushedAt,
+            Size = c.Size,
+            SshUrl = c.SshUrl,
+            StargazersCount = c.StargazersCount,
+            SvnUrl = c.SvnUrl,
+            UpdatedAt = c.UpdatedAt,
+            WatchersCount = c.WatchersCount,
+            Url = c.Url
+
+        }).ToListAsync();
+
+    }
 }

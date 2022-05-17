@@ -1122,7 +1122,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
                 {
                     b.HasOne("blockcore.status.Entities.Github.GithubOrganization", "GithubOrganization")
-                        .WithMany("GithubRepository")
+                        .WithMany("GithubRepositories")
                         .HasForeignKey("GithubOrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1152,7 +1152,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
 
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubOrganization", b =>
                 {
-                    b.Navigation("GithubRepository");
+                    b.Navigation("GithubRepositories");
                 });
 
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
