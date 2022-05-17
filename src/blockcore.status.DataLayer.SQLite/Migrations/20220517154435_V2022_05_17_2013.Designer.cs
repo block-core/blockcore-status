@@ -11,8 +11,8 @@ using blockcore.status.DataLayer.SQLite;
 namespace blockcore.status.DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(SQLiteDbContext))]
-    [Migration("20220516194227_V2022_05_17_0012")]
-    partial class V2022_05_17_0012
+    [Migration("20220517154435_V2022_05_17_2013")]
+    partial class V2022_05_17_2013
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -958,7 +958,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                         .HasColumnType("TEXT")
                         .UseCollation("NOCASE");
 
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsSelect")
@@ -1002,10 +1002,10 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Property<int>("OpenIssuesCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("PushedAt")
+                    b.Property<DateTime?>("PushedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Size")
+                    b.Property<long>("Size")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SshUrl")
@@ -1013,9 +1013,6 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                         .UseCollation("NOCASE");
 
                     b.Property<int>("StargazersCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SubscribersCount")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SvnUrl")
@@ -1127,7 +1124,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
                 {
                     b.HasOne("blockcore.status.Entities.Github.GithubOrganization", "GithubOrganization")
-                        .WithMany("GithubRepository")
+                        .WithMany("GithubRepositories")
                         .HasForeignKey("GithubOrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1157,7 +1154,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
 
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubOrganization", b =>
                 {
-                    b.Navigation("GithubRepository");
+                    b.Navigation("GithubRepositories");
                 });
 
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>

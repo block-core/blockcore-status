@@ -29,7 +29,7 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
                 Blog = org.Blog,
                 Login = org.Login,
                 Apiurl = org.Url,
-                Repositories = org.GithubRepository.Where(c=>c.IsSelect).Select(c => new RepositoryInfoViewModel()
+                Repositories = org.GithubRepositories.Where(c=>c.IsSelect).Select(c => new RepositoryInfoViewModel()
                 {
                     LastVersion = "-",
                     Name = c.Name,

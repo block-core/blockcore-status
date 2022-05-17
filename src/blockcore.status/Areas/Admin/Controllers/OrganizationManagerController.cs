@@ -189,7 +189,7 @@ public class OrganizationManagerController : Controller
             return View("Error");
         }
         var organization = await _githubService.GetOrganizationById(id.Value).ConfigureAwait(true);
-        var model = organization.GithubRepository;
+        var model = organization.GithubRepositories;
 
         return View(model);
     }
