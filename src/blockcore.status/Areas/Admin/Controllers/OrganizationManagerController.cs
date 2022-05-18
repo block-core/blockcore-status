@@ -199,7 +199,7 @@ public class OrganizationManagerController : Controller
     public async Task<IActionResult> RepositoryInOrganization(string[] Repositories, int OrgId)
     {
 
-        var result = await _githubService.UpdateOrganizationsRepositoriesSelected(Repositories, OrgId);
+        var result = await _githubService.UpdateReposSelected(Repositories, OrgId);
         if (result)
         {
             return Json(new { success = true });
@@ -214,9 +214,9 @@ public class OrganizationManagerController : Controller
 
 
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> GetRepositoryInOrganization( int OrgId)
+    public async Task<IActionResult> GetAndAddRepositoryInOrganization( int OrgId)
     {
-        var result =await _githubService.GetRepositoriesInOrganization(OrgId);
+        var result =await _githubService.GetFromGithubAndAddReposToDB(OrgId);
         if (result)
         {
             return Json(new { success = true });

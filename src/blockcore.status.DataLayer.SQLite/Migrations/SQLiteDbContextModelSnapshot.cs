@@ -848,7 +848,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     b.Property<bool>("Prerelease")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("PublishedAt")
+                    b.Property<DateTime?>("PublishedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TagName")
@@ -877,7 +877,8 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
 
                     b.HasKey("GithubReleaseId");
 
-                    b.HasIndex("GithubRepositoryId");
+                    b.HasIndex("GithubRepositoryId")
+                        .IsUnique();
 
                     b.ToTable("Releases");
                 });
@@ -1111,8 +1112,8 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
             modelBuilder.Entity("blockcore.status.Entities.Github.GithubRelease", b =>
                 {
                     b.HasOne("blockcore.status.Entities.Github.GithubRepository", "GithubRepository")
-                        .WithMany("GithubRelease")
-                        .HasForeignKey("GithubRepositoryId")
+                        .WithOne("GithubRelease")
+                        .HasForeignKey("blockcore.status.Entities.Github.GithubRelease", "GithubRepositoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -39,6 +39,6 @@ public class GithubRepository : IAuditableEntity
     public DateTime LatestDataUpdate { get; set; }
     public int GithubOrganizationId { get; set; }
     public virtual GithubOrganization GithubOrganization { get; set; }
-    public virtual ICollection<GithubRelease> GithubRelease { get; set; }
+    public virtual GithubRelease GithubRelease { get; set; }
 
 }

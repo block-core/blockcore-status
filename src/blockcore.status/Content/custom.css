@@ -15,10 +15,16 @@ h3, h4, h5, h1, h6 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
-
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #E5E3E3;
+}
 h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 17px;
+    font-size: 2rem;
     font-weight: bold;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid #E5E3E3;

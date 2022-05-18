@@ -21,7 +21,7 @@ public class GithubRelease
     public bool Draft { get; set; }
     public bool Prerelease { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime PublishedAt { get; set; }
+    public DateTime? PublishedAt { get; set; }
     public string TarballUrl { get; set; }
     public string ZipballUrl { get; set; }
     public string Body { get; set; }

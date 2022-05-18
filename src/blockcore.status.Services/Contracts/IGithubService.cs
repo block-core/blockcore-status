@@ -22,9 +22,9 @@ public interface IGithubService
     Task<bool> DeleteOrganizationFromDB(OrganizationViewModel org);
 
    
-    Task<bool> AddRepositoriesInOrganizationToDB(int orgId);
-    Task<bool> UpdateRepositoriesInfoInOrganization(int orgId);
-    Task<bool> UpdateOrganizationsRepositoriesSelected(string[] repositories, int orgId);
+    Task<bool> GetFromGithubAndAddReposToDB(int orgId);
+    Task<bool> UpdateReposInfoAsync(int orgId);
+    Task<bool> UpdateReposSelected(string[] repositories, int orgId);
 
 
     Task<GithubOrganization> GetOrganizationById(int id);
@@ -35,4 +35,7 @@ public interface IGithubService
     Task<IReadOnlyList<GithubOrganization>> GetAllOrganization();
     Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10);
 
+    Task<bool> AddLatestRepositoryRelease(string owner, string name);
+    Task<bool> UpdateLatestRepositoryRelease(string owner, string name);
+    Task<GithubRelease> GetLatestRepositoryRelease(string owner, string name);
 }

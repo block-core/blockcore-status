@@ -14,6 +14,8 @@ public class EfGithubService : IGithubService
 {
     private readonly DbSet<GithubOrganization> githubOrganizations;
     private readonly DbSet<GithubRepository> githubRepositories;
+    private readonly DbSet<GithubRelease> githubRelease;
+
     private readonly IUnitOfWork _uow;
     private readonly GitHubClient github;
 
@@ -23,6 +25,7 @@ public class EfGithubService : IGithubService
 
         githubOrganizations = _uow.Set<GithubOrganization>();
         githubRepositories = _uow.Set<GithubRepository>();
+        githubRelease = _uow.Set<GithubRelease>();
         github = new GitHubClient(new ProductHeaderValue("blockcore"));
     }
 
@@ -286,7 +289,7 @@ public class EfGithubService : IGithubService
         }
         if (withRepositories)
         {
-            return await githubOrganizations.Where(c => c.Login == login).Include(c => c.GithubRepositories).Select(c => c).FirstOrDefaultAsync();
+            return await githubOrganizations.Where(c => c.Login == login).Include(c => c.GithubRepositories).ThenInclude(c=>c.GithubRelease).Select(c => c).FirstOrDefaultAsync();
 
         }
 
@@ -313,7 +316,7 @@ public class EfGithubService : IGithubService
     /// <param name="orgId"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<bool> UpdateOrganizationsRepositoriesSelected(string[] repositories, int orgId)
+    public async Task<bool> UpdateReposSelected(string[] repositories, int orgId)
     {
         if (repositories == null)
         {
@@ -339,6 +342,19 @@ public class EfGithubService : IGithubService
 
                 repo.IsSelect = true;
                 githubRepositories.Update(repo);
+
+                //get latest release
+
+                var org = await githubOrganizations.Where(c => c.GithubOrganizationId == orgId).FirstOrDefaultAsync();
+                if (repo.GithubRelease != null)
+                {
+                    await UpdateLatestRepositoryRelease(org.Name, repo.Name);
+                }
+                else
+                {
+                    await AddLatestRepositoryRelease(org.Login, repo.Name);
+                }
+
             }
             await _uow.SaveChangesAsync();
             return true;
@@ -355,8 +371,13 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> AddRepositoriesInOrganizationToDB(int orgId)
+    public async Task<bool> GetFromGithubAndAddReposToDB(int orgId)
     {
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
+
         try
         {
             var org = await GetOrganizationById(orgId);
@@ -419,18 +440,21 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> UpdateRepositoriesInfoInOrganization(int orgId)
+    public async Task<bool> UpdateReposInfoAsync(int orgId)
     {
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
         try
         {
             var org = await GetOrganizationById(orgId);
-            var orgsrepos = org.GithubRepositories;
-
+            var orgsRepos = org.GithubRepositories;
             var publicRepos = await GetAllRepositoriesFromGithub(org.Login);
 
             foreach (var pubRepo in publicRepos)
             {
-                foreach (var localRepo in from localRepo in orgsrepos
+                foreach (var localRepo in from localRepo in orgsRepos
                                           where string.Equals(pubRepo.Name, localRepo.Name, StringComparison.Ordinal)
                                           select localRepo)
                 {
@@ -463,8 +487,8 @@ public class EfGithubService : IGithubService
                     localRepo.Size = pubRepo.Size;
                     localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value.UtcDateTime : null;
                     localRepo.OpenIssuesCount = pubRepo.OpenIssuesCount;
-                   
-                    
+
+
                     githubRepositories.Update(localRepo);
                     await _uow.SaveChangesAsync();
                 }
@@ -488,6 +512,14 @@ public class EfGithubService : IGithubService
     /// <exception cref="NotImplementedException"></exception>
     public async Task<GithubRepository> GetRepositoryByName(string owner, string name)
     {
+        if (owner == null)
+        {
+            throw new ArgumentNullException(nameof(owner));
+        }
+        if (name == null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
         var org = await GetOrganizationByName(owner);
         var allrepos = org.GithubRepositories.ToList();
         var repo = allrepos.Select(c => new GithubRepository()
@@ -521,7 +553,28 @@ public class EfGithubService : IGithubService
             SvnUrl = c.SvnUrl,
             UpdatedAt = c.UpdatedAt,
             WatchersCount = c.WatchersCount,
-            Url = c.Url
+            Url = c.Url,
+            GithubRelease = new GithubRelease()
+            {
+                AssetsUrl = c.GithubRelease.AssetsUrl,
+                Body = c.GithubRelease.Body,
+                CreatedAt = c.GithubRelease.CreatedAt,
+                Draft = c.GithubRelease.Draft,
+                HtmlUrl = c.GithubRelease.HtmlUrl,
+                Id = c.GithubRelease.Id,
+                Name = c.GithubRelease.Name,
+                LatestDataUpdate = c.GithubRelease.LatestDataUpdate,
+                NodeId = c.GithubRelease.NodeId,
+                Prerelease = c.GithubRelease.Prerelease,
+                PublishedAt = c.GithubRelease.PublishedAt,
+                TagName = c.GithubRelease.TagName,
+                TarballUrl = c.GithubRelease.TarballUrl,
+                TargetCommitish = c.GithubRelease.TargetCommitish,
+                UploadUrl = c.GithubRelease.UploadUrl,
+                Url = c.GithubRelease.Url,
+                ZipballUrl = c.GithubRelease.ZipballUrl,
+            }  
+
         }).FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
 
         if (repo == null)
@@ -539,6 +592,11 @@ public class EfGithubService : IGithubService
     /// <returns></returns>
     public async Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10)
     {
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
+
         return await githubRepositories.Where(c => c.GithubOrganizationId == orgId).Take(page * pageSize).Skip((page - 1) * pageSize).Select(c => new GithubRepository()
         {
             GithubOrganizationId = c.GithubOrganizationId,
@@ -575,4 +633,204 @@ public class EfGithubService : IGithubService
         }).ToListAsync();
 
     }
+
+
+    /// <summary>
+    /// add latest repository release
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<bool> AddLatestRepositoryRelease(string owner, string name)
+    {
+        if (owner == null)
+        {
+            throw new ArgumentNullException(nameof(owner));
+        }
+        if (name == null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+        try
+        {
+            var org = await GetOrganizationByName(owner);
+            if (org != null)
+            {
+                var repo = org.GithubRepositories.FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
+                if (repo != null)
+                {
+                    var latestRelease = await GetLatestRepositoryReleaseFromGithub(owner, name);
+                    if (latestRelease != null)
+                    {
+                        await githubRelease.AddAsync(new GithubRelease()
+                        {
+                            GithubRepositoryId = repo.GithubRepositoryId,
+                            Name = latestRelease.Name,
+                            Id = latestRelease.Id,
+                            AssetsUrl = latestRelease.AssetsUrl,
+                            Body = latestRelease.Body,
+                            CreatedAt = latestRelease.CreatedAt.UtcDateTime,
+                            Draft = latestRelease.Draft,
+                            HtmlUrl = latestRelease.HtmlUrl,
+                            LatestDataUpdate = DateTime.UtcNow,
+                            NodeId = latestRelease.NodeId,
+                            Prerelease = latestRelease.Prerelease,
+                            PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value.UtcDateTime : null,
+                            ZipballUrl = latestRelease.ZipballUrl,
+                            TagName = latestRelease.TagName,
+                            TarballUrl = latestRelease.TarballUrl,
+                            TargetCommitish = latestRelease.TargetCommitish,
+                            UploadUrl = latestRelease.UploadUrl,
+                            Url = latestRelease.Url,
+                        });
+                        await _uow.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        catch
+        {
+            return false;
+
+        }
+    }
+
+    public async Task<bool> UpdateLatestRepositoryRelease(string owner, string name)
+    {
+        if (owner == null)
+        {
+            throw new ArgumentNullException(nameof(owner));
+        }
+        if (name == null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+        try
+        {
+            var org = await GetOrganizationByName(owner);
+            if (org != null)
+            {
+                var repo = org.GithubRepositories.FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
+                if (repo != null)
+                {
+                    var release = repo.GithubRelease;
+                    if (release != null)
+                    {
+                        var latestRelease = await GetLatestRepositoryReleaseFromGithub(owner, name);
+                        if (latestRelease != null)
+                        {
+                            release.GithubRepositoryId = repo.GithubRepositoryId;
+                            release.Name = latestRelease.Name;
+                            release.Id = latestRelease.Id;
+                            release.AssetsUrl = latestRelease.AssetsUrl;
+                            release.Body = latestRelease.Body;
+                            release.CreatedAt = latestRelease.CreatedAt.UtcDateTime;
+                            release.Draft = latestRelease.Draft;
+                            release.HtmlUrl = latestRelease.HtmlUrl;
+                            release.LatestDataUpdate = DateTime.UtcNow;
+                            release.NodeId = latestRelease.NodeId;
+                            release.Prerelease = latestRelease.Prerelease;
+                            release.PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value.UtcDateTime : null;
+                            release.ZipballUrl = latestRelease.ZipballUrl;
+                            release.TagName = latestRelease.TagName;
+                            release.TarballUrl = latestRelease.TarballUrl;
+                            release.TargetCommitish = latestRelease.TargetCommitish;
+                            release.UploadUrl = latestRelease.UploadUrl;
+                            release.Url = latestRelease.Url;
+
+                            githubRelease.Update(release);
+
+                            await _uow.SaveChangesAsync();
+                            return true;
+                        }
+                        else
+                        {
+                            githubRelease.Remove(release);
+                            await _uow.SaveChangesAsync();
+                            return true;
+                        }
+                    }
+                    else
+                    {
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        catch
+        {
+            return false;
+
+        }
+    }
+
+    public async Task<GithubRelease> GetLatestRepositoryRelease(string owner, string name)
+    {
+        if (owner == null)
+        {
+            throw new ArgumentNullException(nameof(owner));
+        }
+        if (name == null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        var org = await GetOrganizationByName(owner);
+        if (org != null)
+        {     
+            var repo =await GetRepositoryByName(owner, name);
+
+            if (repo != null)
+            {
+                var release = new GithubRelease() {
+
+                   AssetsUrl= repo.GithubRelease.AssetsUrl,
+                   Body = repo.GithubRelease.Body,
+                   CreatedAt = repo.GithubRelease.CreatedAt,
+                   Draft= repo.GithubRelease.Draft,
+                   HtmlUrl= repo.GithubRelease.HtmlUrl,
+                   Id= repo.GithubRelease.Id,
+                   Name= repo.GithubRelease.Name,
+                   LatestDataUpdate= repo.GithubRelease.LatestDataUpdate,
+                   NodeId= repo.GithubRelease.NodeId,
+                   Prerelease= repo.GithubRelease.Prerelease,
+                   PublishedAt= repo.GithubRelease.PublishedAt,
+                   TagName= repo.GithubRelease.TagName,
+                   TarballUrl= repo.GithubRelease.TarballUrl,
+                   TargetCommitish= repo.GithubRelease.TargetCommitish,
+                   UploadUrl= repo.GithubRelease.UploadUrl,
+                   Url= repo.GithubRelease.Url,
+                   ZipballUrl= repo.GithubRelease.ZipballUrl,
+            };
+                return release;
+            }
+        }
+        return null;
+    }
+
 }

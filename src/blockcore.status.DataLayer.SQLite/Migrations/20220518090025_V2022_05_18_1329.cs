@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace blockcore.status.DataLayer.SQLite.Migrations
 {
-    public partial class V2022_05_17_2013 : Migration
+    public partial class V2022_05_18_1329 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,7 +138,7 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
                     Draft = table.Column<bool>(type: "INTEGER", nullable: false),
                     Prerelease = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PublishedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PublishedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
                     TarballUrl = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     ZipballUrl = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
                     Body = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
@@ -159,7 +159,8 @@ namespace blockcore.status.DataLayer.SQLite.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Releases_GithubRepositoryId",
                 table: "Releases",
-                column: "GithubRepositoryId");
+                column: "GithubRepositoryId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Repositories_GithubOrganizationId",

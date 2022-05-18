@@ -65,15 +65,15 @@ public class GithubController : Controller
 
 
 
-    //[HttpGet("[action]/{owner}/{name}")]
-    //public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
-    //{
-    //    var releases = await _github.GetLatestRepositoryRelease(owner, name);
-    //    if (releases == null)
-    //    {
-    //        return NotFound();
-    //    }
-    //    var lastTag = releases;
-    //    return Ok(lastTag);
-    //}
+    [HttpGet("[action]/{owner}/{name}")]
+    public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
+    {
+        var releases = await _github.GetLatestRepositoryRelease(owner, name);
+        if (releases == null)
+        {
+            return NotFound();
+        }
+        var lastTag = releases;
+        return Ok(lastTag);
+    }
 }
