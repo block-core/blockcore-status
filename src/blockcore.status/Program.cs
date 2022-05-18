@@ -1,4 +1,5 @@
-﻿using blockcore.status.IocConfig;
+﻿using blockcore.status.HostedServices;
+using blockcore.status.IocConfig;
 using blockcore.status.Services.Admin.Logger;
 using blockcore.status.ViewModels.Admin.Settings;
 using Common.Web.Core;
@@ -29,7 +30,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 
     services.AddControllersWithViews(options => { options.Filters.Add(typeof(ApplyCorrectYeKeFilterAttribute)); });
     services.AddRazorPages();
-
+    services.AddHostedService<UpdateGithubDataHostedService>();
     services.AddSwaggerGen(options =>
     {
         options.SwaggerDoc("status", new OpenApiInfo
