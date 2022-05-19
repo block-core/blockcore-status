@@ -30,14 +30,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="myToggle">
-                <ul class="navbar-nav mt-2 mt-md-0 my-2">
-                    <li class="nav-item mx-2">
-                        <a href="javascript:void()"
-                           class="nav-link"
-                           id="theme-toggler"
-                           onclick="toggleTheme()"></a>
-                    </li>
-                </ul>
+                <div class="navbar-nav">
+                    <span class="btn btn-light btn-sm m-1"
+                          id="theme-toggler"
+                          onclick="toggleTheme()"></span>
+                </div>
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <partial name="_UserMenu" />
@@ -49,7 +47,7 @@
                 else
                 {
                     <div class="navbar-nav">
-                        <a class="btn btn-light btn-sm" asp-area="@AreaConstants.AdminArea" asp-controller="Login" asp-action="Index">
+                        <a class="btn btn-light btn-sm m-1" asp-area="@AreaConstants.AdminArea" asp-controller="Login" asp-action="Index">
                             <i class="fa fa-unlock"></i> Login
                         </a>
                     </div>
