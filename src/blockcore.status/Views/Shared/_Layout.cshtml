@@ -19,7 +19,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
 </head>
-<body>
+<body class="bootstrap-dark">
     <div class="navbar bg-dark navbar-dark navbar-expand-sm fixed-top">
         <div class="container">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand d-sm-inline-block">Blockcore Status</a>
@@ -30,6 +30,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="myToggle">
+                <ul class="navbar-nav mt-2 mt-md-0 my-2">
+                    <li class="nav-item mx-2">
+                        <a href="javascript:void()"
+                           class="nav-link"
+                           id="theme-toggler"
+                           onclick="toggleTheme()"></a>
+                    </li>
+                </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <partial name="_UserMenu" />
