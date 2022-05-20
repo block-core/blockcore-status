@@ -33,7 +33,7 @@ public class OrganizationManagerController : Controller
     [DisplayName("Index"), BreadCrumb(Order = 1)]
     public async Task<IActionResult> Index()
     {
-        var organizations = await _githubService.GetAllOrganization();
+        var organizations = await _githubService.GetAllOrganizationFromDB();
         return View(organizations);
     }
 
@@ -86,7 +86,7 @@ public class OrganizationManagerController : Controller
             else
             {
               
-                var result = await _githubService.EditOrganizationFromDB(model);
+                var result = await _githubService.UpdateOrganizationFromDB(model.Login);
                 if (result)
                 {
                     return Json(new { success = true });
@@ -199,7 +199,7 @@ public class OrganizationManagerController : Controller
     public async Task<IActionResult> RepositoryInOrganization(string[] Repositories, int OrgId)
     {
 
-        var result = await _githubService.UpdateReposSelected(Repositories, OrgId);
+        var result = await _githubService.UpdateReposSelectedForShow(Repositories, OrgId);
         if (result)
         {
             return Json(new { success = true });
@@ -216,7 +216,7 @@ public class OrganizationManagerController : Controller
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> GetAndAddRepositoryInOrganization( int OrgId)
     {
-        var result =await _githubService.GetFromGithubAndAddReposToDB(OrgId);
+        var result =await _githubService.AndRepositoriesToDB(OrgId);
         if (result)
         {
             return Json(new { success = true });

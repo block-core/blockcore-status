@@ -177,49 +177,48 @@ public class EfGithubService : IGithubService
     /// <param name="org"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<bool> EditOrganizationFromDB(OrganizationViewModel org)
+    public async Task<bool> UpdateOrganizationInDB(string login)
     {
-        if (org == null)
+        if (login == null)
         {
-            throw new ArgumentNullException(nameof(org));
+            throw new ArgumentNullException(nameof(login));
         }
         try
         {
-
-            var organization = await GetOrganizationInfoFromGithub(org.Login).ConfigureAwait(false);
+            var organization = await GetOrganizationInfoFromGithub(login).ConfigureAwait(false);
             if (organization != null)
             {
-                var oldorganization = await GetOrganizationById(org.OrganizationId).ConfigureAwait(false);
-                oldorganization.Name = organization.Name;
-                oldorganization.AvatarUrl = organization.AvatarUrl;
-                oldorganization.Blog = organization.Blog;
-                oldorganization.Company = organization.Company;
-                oldorganization.CreatedAt = organization.CreatedAt.UtcDateTime;
-                oldorganization.Description = organization.Description;
-                oldorganization.Email = organization.Email;
-                oldorganization.EventsUrl = organization.EventsUrl;
-                oldorganization.Followers = organization.Followers;
-                oldorganization.Following = organization.Following;
-                oldorganization.HasOrganizationProjects = organization.HasOrganizationProjects;
-                oldorganization.HasRepositoryProjects = organization.HasRepositoryProjects;
-                oldorganization.HooksUrl = organization.HooksUrl;
-                oldorganization.HtmlUrl = organization.HtmlUrl;
-                oldorganization.Id = organization.Id;
-                oldorganization.IssuesUrl = organization.IssuesUrl;
-                oldorganization.IsVerified = organization.IsVerified;
-                oldorganization.LatestDataUpdate = DateTime.UtcNow;
-                oldorganization.Location = organization.Location;
-                oldorganization.Login = organization.Login;
-                oldorganization.MembersUrl = organization.MembersUrl;
-                oldorganization.PublicGists = organization.PublicGists;
-                oldorganization.PublicMembersUrl = organization.PublicMembersUrl;
-                oldorganization.PublicRepos = organization.PublicRepos;
-                oldorganization.ReposUrl = organization.ReposUrl;
-                oldorganization.Type = organization.Type.ToString();
-                oldorganization.UpdatedAt = organization.UpdatedAt.UtcDateTime;
-                oldorganization.Url = organization.Url;
+                var oldOrganization = await GetOrganizationByName(login, false).ConfigureAwait(false);
+                oldOrganization.Name = organization.Name;
+                oldOrganization.AvatarUrl = organization.AvatarUrl;
+                oldOrganization.Blog = organization.Blog;
+                oldOrganization.Company = organization.Company;
+                oldOrganization.CreatedAt = organization.CreatedAt.UtcDateTime;
+                oldOrganization.Description = organization.Description;
+                oldOrganization.Email = organization.Email;
+                oldOrganization.EventsUrl = organization.EventsUrl;
+                oldOrganization.Followers = organization.Followers;
+                oldOrganization.Following = organization.Following;
+                oldOrganization.HasOrganizationProjects = organization.HasOrganizationProjects;
+                oldOrganization.HasRepositoryProjects = organization.HasRepositoryProjects;
+                oldOrganization.HooksUrl = organization.HooksUrl;
+                oldOrganization.HtmlUrl = organization.HtmlUrl;
+                oldOrganization.Id = organization.Id;
+                oldOrganization.IssuesUrl = organization.IssuesUrl;
+                oldOrganization.IsVerified = organization.IsVerified;
+                oldOrganization.LatestDataUpdate = DateTime.UtcNow;
+                oldOrganization.Location = organization.Location;
+                oldOrganization.Login = organization.Login;
+                oldOrganization.MembersUrl = organization.MembersUrl;
+                oldOrganization.PublicGists = organization.PublicGists;
+                oldOrganization.PublicMembersUrl = organization.PublicMembersUrl;
+                oldOrganization.PublicRepos = organization.PublicRepos;
+                oldOrganization.ReposUrl = organization.ReposUrl;
+                oldOrganization.Type = organization.Type.ToString();
+                oldOrganization.UpdatedAt = organization.UpdatedAt.UtcDateTime;
+                oldOrganization.Url = organization.Url;
 
-                githubOrganizations.Update(oldorganization);
+                githubOrganizations.Update(oldOrganization);
                 await _uow.SaveChangesAsync();
                 return true;
             }
@@ -300,78 +299,23 @@ public class EfGithubService : IGithubService
         }
     }
 
+
     /// <summary>
     /// get all organization
     /// </summary>
     /// <returns></returns>
-    public async Task<IReadOnlyList<GithubOrganization>> GetAllOrganization()
+    public async Task<IReadOnlyList<GithubOrganization>> GetAllOrganizationFromDB()
     {
         return await githubOrganizations.ToListAsync();
     }
 
-    /// <summary>
-    /// update repository selection for show in home page  
-    /// </summary>
-    /// <param name="repositories"></param>
-    /// <param name="orgId"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public async Task<bool> UpdateReposSelected(string[] repositories, int orgId)
-    {
-        if (repositories == null)
-        {
-            throw new ArgumentNullException(nameof(repositories));
-        }
-        if (orgId == 0)
-        {
-            throw new ArgumentNullException(nameof(orgId));
-        }
-        try
-        {
-            var repos = await githubRepositories.Where(c => c.GithubOrganizationId == orgId).ToListAsync();
-            foreach (var item in repos)
-            {
-                item.IsSelect = false;
-                githubRepositories.Update(item);
-            }
-            await _uow.SaveChangesAsync();
-
-            foreach (var item in repositories)
-            {
-                var repo = await githubRepositories.Where(c => c.Name == item).FirstOrDefaultAsync();
-
-                repo.IsSelect = true;
-                githubRepositories.Update(repo);
-
-                //get latest release
-
-                var org = await githubOrganizations.Where(c => c.GithubOrganizationId == orgId).FirstOrDefaultAsync();
-                if (repo.GithubRelease != null)
-                {
-                    await UpdateLatestRepositoryRelease(org.Name, repo.Name);
-                }
-                else
-                {
-                    await AddLatestRepositoryRelease(org.Login, repo.Name);
-                }
-
-            }
-            await _uow.SaveChangesAsync();
-            return true;
-        }
-        catch
-        {
-            return false;
-
-        }
-    }
 
     /// <summary>
     /// get All repository and save to DB for first time.
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> GetFromGithubAndAddReposToDB(int orgId)
+    public async Task<bool> AndRepositoriesToDB(int orgId)
     {
         if (orgId == 0)
         {
@@ -440,7 +384,7 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> UpdateReposInfoAsync(int orgId)
+    public async Task<bool> UpdateRepositoriesInDB(int orgId)
     {
         if (orgId == 0)
         {
@@ -504,13 +448,71 @@ public class EfGithubService : IGithubService
 
 
     /// <summary>
+    /// update repository selection for show in home page  
+    /// </summary>
+    /// <param name="repositories"></param>
+    /// <param name="orgId"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public async Task<bool> UpdateReposSelectedForShow(string[] repositories, int orgId)
+    {
+        if (repositories == null)
+        {
+            throw new ArgumentNullException(nameof(repositories));
+        }
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
+        try
+        {
+            var repos = await githubRepositories.Where(c => c.GithubOrganizationId == orgId).ToListAsync();
+            foreach (var item in repos)
+            {
+                item.IsSelect = false;
+                githubRepositories.Update(item);
+            }
+            await _uow.SaveChangesAsync();
+
+            foreach (var item in repositories)
+            {
+                var repo = await githubRepositories.Where(c => c.Name == item).FirstOrDefaultAsync();
+
+                repo.IsSelect = true;
+                githubRepositories.Update(repo);
+
+                //get latest release
+
+                var org = await githubOrganizations.Where(c => c.GithubOrganizationId == orgId).FirstOrDefaultAsync();
+                if (repo.GithubRelease != null)
+                {
+                    await UpdateLatestRepositoryReleaseInDB(org.Name, repo.Name);
+                }
+                else
+                {
+                    await AddLatestRepositoryReleaseToDB(org.Login, repo.Name);
+                }
+
+            }
+            await _uow.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+
+        }
+    }
+
+
+    /// <summary>
     /// get repository by name
     /// </summary>
     /// <param name="owner"></param>
     /// <param name="name"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task<GithubRepository> GetRepositoryByName(string owner, string name)
+    public async Task<GithubRepository> GetRepositoryByNameFromDB(string owner, string name)
     {
         if (owner == null)
         {
@@ -590,7 +592,7 @@ public class EfGithubService : IGithubService
     /// <param name="page"></param>
     /// <param name="pageSize"></param>
     /// <returns></returns>
-    public async Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10)
+    public async Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId, int page, int pageSize = 10)
     {
         if (orgId == 0)
         {
@@ -634,6 +636,56 @@ public class EfGithubService : IGithubService
 
     }
 
+    /// <summary>
+    /// get all repositories 
+    /// </summary>
+    /// <param name="orgId"></param>
+    /// <param name="page"></param>
+    /// <param name="pageSize"></param>
+    /// <returns></returns>
+    public async Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId)
+    {
+        if (orgId == 0)
+        {
+            throw new ArgumentNullException(nameof(orgId));
+        }
+
+        return await githubRepositories.Where(c => c.GithubOrganizationId == orgId).Select(c => new GithubRepository()
+        {
+            GithubOrganizationId = c.GithubOrganizationId,
+            Name = c.Name,
+            Archived = c.Archived,
+            CloneUrl = c.CloneUrl,
+            CreatedAt = c.CreatedAt,
+            DefaultBranch = c.DefaultBranch,
+            Description = c.Description,
+            ForksCount = c.ForksCount,
+            FullName = c.FullName,
+            GitUrl = c.GitUrl,
+            HasDownloads = c.HasDownloads,
+            HasIssues = c.HasIssues,
+            HasPages = c.HasPages,
+            HasWiki = c.HasWiki,
+            Homepage = c.Homepage,
+            Id = c.Id,
+            HtmlUrl = c.HtmlUrl,
+            Language = c.Language,
+            LatestDataUpdate = c.LatestDataUpdate,
+            MirrorUrl = c.MirrorUrl,
+            NodeId = c.NodeId,
+            OpenIssuesCount = c.OpenIssuesCount,
+            PushedAt = c.PushedAt,
+            Size = c.Size,
+            SshUrl = c.SshUrl,
+            StargazersCount = c.StargazersCount,
+            SvnUrl = c.SvnUrl,
+            UpdatedAt = c.UpdatedAt,
+            WatchersCount = c.WatchersCount,
+            Url = c.Url
+
+        }).ToListAsync();
+
+    }
 
     /// <summary>
     /// add latest repository release
@@ -642,7 +694,7 @@ public class EfGithubService : IGithubService
     /// <param name="name"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task<bool> AddLatestRepositoryRelease(string owner, string name)
+    public async Task<bool> AddLatestRepositoryReleaseToDB(string owner, string name)
     {
         if (owner == null)
         {
@@ -710,7 +762,14 @@ public class EfGithubService : IGithubService
         }
     }
 
-    public async Task<bool> UpdateLatestRepositoryRelease(string owner, string name)
+    /// <summary>
+    /// Update Latest Repository Release
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public async Task<bool> UpdateLatestRepositoryReleaseInDB(string owner, string name)
     {
         if (owner == null)
         {
@@ -789,7 +848,14 @@ public class EfGithubService : IGithubService
         }
     }
 
-    public async Task<GithubRelease> GetLatestRepositoryRelease(string owner, string name)
+    /// <summary>
+    /// Get Latest Repository Release
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public async Task<GithubRelease> GetLatestRepositoryReleaseFromDB(string owner, string name)
     {
         if (owner == null)
         {
@@ -803,7 +869,7 @@ public class EfGithubService : IGithubService
         var org = await GetOrganizationByName(owner);
         if (org != null)
         {     
-            var repo =await GetRepositoryByName(owner, name);
+            var repo =await GetRepositoryByNameFromDB(owner, name);
 
             if (repo != null)
             {
@@ -833,4 +899,5 @@ public class EfGithubService : IGithubService
         return null;
     }
 
+ 
 }

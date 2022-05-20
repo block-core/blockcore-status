@@ -18,24 +18,27 @@ public interface IGithubService
     //-------------------------------------------------------------------
 
     Task<bool> AddOrganizationToDB(OrganizationViewModel org);
-    Task<bool> EditOrganizationFromDB(OrganizationViewModel org);
+    Task<bool> UpdateOrganizationInDB(string login);
     Task<bool> DeleteOrganizationFromDB(OrganizationViewModel org);
-
-   
-    Task<bool> GetFromGithubAndAddReposToDB(int orgId);
-    Task<bool> UpdateReposInfoAsync(int orgId);
-    Task<bool> UpdateReposSelected(string[] repositories, int orgId);
-
-
     Task<GithubOrganization> GetOrganizationById(int id);
     Task<GithubOrganization> GetOrganizationByName(string login, bool withRepositories = true);
-    Task<GithubRepository> GetRepositoryByName(string owner, string name);
+    Task<IReadOnlyList<GithubOrganization>> GetAllOrganizationFromDB();
 
-   
-    Task<IReadOnlyList<GithubOrganization>> GetAllOrganization();
-    Task<IReadOnlyList<GithubRepository>> GetAllRepositories(int orgId, int page = 1, int pageSize = 10);
 
-    Task<bool> AddLatestRepositoryRelease(string owner, string name);
-    Task<bool> UpdateLatestRepositoryRelease(string owner, string name);
-    Task<GithubRelease> GetLatestRepositoryRelease(string owner, string name);
+    Task<bool> AndRepositoriesToDB(int orgId);
+    Task<bool> UpdateRepositoriesInDB(int orgId);
+    Task<bool> UpdateReposSelectedForShow(string[] repositories, int orgId);
+    Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId);
+
+    Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId, int page , int pageSize = 10);
+    Task<GithubRepository> GetRepositoryByNameFromDB(string owner, string name);
+
+
+
+
+    Task<bool> AddLatestRepositoryReleaseToDB(string owner, string name);
+    Task<bool> UpdateLatestRepositoryReleaseInDB(string owner, string name);
+    Task<GithubRelease> GetLatestRepositoryReleaseFromDB(string owner, string name);
+
+
 }

@@ -23,7 +23,7 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
        
-        var orgs = await _github.GetAllOrganization();
+        var orgs = await _github.GetAllOrganizationFromDB();
         List<string> OrganizationsList = new List<string>();
         foreach (var item in orgs)
         {

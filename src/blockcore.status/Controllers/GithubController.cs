@@ -42,7 +42,7 @@ public class GithubController : Controller
     {
         var orgInfo = await _github.GetOrganizationByName(owner, false);
 
-        var repos = await _github.GetAllRepositories(orgInfo.GithubOrganizationId, page);
+        var repos = await _github.GetAllRepositoriesFromDB(orgInfo.GithubOrganizationId, page);
 
         if (repos == null)
         {
@@ -55,7 +55,7 @@ public class GithubController : Controller
     [HttpGet("[action]/{owner}/{name}")]
     public async Task<IActionResult> GetRepositoryInfo(string owner, string name)
     {
-        var repo = await _github.GetRepositoryByName(owner, name);
+        var repo = await _github.GetRepositoryByNameFromDB(owner, name);
         if (repo == null)
         {
             return NotFound();
@@ -68,7 +68,7 @@ public class GithubController : Controller
     [HttpGet("[action]/{owner}/{name}")]
     public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
     {
-        var releases = await _github.GetLatestRepositoryRelease(owner, name);
+        var releases = await _github.GetLatestRepositoryReleaseFromDB(owner, name);
         if (releases == null)
         {
             return NotFound();
