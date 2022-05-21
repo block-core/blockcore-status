@@ -38,6 +38,7 @@ public interface IGithubService
 
     Task<bool> AddLatestRepositoryReleaseToDB(string owner, string name);
     Task<bool> UpdateLatestRepositoryReleaseInDB(string owner, string name);
+    Task<bool> UpdateLatestRepositoriesReleaseInDB(string owner);
     Task<GithubRelease> GetLatestRepositoryReleaseFromDB(string owner, string name);
 
 

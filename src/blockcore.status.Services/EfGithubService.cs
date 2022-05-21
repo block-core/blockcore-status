@@ -288,7 +288,7 @@ public class EfGithubService : IGithubService
         }
         if (withRepositories)
         {
-            return await githubOrganizations.Where(c => c.Login == login).Include(c => c.GithubRepositories).ThenInclude(c=>c.GithubRelease).Select(c => c).FirstOrDefaultAsync();
+            return await githubOrganizations.Where(c => c.Login == login).Include(c => c.GithubRepositories).ThenInclude(c => c.GithubRelease).Select(c => c).FirstOrDefaultAsync();
 
         }
 
@@ -575,7 +575,7 @@ public class EfGithubService : IGithubService
                 UploadUrl = c.GithubRelease.UploadUrl,
                 Url = c.GithubRelease.Url,
                 ZipballUrl = c.GithubRelease.ZipballUrl,
-            }  
+            }
 
         }).FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
 
@@ -787,11 +787,12 @@ public class EfGithubService : IGithubService
                 var repo = org.GithubRepositories.FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
                 if (repo != null)
                 {
-                    var release = repo.GithubRelease;
-                    if (release != null)
+                    var latestRelease = await GetLatestRepositoryReleaseFromGithub(owner, name);
+
+                    if (latestRelease != null)
                     {
-                        var latestRelease = await GetLatestRepositoryReleaseFromGithub(owner, name);
-                        if (latestRelease != null)
+                        var release = repo.GithubRelease;
+                        if (release != null)
                         {
                             release.GithubRepositoryId = repo.GithubRepositoryId;
                             release.Name = latestRelease.Name;
@@ -868,36 +869,120 @@ public class EfGithubService : IGithubService
 
         var org = await GetOrganizationByName(owner);
         if (org != null)
-        {     
-            var repo =await GetRepositoryByNameFromDB(owner, name);
+        {
+            var repo = await GetRepositoryByNameFromDB(owner, name);
 
             if (repo != null)
             {
-                var release = new GithubRelease() {
+                var release = new GithubRelease()
+                {
 
-                   AssetsUrl= repo.GithubRelease.AssetsUrl,
-                   Body = repo.GithubRelease.Body,
-                   CreatedAt = repo.GithubRelease.CreatedAt,
-                   Draft= repo.GithubRelease.Draft,
-                   HtmlUrl= repo.GithubRelease.HtmlUrl,
-                   Id= repo.GithubRelease.Id,
-                   Name= repo.GithubRelease.Name,
-                   LatestDataUpdate= repo.GithubRelease.LatestDataUpdate,
-                   NodeId= repo.GithubRelease.NodeId,
-                   Prerelease= repo.GithubRelease.Prerelease,
-                   PublishedAt= repo.GithubRelease.PublishedAt,
-                   TagName= repo.GithubRelease.TagName,
-                   TarballUrl= repo.GithubRelease.TarballUrl,
-                   TargetCommitish= repo.GithubRelease.TargetCommitish,
-                   UploadUrl= repo.GithubRelease.UploadUrl,
-                   Url= repo.GithubRelease.Url,
-                   ZipballUrl= repo.GithubRelease.ZipballUrl,
-            };
+                    AssetsUrl = repo.GithubRelease.AssetsUrl,
+                    Body = repo.GithubRelease.Body,
+                    CreatedAt = repo.GithubRelease.CreatedAt,
+                    Draft = repo.GithubRelease.Draft,
+                    HtmlUrl = repo.GithubRelease.HtmlUrl,
+                    Id = repo.GithubRelease.Id,
+                    Name = repo.GithubRelease.Name,
+                    LatestDataUpdate = repo.GithubRelease.LatestDataUpdate,
+                    NodeId = repo.GithubRelease.NodeId,
+                    Prerelease = repo.GithubRelease.Prerelease,
+                    PublishedAt = repo.GithubRelease.PublishedAt,
+                    TagName = repo.GithubRelease.TagName,
+                    TarballUrl = repo.GithubRelease.TarballUrl,
+                    TargetCommitish = repo.GithubRelease.TargetCommitish,
+                    UploadUrl = repo.GithubRelease.UploadUrl,
+                    Url = repo.GithubRelease.Url,
+                    ZipballUrl = repo.GithubRelease.ZipballUrl,
+                };
                 return release;
             }
         }
         return null;
     }
 
- 
+    public async Task<bool> UpdateLatestRepositoriesReleaseInDB(string owner)
+    {
+        if (owner == null)
+        {
+            throw new ArgumentNullException(nameof(owner));
+        }
+
+        try
+        {
+            var org = await GetOrganizationByName(owner);
+            if (org != null)
+            {
+                var repos = await GetAllRepositoriesFromDB(org.GithubOrganizationId);
+                if (repos != null)
+                {
+                    foreach (var repo in repos)
+                    {
+                        if (repo.IsSelect)
+                        {
+                            var latestRelease = await GetLatestRepositoryReleaseFromGithub(owner, repo.Name);
+
+                            if (latestRelease != null)
+                            {
+                                var release = repo.GithubRelease;
+                                if (release != null)
+                                {
+                                    release.GithubRepositoryId = repo.GithubRepositoryId;
+                                    release.Name = latestRelease.Name;
+                                    release.Id = latestRelease.Id;
+                                    release.AssetsUrl = latestRelease.AssetsUrl;
+                                    release.Body = latestRelease.Body;
+                                    release.CreatedAt = latestRelease.CreatedAt.UtcDateTime;
+                                    release.Draft = latestRelease.Draft;
+                                    release.HtmlUrl = latestRelease.HtmlUrl;
+                                    release.LatestDataUpdate = DateTime.UtcNow;
+                                    release.NodeId = latestRelease.NodeId;
+                                    release.Prerelease = latestRelease.Prerelease;
+                                    release.PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value.UtcDateTime : null;
+                                    release.ZipballUrl = latestRelease.ZipballUrl;
+                                    release.TagName = latestRelease.TagName;
+                                    release.TarballUrl = latestRelease.TarballUrl;
+                                    release.TargetCommitish = latestRelease.TargetCommitish;
+                                    release.UploadUrl = latestRelease.UploadUrl;
+                                    release.Url = latestRelease.Url;
+
+                                    githubRelease.Update(release);
+
+                                    await _uow.SaveChangesAsync();
+                                    return true;
+                                }
+                                else
+                                {
+                                    githubRelease.Remove(release);
+                                    await _uow.SaveChangesAsync();
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+
+                                return false;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        catch
+        {
+            return false;
+
+        }
+        return false;
+    }
 }

@@ -86,7 +86,7 @@ public class OrganizationManagerController : Controller
             else
             {
               
-                var result = await _githubService.UpdateOrganizationFromDB(model.Login);
+                var result = await _githubService.UpdateOrganizationInDB(model.Login);
                 if (result)
                 {
                     return Json(new { success = true });
