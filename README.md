@@ -18,4 +18,15 @@
 
 Service Status Dashboard that monitors the different services and networks related to Blockcore.
 
+# 🧑‍💻 Development
 
+## 🟠 Requirements
+
+- dotnet : [6.0.101](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+
+## 🟠 Run with bat files
+
+ - Open the [src\blockcore.status\\_0-restore.bat](https://github.com/block-core/blockcore-status/blob/main/src/blockcore.status/_0-restore.bat) (Windows) in your favorite text editor and restore dotnet pakages and runing install npm
+ - Open the [src\blockcore.status\\_1-dotnet_run.bat](https://github.com/block-core/blockcore-status/blob/main/src/blockcore.status/_1-dotnet_run.bat) (Windows) in your favorite text editor and start blockcore status
+
+If you are on Linux or Mac, you can copy the content of bat files and put in a shell script file, or you can manually execute the CLI command with all the parameters.
