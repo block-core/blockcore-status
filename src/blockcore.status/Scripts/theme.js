@@ -26,10 +26,10 @@ function toggleTheme() {
 
 function enableDarkTheme() {
     document.getElementsByTagName('body')[0].setAttribute('class', 'bootstrap-dark');
-    THEME_TOGGLER.innerHTML = "🌞 Light";
+    THEME_TOGGLER.innerHTML = "<i class='fas fa-sun'></i> Light";
 }
 
 function disableDarkTheme() {
     document.getElementsByTagName('body')[0].setAttribute('class', 'bootstrap bg-image');
-    THEME_TOGGLER.innerHTML = "🌙 Dark";
+    THEME_TOGGLER.innerHTML = "<i class='fas fa-moon'></i> Dark";
 }

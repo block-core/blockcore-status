@@ -47,6 +47,7 @@
     <Watch Remove="Scripts\theme.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\App_Data\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
