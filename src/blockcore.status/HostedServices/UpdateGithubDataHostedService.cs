@@ -1,4 +1,5 @@
 ﻿using blockcore.status.Services.Contracts;
+using Common.Web.Core;
 
 namespace blockcore.status.HostedServices;
 
@@ -6,7 +7,7 @@ public class UpdateGithubDataHostedService : BackgroundService
 {
     private readonly ILogger<UpdateGithubDataHostedService> _logger;
     private readonly IServiceProvider _serviceProvider;
-    public UpdateGithubDataHostedService(IServiceProvider serviceProvider, ILogger<UpdateGithubDataHostedService> logger )
+    public UpdateGithubDataHostedService(IServiceProvider serviceProvider, ILogger<UpdateGithubDataHostedService> logger)
     {
         _logger = logger;
         _serviceProvider = serviceProvider;
@@ -15,24 +16,32 @@ public class UpdateGithubDataHostedService : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            using (var scope = _serviceProvider.CreateScope())
+            try
             {
-                var _github = scope.ServiceProvider.GetRequiredService<IGithubService>();
-
-                var orgs = await _github.GetAllOrganizationFromDB();
-                foreach (var org in orgs)
+                using (var scope = _serviceProvider.CreateScope())
                 {
-                    await _github.UpdateOrganizationInDB(org.Login);
-                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-                    await _github.UpdateRepositoriesInDB(org.GithubOrganizationId);
-                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-                    await _github.UpdateLatestRepositoriesReleaseInDB(org.Login);
-                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                    var _github = scope.ServiceProvider.GetRequiredService<IGithubService>();
 
+                    var orgs = await _github.GetAllOrganizationFromDB();
+                    foreach (var org in orgs)
+                    {
+                        await _github.UpdateOrganizationInDB(org.Login);
+                        await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                        await _github.UpdateRepositoriesInDB(org.GithubOrganizationId);
+                        await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                        await _github.UpdateLatestRepositoriesReleaseInDB(org.Login);
+                        await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+
+                    }
+
+                    await Task.Delay(TimeSpan.FromHours(4), stoppingToken);
                 }
-
-                await Task.Delay(TimeSpan.FromHours(4), stoppingToken);
             }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMessage(ex.Message);
+            }
+
         }
     }
 }
