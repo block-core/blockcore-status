@@ -26,11 +26,11 @@ public class UpdateGithubDataHostedService : BackgroundService
                     foreach (var org in orgs)
                     {
                         await _github.UpdateOrganizationInDB(org.Login);
-                        await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                         await _github.UpdateRepositoriesInDB(org.GithubOrganizationId);
-                        await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                         await _github.UpdateLatestRepositoriesReleaseInDB(org.Login);
-                        await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
 
                     }
 

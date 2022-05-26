@@ -11,7 +11,8 @@
 @foreach (var item in Model.Organizations)
 {
     <cache expires-after="@TimeSpan.FromMinutes(30)">
-    </cache>           <vc:github-organization-info org-name="@item"></vc:github-organization-info>
+    </cache>         
+    <vc:github-organization-info org-name="@item"></vc:github-organization-info>
 
 }
 

@@ -35,8 +35,9 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
                     Name = c.Name,
                     RepositoryURL = c.HtmlUrl,
                     UpdatedAt = c.UpdatedAt,
+                    PushedAt = c.PushedAt.Value
                 }).ToList()
-            });
+            }) ;
     }
 
 }
