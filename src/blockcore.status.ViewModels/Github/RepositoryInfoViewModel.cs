@@ -13,6 +13,7 @@ namespace blockcore.status.ViewModels.Github;
     public DateTime PushedAt { get; set; }
     public string RepositoryURL { get; set; }
 
+    public int OpenIssuesCount { get; set; }
     public bool IsPreRelease { get; set; } 
 
 }
