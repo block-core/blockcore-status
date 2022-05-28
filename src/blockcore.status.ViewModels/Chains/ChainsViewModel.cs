@@ -10,5 +10,5 @@ namespace blockcore.status.ViewModels.Chains;
     public string name { get; set; }
     public string symbol { get; set; }
     public string icon { get; set; }
-    public bool? filter { get; set; }
+    public string coin { get; set; }
 }

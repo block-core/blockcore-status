@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace blockcore.status.ViewModels.Home;
 public class HomeViewModel
 {
-    public IList<string> Organizations { get; set; }
-    public IList<ChainsViewModel> Chains { get; set; }
+    public IReadOnlyList<string> Organizations { get; set; }
+    public IReadOnlyList<ChainsViewModel> Chains { get; set; }
 
 }

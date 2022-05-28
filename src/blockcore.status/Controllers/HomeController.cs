@@ -38,7 +38,7 @@ public class HomeController : Controller
         var model = new HomeViewModel()
         {
             Organizations = OrganizationsList,
-            Chains = chains.ToList()
+            Chains = chains
         };
         return View(model);
     }
