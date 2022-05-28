@@ -1,0 +1,26 @@
+{
+  "name": "blockcore-status",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Blockcore",
+    "email": "post@blockcore.net",
+    "url": "https://www.blockcore.net"
+  },
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/block-core/blockcore-status.git"
+  },
+  "bugs": {
+    "url": "https://github.com/block-core/blockcore-status/issues"
+  },
+  "homepage": "https://github.com/block-core/blockcore-status#readme",
+  "scripts": {
+    "version": "node -p \"require('./package.json').version\"",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {}
+}
