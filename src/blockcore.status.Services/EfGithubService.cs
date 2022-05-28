@@ -524,6 +524,7 @@ public class EfGithubService : IGithubService
         }
         var org = await GetOrganizationByName(owner);
         var allrepos = org.GithubRepositories.ToList();
+
         var repo = allrepos.Select(c => new GithubRepository()
         {
             GithubOrganizationId = c.GithubOrganizationId,
@@ -556,7 +557,7 @@ public class EfGithubService : IGithubService
             UpdatedAt = c.UpdatedAt,
             WatchersCount = c.WatchersCount,
             Url = c.Url,
-            GithubRelease = new GithubRelease()
+            GithubRelease = c.GithubRelease == null ? null : new GithubRelease()
             {
                 AssetsUrl = c.GithubRelease.AssetsUrl,
                 Body = c.GithubRelease.Body,

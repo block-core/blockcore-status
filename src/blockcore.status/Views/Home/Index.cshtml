@@ -6,13 +6,14 @@
 
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Blockcore Repositories</h1>
-    <p class="lead">View blockcore repositories information</p>
 </div>
 @foreach (var item in Model.Organizations)
 {
     <cache expires-after="@TimeSpan.FromMinutes(30)">
         <vc:github-organization-info org-name="@item"></vc:github-organization-info>
     </cache>
-
 }
 
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Blockcore Chains</h1>
+</div>
