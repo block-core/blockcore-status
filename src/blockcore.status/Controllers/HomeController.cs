@@ -13,24 +13,32 @@ namespace blockcore.status.Controllers;
 public class HomeController : Controller
 {
     private readonly IGithubService _github;
+    private readonly IBlockcoreChainsService _chain;
 
-    public HomeController(IGithubService github)
+
+    public HomeController(IGithubService github, IBlockcoreChainsService chain)
     {
         _github = github ?? throw new ArgumentNullException(nameof(github));
+        _chain = chain ?? throw new ArgumentNullException(nameof(chain));
     }
 
     [BreadCrumb(Title = "Index", Order = 1)]
     public async Task<IActionResult> Index()
     {
-       
+
         var orgs = await _github.GetAllOrganizationFromDB();
         List<string> OrganizationsList = new List<string>();
         foreach (var item in orgs)
         {
             OrganizationsList.Add(item.Login);
         }
-        var model = new HomeViewModel() { 
-        Organizations=OrganizationsList
+        var chains = await _chain.GetAllChains();
+
+
+        var model = new HomeViewModel()
+        {
+            Organizations = OrganizationsList,
+            Chains = chains.ToList()
         };
         return View(model);
     }

@@ -243,3 +243,61 @@ ul.nav.navbar-nav {
     background: -webkit-linear-gradient( 45deg, #ffdf40, #ff8359) !important;
     background: linear-gradient( 45deg, #ffdf40, #ff8359) !important;
 }
+
+.image-outer-container {
+    margin: 10px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.image-inner-container {
+    border-radius: 50%;
+    background: #cdcdcd;
+}
+
+    .image-inner-container img {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        border: 5px solid white;
+        margin: 5px;
+        padding: 5px;
+    }
+
+.image-outer-container .green-icon {
+    background-color: #4cd137;
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+    height: 30px;
+    width: 30px;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+.image-outer-container .red-icon {
+    background-color: #f20606;
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+    height: 30px;
+    width: 30px;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+
+.image-outer-container .yellow-icon {
+    background-color: #e3e500;
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+    height: 30px;
+    width: 30px;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+ 
+
+
