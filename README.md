@@ -31,5 +31,5 @@ Service Status Dashboard that monitors the different services and networks relat
 
 If you are on Linux or Mac, you can copy the content of bat files and put in a shell script file, or you can manually execute the CLI command with all the parameters.
 
-### 📊 You can view blockcore status at this address: http://status.blockcore.net/
+### 📊 You can view blockcore status at: https://status.blockcore.net/
 
