@@ -325,6 +325,7 @@ public class EfGithubService : IGithubService
         try
         {
             var org = await GetOrganizationById(orgId);
+
             var orgsreposname = org.GithubRepositories.Select(c => c.Name).ToList();
 
             var allRepos = await GetAllRepositoriesFromGithub(org.Login);
@@ -523,67 +524,71 @@ public class EfGithubService : IGithubService
             throw new ArgumentNullException(nameof(name));
         }
         var org = await GetOrganizationByName(owner);
-        var allrepos = org.GithubRepositories.ToList();
-
-        var repo = allrepos.Select(c => new GithubRepository()
+        if (org != null)
         {
-            GithubOrganizationId = c.GithubOrganizationId,
-            Name = c.Name,
-            Archived = c.Archived,
-            CloneUrl = c.CloneUrl,
-            CreatedAt = c.CreatedAt,
-            DefaultBranch = c.DefaultBranch,
-            Description = c.Description,
-            ForksCount = c.ForksCount,
-            FullName = c.FullName,
-            GitUrl = c.GitUrl,
-            HasDownloads = c.HasDownloads,
-            HasIssues = c.HasIssues,
-            HasPages = c.HasPages,
-            HasWiki = c.HasWiki,
-            Homepage = c.Homepage,
-            Id = c.Id,
-            HtmlUrl = c.HtmlUrl,
-            Language = c.Language,
-            LatestDataUpdate = c.LatestDataUpdate,
-            MirrorUrl = c.MirrorUrl,
-            NodeId = c.NodeId,
-            OpenIssuesCount = c.OpenIssuesCount,
-            PushedAt = c.PushedAt,
-            Size = c.Size,
-            SshUrl = c.SshUrl,
-            StargazersCount = c.StargazersCount,
-            SvnUrl = c.SvnUrl,
-            UpdatedAt = c.UpdatedAt,
-            WatchersCount = c.WatchersCount,
-            Url = c.Url,
-            GithubRelease = c.GithubRelease == null ? null : new GithubRelease()
+            var allrepos = org.GithubRepositories.ToList();
+
+            var repo = allrepos.Where(c => string.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase)).Select(c => new GithubRepository()
             {
-                AssetsUrl = c.GithubRelease.AssetsUrl,
-                Body = c.GithubRelease.Body,
-                CreatedAt = c.GithubRelease.CreatedAt,
-                Draft = c.GithubRelease.Draft,
-                HtmlUrl = c.GithubRelease.HtmlUrl,
-                Id = c.GithubRelease.Id,
-                Name = c.GithubRelease.Name,
-                LatestDataUpdate = c.GithubRelease.LatestDataUpdate,
-                NodeId = c.GithubRelease.NodeId,
-                Prerelease = c.GithubRelease.Prerelease,
-                PublishedAt = c.GithubRelease.PublishedAt,
-                TagName = c.GithubRelease.TagName,
-                TarballUrl = c.GithubRelease.TarballUrl,
-                TargetCommitish = c.GithubRelease.TargetCommitish,
-                UploadUrl = c.GithubRelease.UploadUrl,
-                Url = c.GithubRelease.Url,
-                ZipballUrl = c.GithubRelease.ZipballUrl,
-            }
+                GithubOrganizationId = c.GithubOrganizationId,
+                Name = c.Name,
+                Archived = c.Archived,
+                CloneUrl = c.CloneUrl,
+                CreatedAt = c.CreatedAt,
+                DefaultBranch = c.DefaultBranch,
+                Description = c.Description,
+                ForksCount = c.ForksCount,
+                FullName = c.FullName,
+                GitUrl = c.GitUrl,
+                HasDownloads = c.HasDownloads,
+                HasIssues = c.HasIssues,
+                HasPages = c.HasPages,
+                HasWiki = c.HasWiki,
+                Homepage = c.Homepage,
+                Id = c.Id,
+                HtmlUrl = c.HtmlUrl,
+                Language = c.Language,
+                LatestDataUpdate = c.LatestDataUpdate,
+                MirrorUrl = c.MirrorUrl,
+                NodeId = c.NodeId,
+                OpenIssuesCount = c.OpenIssuesCount,
+                PushedAt = c.PushedAt,
+                Size = c.Size,
+                SshUrl = c.SshUrl,
+                StargazersCount = c.StargazersCount,
+                SvnUrl = c.SvnUrl,
+                UpdatedAt = c.UpdatedAt,
+                WatchersCount = c.WatchersCount,
+                Url = c.Url,
+                GithubRelease = c.GithubRelease == null ? null : new GithubRelease()
+                {
+                    AssetsUrl = c.GithubRelease.AssetsUrl,
+                    Body = c.GithubRelease.Body,
+                    CreatedAt = c.GithubRelease.CreatedAt,
+                    Draft = c.GithubRelease.Draft,
+                    HtmlUrl = c.GithubRelease.HtmlUrl,
+                    Id = c.GithubRelease.Id,
+                    Name = c.GithubRelease.Name,
+                    LatestDataUpdate = c.GithubRelease.LatestDataUpdate,
+                    NodeId = c.GithubRelease.NodeId,
+                    Prerelease = c.GithubRelease.Prerelease,
+                    PublishedAt = c.GithubRelease.PublishedAt,
+                    TagName = c.GithubRelease.TagName,
+                    TarballUrl = c.GithubRelease.TarballUrl,
+                    TargetCommitish = c.GithubRelease.TargetCommitish,
+                    UploadUrl = c.GithubRelease.UploadUrl,
+                    Url = c.GithubRelease.Url,
+                    ZipballUrl = c.GithubRelease.ZipballUrl,
+                }
 
-        }).FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.Ordinal));
+            }).FirstOrDefault();
+            if (repo == null)
+                return null;
+            else
+                return repo;
+        }
 
-        if (repo == null)
-            return null;
-        else
-            return repo;
+        return null;
     }
 
     /// <summary>
@@ -873,7 +878,7 @@ public class EfGithubService : IGithubService
         {
             var repo = await GetRepositoryByNameFromDB(owner, name);
 
-            if (repo != null)
+            if (repo != null && repo.GithubRelease != null)
             {
                 var release = new GithubRelease()
                 {

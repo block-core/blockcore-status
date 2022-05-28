@@ -16,7 +16,7 @@ public class GithubController : Controller
         _github = github ?? throw new ArgumentNullException(nameof(github));
     }
 
-   
+
     [HttpGet("[action]/{name}")]
     public async Task<IActionResult> GetOrganizationInfo(string name)
     {
@@ -33,14 +33,18 @@ public class GithubController : Controller
     public async Task<IActionResult> GetRepositories(string owner, int page = 1)
     {
         var orgInfo = await _github.GetOrganizationByName(owner, false);
-
-        var repos = await _github.GetAllRepositoriesFromDB(orgInfo.GithubOrganizationId, page);
-
-        if (repos == null)
+        if (orgInfo != null)
         {
-            return NotFound();
+            var repos = await _github.GetAllRepositoriesFromDB(orgInfo.GithubOrganizationId, page);
+
+            if (repos != null)
+            {
+                return Ok(repos);
+            }
         }
-        return Ok(repos);
+        return NotFound();
+
+
     }
 
 

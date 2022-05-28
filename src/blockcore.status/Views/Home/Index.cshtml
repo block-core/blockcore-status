@@ -10,34 +10,36 @@
 @foreach (var item in Model.Organizations)
 {
     <cache expires-after="@TimeSpan.FromMinutes(30)">
-    </cache>        <vc:github-organization-info org-name="@item"></vc:github-organization-info>
-
+        <vc:github-organization-info org-name="@item"></vc:github-organization-info>
+    </cache>
 }
 
 @if (Model.Chains.Any())
 {
-    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Blockcore Chains</h1>
-    </div>
-    <div class="row">
-        @foreach (var chain in Model.Chains)
-        {
-            <div class="col-md-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center h-100">
-                            <div class="image-outer-container">
-                                <div class="green-icon"></div>
-                                <div class="image-inner-container">
-                                    <img src="@chain.icon">
+    <cache expires-after="@TimeSpan.FromMinutes(30)">
+        <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Blockcore Chains</h1>
+        </div>
+        <div class="row">
+            @foreach (var chain in Model.Chains)
+            {
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center h-100">
+                                <div class="image-outer-container">
+                                    <div class="green-icon"></div>
+                                    <div class="image-inner-container">
+                                        <img src="@chain.icon">
+                                    </div>
                                 </div>
                             </div>
+                            <h4>@chain.name</h4>
+                            <h6>@chain.symbol</h6>
                         </div>
-                        <h4>@chain.name</h4>
-                        <h6>@chain.symbol</h6>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    </cache>
 }
