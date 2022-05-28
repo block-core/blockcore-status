@@ -229,3 +229,13 @@ dotnet_diagnostic.HAA0505.severity = silent
 
 # force file scoped namespaces
 csharp_style_namespace_declarations = file_scoped:warning
+
+dotnet_diagnostic.CA1707.severity = suggestion
+
+dotnet_diagnostic.AD0001.severity = suggestion
+
+dotnet_diagnostic.CA1062.severity = suggestion
+
+dotnet_diagnostic.MA0048.severity = suggestion
+
+dotnet_diagnostic.IDE0161.severity = suggestion
