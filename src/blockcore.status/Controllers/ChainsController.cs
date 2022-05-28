@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Octokit;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace blockcore.status.Controllers;
 [Route("api/[controller]")]
@@ -18,8 +17,13 @@ public class ChainsController : Controller
     }
 
     [HttpGet("[action]")]
-    public IActionResult GetAllChains()
+    public async Task<IActionResult> GetAllChains()
     {
-        return Ok();
+        var result = await _chain.GetAllChains();
+        if (result == null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
     }
 }

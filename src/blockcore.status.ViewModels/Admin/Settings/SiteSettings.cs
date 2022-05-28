@@ -25,4 +25,6 @@ public class SiteSettings
     public string[] EmailsBanList { get; set; }
     public string[] PasswordsBanList { get; set; }
     public DataProtectionX509Certificate DataProtectionX509Certificate { get; set; }
+    public BlockcoreChains BlockcoreChains { get; set; }
+    public BlockcoreIndexers BlockcoreIndexers { get; set; }
 }
