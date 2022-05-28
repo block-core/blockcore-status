@@ -34,7 +34,7 @@ jobs:
           VERSION: ${{ github.event.release.tag_name }}
 
       - name: Build the Docker container image for Blockcore Status
-        run: docker build -f "./src/Blockcore.status/Dockerfile.Release" -t blockcore/status:latest -t blockcore/status:${{ github.event.release.tag_name }} --label "unstable=true" "."
+        run: docker build -f "./src/Blockcore.Status/Dockerfile.Release" -t blockcore/status:latest -t blockcore/status:${{ github.event.release.tag_name }} --label "unstable=true" "."
 
       - name: Login and Push to Docker Registry
         run: |

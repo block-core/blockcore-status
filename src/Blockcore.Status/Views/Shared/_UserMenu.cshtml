@@ -1,0 +1,38 @@
+﻿@inject IUsersPhotoService PhotoService
+
+@{
+    var displayName = User.Identity.GetUserDisplayName();
+    var photoUrl = PhotoService.GetCurrentUserPhotoUrl();
+}
+
+<div class="navbar-nav">
+    <div class="dropdown">
+        <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"
+           id="userDropdown" aria-haspopup="true"
+           aria-expanded="false" href="#">
+            <img class="img-thumbnail userImage" src="@photoUrl" alt="@displayName" asp-append-version="true"
+                 onerror="this.style.visibility = 'hidden';this.width=0; this.height=0;" />
+            <span class="author">@displayName</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" asp-controller="UserCard" asp-action="Index" asp-area="@AreaConstants.AdminArea">
+                    <span class="mr-1 fas fa-user" aria-hidden="true"></span>
+                    User Card
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-controller="UserProfile" asp-action="Index" asp-area="@AreaConstants.AdminArea">
+                    <span class="mr-1 fas fa-cog" aria-hidden="true"></span>
+                    User Profile
+                </a>
+                <a class="dropdown-item" asp-controller="ChangePassword" asp-action="Index" asp-area="@AreaConstants.AdminArea">
+                    <span class="mr-1 fas fa-asterisk" aria-hidden="true"></span>
+                    Change Password
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-controller="Login" asp-action="LogOff" asp-area="@AreaConstants.AdminArea">
+                    <span class="mr-1 fas fa-sign-out-alt" aria-hidden="true"></span>
+                    LogOff
+                </a>
+        </div>
+    </div>
+</div>

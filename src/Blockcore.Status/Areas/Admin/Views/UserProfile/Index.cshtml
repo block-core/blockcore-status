@@ -1,0 +1,142 @@
+﻿@model UserProfileViewModel
+@inject IUsersPhotoService PhotoService
+@inject IOptionsSnapshot<SiteSettings> SiteOptions
+
+@{
+    ViewData["Title"] = "User Profile";
+    var changePasswordUrl = Url.Action("Index", "ChangePassword");
+    var imageOptions = SiteOptions.Value.UserAvatarImageOptions;
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.IsPasswordTooOld)
+        {
+            <div class="alert alert-warning" role="alert">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                Your password is too old. Please click <a href="@changePasswordUrl"> here </a> to replace it.
+            </div>
+        }
+        <form asp-controller="UserProfile"
+              asp-action="Index"
+              method="post"
+              enctype="multipart/form-data">
+            <partial name="_CustomValidationSummary" />
+            <div class="form-group row">
+                <label asp-for="FirstName" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input  asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="LastName" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input  asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserName" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="UserName" onblur="triggerRemoteValidation()" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <span class="optional-label">(For Login)</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Email" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Email" onblur="triggerRemoteValidation()" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col col-md-2 col-form-label text-md-left"></label>
+                <div class=" col col-md-10">
+                    <div class="form-check">
+                        <input asp-for="IsEmailPublic" />
+                        <label asp-for="IsEmailPublic"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col col-md-2 col-form-label text-md-left"></label>
+                <div class=" col col-md-10">
+                    <div class="form-check">
+                        <input asp-for="TwoFactorEnabled" />
+                        <label asp-for="TwoFactorEnabled"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col col-md-2 col-form-label text-md-left">Date Of BirthDay</label>
+                <div class=" col col-md-10 form-inline">
+                    <select asp-for="DateOfBirthDay" class="form-control"
+                            asp-items="Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() })">
+                        <option value="">-- Day --</option>
+                    </select> /
+                    <select asp-for="DateOfBirthMonth" class="form-control"
+                            asp-items="Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() })">
+                        <option value="">-- Month --</option>
+                    </select> /
+                    <select asp-for="DateOfBirthYear" class="form-control"
+                            asp-items="Enumerable.Range(1900, 2022).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() })">
+                        <option value="">-- Year --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Location" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input  asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PhotoFileName" class="col-md-2 col-form-label text-md-left"></label>
+                <div class=" col col-md-9">
+                    <img src="@PhotoService.GetUserPhotoUrl(Model.PhotoFileName)"
+                         asp-append-version="true" alt="photo" />
+
+                    <input type="file" asp-for="Photo" class="form-control" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <input asp-for="Pid" /> <input asp-for="IsAdminEdit" />
+                    <button type="submit" class="btn btn-info col-md-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="alert alert-info mt-5" role="alert">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <ul>
+        <li> Please note that by changing your email address, your account will be temporarily disabled and you will receive a reactivation email immediately. </li>
+        <li> If no image login, previous information will be used. </li>
+        <li>
+            Images are allowed to be uploaded in png, gif and jpg; Maximum size @imageOptions.MaxWidth * @imageOptions.MaxHeight
+            pixel.
+        </li>
+    </ul>
+</div>
+
+@section Scripts
+{
+<script type="text/javascript">
+    function triggerRemoteValidation() {
+        $('#@nameof(UserProfileViewModel.UserName)').removeData('previousValue');
+        $('form').validate().element('#@nameof(UserProfileViewModel.UserName)');
+
+        $('#@nameof(UserProfileViewModel.Email)').removeData('previousValue');
+        $('form').validate().element('#@nameof(UserProfileViewModel.Email)');
+    }
+</script>
+}

@@ -1,0 +1,24 @@
+﻿@using blockcore.status.ViewModels.Github
+@model OrganizationViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-action="Delete" method="post" class="form-horizontal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <span class="text-center">
+                    Do you want to delete the <strong> @Model.Login </strong>?
+                </span>
+                <input asp-for="OrganizationId" />
+                <input type="hidden" asp-for="Login">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="submit">Submit</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
