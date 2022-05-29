@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.Entities\blockcore.status.Entities.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Entities\Blockcore.Status.Entities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

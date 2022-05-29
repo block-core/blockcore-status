@@ -8,7 +8,7 @@
     <None Remove="Migrations1\**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.DataLayer\blockcore.status.DataLayer.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer\Blockcore.Status.DataLayer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />

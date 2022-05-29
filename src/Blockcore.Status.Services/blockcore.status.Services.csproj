@@ -3,10 +3,10 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.Common\blockcore.status.Common.csproj" />
-    <ProjectReference Include="..\blockcore.status.DataLayer\blockcore.status.DataLayer.csproj" />
-    <ProjectReference Include="..\blockcore.status.Entities\blockcore.status.Entities.csproj" />
-    <ProjectReference Include="..\blockcore.status.ViewModels\blockcore.status.ViewModels.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Common\Blockcore.Status.Common.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer\Blockcore.Status.DataLayer.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Entities\Blockcore.Status.Entities.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.ViewModels\Blockcore.Status.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Common.Web.Core" Version="1.0.2" />

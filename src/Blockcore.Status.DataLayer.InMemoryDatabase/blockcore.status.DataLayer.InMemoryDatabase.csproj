@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.DataLayer\blockcore.status.DataLayer.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer\Blockcore.Status.DataLayer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />

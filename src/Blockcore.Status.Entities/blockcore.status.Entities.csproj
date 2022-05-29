@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.Common\blockcore.status.Common.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Common\Blockcore.Status.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Common.Web.Core" Version="1.0.2" />

@@ -6,11 +6,11 @@
     <None Include="..\blockcore.status\appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.DataLayer\blockcore.status.DataLayer.csproj" />
-    <ProjectReference Include="..\blockcore.status.Entities\blockcore.status.Entities.csproj" />
-    <ProjectReference Include="..\blockcore.status.Services\blockcore.status.Services.csproj" />
-    <ProjectReference Include="..\blockcore.status.ViewModels\blockcore.status.ViewModels.csproj" />
-    <ProjectReference Include="..\blockcore.status.IocConfig\blockcore.status.IocConfig.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer\Blockcore.Status.DataLayer.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Entities\Blockcore.Status.Entities.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Services\Blockcore.Status.Services.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.ViewModels\Blockcore.Status.ViewModels.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.IocConfig\Blockcore.Status.IocConfig.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Common.Web.Core" Version="1.0.2" />

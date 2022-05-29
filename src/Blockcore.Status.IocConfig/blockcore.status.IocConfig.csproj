@@ -3,15 +3,15 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\blockcore.status.Common\blockcore.status.Common.csproj" />
-    <ProjectReference Include="..\blockcore.status.DataLayer\blockcore.status.DataLayer.csproj" />
-    <ProjectReference Include="..\blockcore.status.Entities\blockcore.status.Entities.csproj" />
-    <ProjectReference Include="..\blockcore.status.ViewModels\blockcore.status.ViewModels.csproj" />
-    <ProjectReference Include="..\blockcore.status.Services\blockcore.status.Services.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Common\Blockcore.Status.Common.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer\Blockcore.Status.DataLayer.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Entities\Blockcore.Status.Entities.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.ViewModels\Blockcore.Status.ViewModels.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.Services\Blockcore.Status.Services.csproj" />
 
-    <ProjectReference Include="..\blockcore.status.DataLayer.InMemoryDatabase\blockcore.status.DataLayer.InMemoryDatabase.csproj" />
-    <ProjectReference Include="..\blockcore.status.DataLayer.MSSQL\blockcore.status.DataLayer.MSSQL.csproj" />
-    <ProjectReference Include="..\blockcore.status.DataLayer.SQLite\blockcore.status.DataLayer.SQLite.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer.InMemoryDatabase\Blockcore.Status.DataLayer.InMemoryDatabase.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer.MSSQL\Blockcore.Status.DataLayer.MSSQL.csproj" />
+    <ProjectReference Include="..\Blockcore.Status.DataLayer.SQLite\Blockcore.Status.DataLayer.SQLite.csproj" />
 
   </ItemGroup>
   <ItemGroup>
