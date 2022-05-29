@@ -19,7 +19,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                 .UseCollation("NOCASE")
                 .HasAnnotation("ProductVersion", "6.0.5");
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.AppDataProtectionKey", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.AppDataProtectionKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppDataProtectionKeys", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.AppLogItem", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.AppLogItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,7 +107,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppLogItems");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.AppSqlCache", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.AppSqlCache", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(449)
@@ -135,7 +135,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppSqlCache", "dbo");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.Role", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -201,7 +201,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppRoles", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.RoleClaim", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +257,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.User", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -393,7 +393,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppUsers", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserClaim", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -449,7 +449,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserLogin", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("TEXT")
@@ -505,7 +505,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserRole", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -552,7 +552,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserToken", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserToken", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -606,7 +606,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserUsedPassword", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserUsedPassword", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -660,7 +660,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("AppUserUsedPasswords", (string)null);
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubOrganization", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubOrganization", b =>
                 {
                     b.Property<int>("GithubOrganizationId")
                         .ValueGeneratedOnAdd()
@@ -804,7 +804,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRelease", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubRelease", b =>
                 {
                     b.Property<int>("GithubReleaseId")
                         .ValueGeneratedOnAdd()
@@ -883,7 +883,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("Releases");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubRepository", b =>
                 {
                     b.Property<int>("GithubRepositoryId")
                         .ValueGeneratedOnAdd()
@@ -1035,9 +1035,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.ToTable("Repositories");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.RoleClaim", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.RoleClaim", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Admin.Role", "Role")
+                    b.HasOne("Blockcore.Status.Entities.Admin.Role", "Role")
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1046,9 +1046,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserClaim", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserClaim", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Admin.User", "User")
+                    b.HasOne("Blockcore.Status.Entities.Admin.User", "User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1057,9 +1057,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserLogin", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserLogin", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Admin.User", "User")
+                    b.HasOne("Blockcore.Status.Entities.Admin.User", "User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1068,15 +1068,15 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserRole", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserRole", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Admin.Role", "Role")
+                    b.HasOne("Blockcore.Status.Entities.Admin.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("blockcore.status.Entities.Admin.User", "User")
+                    b.HasOne("Blockcore.Status.Entities.Admin.User", "User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1087,9 +1087,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserToken", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserToken", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Admin.User", "User")
+                    b.HasOne("Blockcore.Status.Entities.Admin.User", "User")
                         .WithMany("UserTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1098,9 +1098,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.UserUsedPassword", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.UserUsedPassword", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Admin.User", "User")
+                    b.HasOne("Blockcore.Status.Entities.Admin.User", "User")
                         .WithMany("UserUsedPasswords")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1109,20 +1109,20 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRelease", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubRelease", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Github.GithubRepository", "GithubRepository")
+                    b.HasOne("Blockcore.Status.Entities.Github.GithubRepository", "GithubRepository")
                         .WithOne("GithubRelease")
-                        .HasForeignKey("blockcore.status.Entities.Github.GithubRelease", "GithubRepositoryId")
+                        .HasForeignKey("Blockcore.Status.Entities.Github.GithubRelease", "GithubRepositoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("GithubRepository");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubRepository", b =>
                 {
-                    b.HasOne("blockcore.status.Entities.Github.GithubOrganization", "GithubOrganization")
+                    b.HasOne("Blockcore.Status.Entities.Github.GithubOrganization", "GithubOrganization")
                         .WithMany("GithubRepositories")
                         .HasForeignKey("GithubOrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1131,14 +1131,14 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("GithubOrganization");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.Role", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.Role", b =>
                 {
                     b.Navigation("Claims");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Admin.User", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Admin.User", b =>
                 {
                     b.Navigation("Claims");
 
@@ -1151,12 +1151,12 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Navigation("UserUsedPasswords");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubOrganization", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubOrganization", b =>
                 {
                     b.Navigation("GithubRepositories");
                 });
 
-            modelBuilder.Entity("blockcore.status.Entities.Github.GithubRepository", b =>
+            modelBuilder.Entity("Blockcore.Status.Entities.Github.GithubRepository", b =>
                 {
                     b.Navigation("GithubRelease");
                 });
