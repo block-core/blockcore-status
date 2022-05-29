@@ -1,0 +1,12 @@
+version: "2.4"
+
+services:
+  mssql:
+    container_name: blockcore-status-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=<ENTER-SA-PASSWORD>
+    restart: unless-stopped
+    ports:
+      - "1433:1433"
