@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status", "src\Blo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Services", "src\Blockcore.Status.Services\Blockcore.Status.Services.csproj", "{B2A0D09F-900C-442D-A189-96D9AA4FFC64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.ViewModels", "src\bBlockcore.Status.ViewModels\Blockcore.Status.ViewModels.csproj", "{C02C3264-B934-41CE-AF65-BEE3DF541AD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.ViewModels", "src\Blockcore.Status.ViewModels\Blockcore.Status.ViewModels.csproj", "{C02C3264-B934-41CE-AF65-BEE3DF541AD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Entities", "src\Blockcore.Status.Entities\Blockcore.Status.Entities.csproj", "{F879045B-B29C-4AF7-B38B-1230617987B1}"
 EndProject
