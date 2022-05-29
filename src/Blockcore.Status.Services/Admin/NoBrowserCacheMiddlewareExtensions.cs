@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public static class NoBrowserCacheMiddlewareExtensions
 {

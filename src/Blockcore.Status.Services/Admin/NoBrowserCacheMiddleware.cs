@@ -1,7 +1,7 @@
 using Common.Web.Core;
 using Microsoft.AspNetCore.Http;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class NoBrowserCacheMiddleware
 {

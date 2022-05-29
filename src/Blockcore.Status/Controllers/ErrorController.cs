@@ -4,7 +4,7 @@ using Common.Web.Core;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Controllers;
+namespace BlockcoreStatus.Controllers;
 
 [BreadCrumb(Title = "Error", UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-warning")]
 public class ErrorController : Controller

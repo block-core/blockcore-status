@@ -1,7 +1,7 @@
-﻿using blockcore.status.HostedServices;
-using blockcore.status.IocConfig;
-using blockcore.status.Services.Admin.Logger;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.HostedServices;
+using BlockcoreStatus.IocConfig;
+using BlockcoreStatus.Services.Admin.Logger;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.OpenApi.Models;
 

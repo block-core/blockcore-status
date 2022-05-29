@@ -1,9 +1,9 @@
-﻿using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities;
-using blockcore.status.Services.Contracts;
+﻿using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities;
+using BlockcoreStatus.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace blockcore.status.Services;
+namespace BlockcoreStatus.Services;
 
 public class EfBlockcoreIndexersService : IBlockcoreIndexersService
 {

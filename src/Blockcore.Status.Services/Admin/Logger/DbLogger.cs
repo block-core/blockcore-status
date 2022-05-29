@@ -1,12 +1,12 @@
-﻿using blockcore.status.Entities.AuditableEntity;
-using blockcore.status.Entities.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.Entities.AuditableEntity;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin.Logger;
+namespace BlockcoreStatus.Services.Admin.Logger;
 
 public class DbLogger : ILogger
 {

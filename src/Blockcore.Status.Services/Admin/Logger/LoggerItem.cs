@@ -1,7 +1,7 @@
-﻿using blockcore.status.Entities.AuditableEntity;
-using blockcore.status.Entities.Admin;
+﻿using BlockcoreStatus.Entities.AuditableEntity;
+using BlockcoreStatus.Entities.Admin;
 
-namespace blockcore.status.Services.Admin.Logger;
+namespace BlockcoreStatus.Services.Admin.Logger;
 
 public class LoggerItem
 {

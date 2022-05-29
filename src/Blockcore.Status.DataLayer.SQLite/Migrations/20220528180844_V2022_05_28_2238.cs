@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace blockcore.status.DataLayer.SQLite.Migrations
+namespace BlockcoreStatus.DataLayer.SQLite.Migrations
 {
     public partial class V2022_05_28_2238 : Migration
     {

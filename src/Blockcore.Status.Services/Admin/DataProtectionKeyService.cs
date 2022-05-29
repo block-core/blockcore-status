@@ -1,13 +1,13 @@
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
 using Common.Web.Core;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class DataProtectionKeyService : IXmlRepository
 {

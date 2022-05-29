@@ -1,4 +1,4 @@
-﻿namespace blockcore.status.ViewModels.Admin;
+﻿namespace BlockcoreStatus.ViewModels.Admin;
 
 public enum UserCardItemActiveTab
 {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace blockcore.status.Common.EFCoreToolkit;
+namespace BlockcoreStatus.Common.EFCoreToolkit;
 
 public static class EntityFrameworkCoreModelBuilderExtensions
 {

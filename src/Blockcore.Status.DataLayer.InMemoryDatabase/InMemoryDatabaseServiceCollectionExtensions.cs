@@ -1,9 +1,9 @@
-﻿using blockcore.status.DataLayer.Context;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace blockcore.status.DataLayer.InMemoryDatabase;
+namespace BlockcoreStatus.DataLayer.InMemoryDatabase;
 
 public static class InMemoryDatabaseServiceCollectionExtensions
 {

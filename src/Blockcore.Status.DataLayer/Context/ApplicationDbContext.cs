@@ -1,14 +1,14 @@
-using blockcore.status.Common.EFCoreToolkit;
-using blockcore.status.DataLayer.Configurations;
-using blockcore.status.Entities;
-using blockcore.status.Entities.AuditableEntity;
-using blockcore.status.Entities.Admin;
+using BlockcoreStatus.Common.EFCoreToolkit;
+using BlockcoreStatus.DataLayer.Configurations;
+using BlockcoreStatus.Entities;
+using BlockcoreStatus.Entities.AuditableEntity;
+using BlockcoreStatus.Entities.Admin;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using blockcore.status.Entities.Github;
+using BlockcoreStatus.Entities.Github;
 
-namespace blockcore.status.DataLayer.Context;
+namespace BlockcoreStatus.DataLayer.Context;
 
 public class ApplicationDbContext :
     IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>,

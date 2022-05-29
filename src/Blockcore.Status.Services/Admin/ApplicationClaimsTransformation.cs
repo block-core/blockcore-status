@@ -1,13 +1,13 @@
 using System.Security.Claims;
 using System.Security.Principal;
-using blockcore.status.Services.Contracts.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class ApplicationClaimsTransformation : IClaimsTransformation
 {

@@ -1,5 +1,5 @@
-using blockcore.status.Common.GuardToolkit;
-using blockcore.status.Entities.AuditableEntity;
+using BlockcoreStatus.Common.GuardToolkit;
+using BlockcoreStatus.Entities.AuditableEntity;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace blockcore.status.DataLayer.Context;
+namespace BlockcoreStatus.DataLayer.Context;
 
 public class AuditableEntitiesInterceptor : SaveChangesInterceptor
 {

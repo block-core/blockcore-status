@@ -1,9 +1,9 @@
-﻿using blockcore.status.Services.Contracts.Admin;
+﻿using BlockcoreStatus.Services.Contracts.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class DynamicPermissionsAuthorizationHandler : AuthorizationHandler<DynamicPermissionRequirement>
 {

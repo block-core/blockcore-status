@@ -1,10 +1,10 @@
 ﻿using System.Security.Claims;
-using blockcore.status.Entities.Admin;
+using BlockcoreStatus.Entities.Admin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace blockcore.status.Services.Contracts.Admin;
+namespace BlockcoreStatus.Services.Contracts.Admin;
 
 public interface IApplicationSignInManager
 {

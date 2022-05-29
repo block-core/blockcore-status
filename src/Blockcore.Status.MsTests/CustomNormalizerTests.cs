@@ -1,7 +1,7 @@
-﻿using blockcore.status.Services.Admin;
+﻿using BlockcoreStatus.Services.Admin;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace blockcore.status.MsTests;
+namespace BlockcoreStatus.MsTests;
 
 [TestClass]
 public class CustomNormalizerTests

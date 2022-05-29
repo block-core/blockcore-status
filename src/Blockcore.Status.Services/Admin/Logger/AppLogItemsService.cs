@@ -1,10 +1,10 @@
-﻿using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin;
+﻿using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin;
 using Microsoft.EntityFrameworkCore;
 
-namespace blockcore.status.Services.Admin.Logger;
+namespace BlockcoreStatus.Services.Admin.Logger;
 
 public class AppLogItemsService : IAppLogItemsService
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace blockcore.status.Services.Admin.Logger;
+namespace BlockcoreStatus.Services.Admin.Logger;
 
 public static class DbLoggerFactoryExtensions
 {

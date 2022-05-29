@@ -1,8 +1,8 @@
-using blockcore.status.Entities.Admin;
+using BlockcoreStatus.Entities.Admin;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace blockcore.status.DataLayer.Configurations;
+namespace BlockcoreStatus.DataLayer.Configurations;
 
 public class AppSqlCacheConfiguration : IEntityTypeConfiguration<AppSqlCache>
 {

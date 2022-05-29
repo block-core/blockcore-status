@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace blockcore.status.Common.WebToolkit;
+namespace BlockcoreStatus.Common.WebToolkit;
 public class JsonToObjects<T>
 {
     public T ConverToObject(string json)

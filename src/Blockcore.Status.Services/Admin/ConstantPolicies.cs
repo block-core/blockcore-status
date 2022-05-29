@@ -1,4 +1,4 @@
-﻿namespace blockcore.status.Services.Admin;
+﻿namespace BlockcoreStatus.Services.Admin;
 
 public static class ConstantPolicies
 {

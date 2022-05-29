@@ -1,14 +1,14 @@
-﻿using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities;
-using blockcore.status.Entities.Github;
-using blockcore.status.Services.Contracts;
-using blockcore.status.ViewModels.Github;
+﻿using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities;
+using BlockcoreStatus.Entities.Github;
+using BlockcoreStatus.Services.Contracts;
+using BlockcoreStatus.ViewModels.Github;
 using Microsoft.EntityFrameworkCore;
 using Octokit;
 using ProductHeaderValue = Octokit.ProductHeaderValue;
 using System.Linq;
 
-namespace blockcore.status.Services;
+namespace BlockcoreStatus.Services;
 
 public class EfGithubService : IGithubService
 {

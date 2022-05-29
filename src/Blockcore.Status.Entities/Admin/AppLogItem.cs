@@ -1,6 +1,6 @@
-﻿using blockcore.status.Entities.AuditableEntity;
+﻿using BlockcoreStatus.Entities.AuditableEntity;
 
-namespace blockcore.status.Entities.Admin;
+namespace BlockcoreStatus.Entities.Admin;
 
 public class AppLogItem : IAuditableEntity
 {

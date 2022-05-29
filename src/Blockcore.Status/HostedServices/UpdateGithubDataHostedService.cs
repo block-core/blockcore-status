@@ -1,7 +1,7 @@
-﻿using blockcore.status.Services.Contracts;
+﻿using BlockcoreStatus.Services.Contracts;
 using Common.Web.Core;
 
-namespace blockcore.status.HostedServices;
+namespace BlockcoreStatus.HostedServices;
 
 public class UpdateGithubDataHostedService : BackgroundService
 {

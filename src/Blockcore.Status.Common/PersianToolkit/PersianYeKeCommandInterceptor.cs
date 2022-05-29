@@ -3,7 +3,7 @@ using System.Data.Common;
 using PersianUtils.Core;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace blockcore.status.Common.PersianToolkit;
+namespace BlockcoreStatus.Common.PersianToolkit;
 
 public class PersianYeKeCommandInterceptor : DbCommandInterceptor
 {

@@ -1,10 +1,10 @@
-﻿using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class CustomPasswordValidator : PasswordValidator<User>
 {

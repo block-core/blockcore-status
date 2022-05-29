@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.ViewModels.Admin;
+namespace BlockcoreStatus.ViewModels.Admin;
 
 public class ResetPasswordViewModel
 {

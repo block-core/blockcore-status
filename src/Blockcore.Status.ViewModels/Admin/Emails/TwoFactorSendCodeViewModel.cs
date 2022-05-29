@@ -1,4 +1,4 @@
-﻿namespace blockcore.status.ViewModels.Admin.Emails;
+﻿namespace BlockcoreStatus.ViewModels.Admin.Emails;
 
 public class TwoFactorSendCodeViewModel : EmailsBase
 {

@@ -1,8 +1,8 @@
-﻿using blockcore.status.Common.PersianToolkit;
+﻿using BlockcoreStatus.Common.PersianToolkit;
 using PersianUtils.Core;
 using Microsoft.AspNetCore.Identity;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class CustomNormalizer : ILookupNormalizer
 {

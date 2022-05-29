@@ -1,6 +1,6 @@
-﻿using blockcore.status.ViewModels.Admin;
+﻿using BlockcoreStatus.ViewModels.Admin;
 
-namespace blockcore.status.Services.Contracts.Admin;
+namespace BlockcoreStatus.Services.Contracts.Admin;
 
 public interface IAppLogItemsService
 {

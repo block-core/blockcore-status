@@ -1,8 +1,8 @@
-﻿using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
-using blockcore.status.IocConfig;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.IocConfig;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace blockcore.status.MsTests;
+namespace BlockcoreStatus.MsTests;
 
 [TestClass]
 public class CoreTests

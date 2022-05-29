@@ -1,8 +1,8 @@
-﻿using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin;
+﻿using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Admin.ViewComponents;
+namespace BlockcoreStatus.Areas.Admin.ViewComponents;
 
 public class TodayBirthDaysViewComponent : ViewComponent
 {

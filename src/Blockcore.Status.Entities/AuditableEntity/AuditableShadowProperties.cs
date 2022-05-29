@@ -1,10 +1,10 @@
-﻿using blockcore.status.Entities.Admin;
+﻿using BlockcoreStatus.Entities.Admin;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace blockcore.status.Entities.AuditableEntity;
+namespace BlockcoreStatus.Entities.AuditableEntity;
 
 public static class AuditableShadowProperties
 {

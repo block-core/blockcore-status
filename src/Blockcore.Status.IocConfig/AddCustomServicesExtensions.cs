@@ -1,18 +1,18 @@
 using System.Security.Claims;
 using System.Security.Principal;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.Services.Admin;
-using blockcore.status.Services.Admin.Logger;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.Services.Admin;
+using BlockcoreStatus.Services.Admin.Logger;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using blockcore.status.Services.Contracts;
-using blockcore.status.Services;
+using BlockcoreStatus.Services.Contracts;
+using BlockcoreStatus.Services;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class AddCustomServicesExtensions
 {

@@ -1,4 +1,4 @@
-namespace blockcore.status.Common.WebToolkit;
+namespace BlockcoreStatus.Common.WebToolkit;
 
 public static class ServerInfo
 {

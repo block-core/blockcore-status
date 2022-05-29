@@ -1,9 +1,9 @@
-﻿using blockcore.status.Services.Contracts.Admin;
+﻿using BlockcoreStatus.Services.Contracts.Admin;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace blockcore.status.Areas.Admin.TagHelpers;
+namespace BlockcoreStatus.Areas.Admin.TagHelpers;
 
 [HtmlTargetElement("security-trimming")]
 public class SecurityTrimmingTagHelper : TagHelper

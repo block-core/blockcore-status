@@ -1,5 +1,5 @@
-﻿using blockcore.status.Services.Contracts;
-using blockcore.status.ViewModels.Home;
+﻿using BlockcoreStatus.Services.Contracts;
+using BlockcoreStatus.ViewModels.Home;
 using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Octokit;
 using ProductHeaderValue = Octokit.ProductHeaderValue;
 
-namespace blockcore.status.Controllers;
+namespace BlockcoreStatus.Controllers;
 
 [BreadCrumb(Title = "Home", UseDefaultRouteUrl = true, Order = 0)]
 public class HomeController : Controller

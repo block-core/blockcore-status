@@ -1,6 +1,6 @@
 ﻿using PersianUtils.Core;
 
-namespace blockcore.status.Common.GuardToolkit;
+namespace BlockcoreStatus.Common.GuardToolkit;
 
 public static class GuardExt
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace blockcore.status.Services.Contracts.Admin;
+namespace BlockcoreStatus.Services.Contracts.Admin;
 
 public interface IIdentityDbInitializer
 {

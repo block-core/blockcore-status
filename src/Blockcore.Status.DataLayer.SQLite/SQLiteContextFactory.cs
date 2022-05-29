@@ -1,5 +1,5 @@
-using blockcore.status.DataLayer.Context;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.DataLayer.SQLite;
+namespace BlockcoreStatus.DataLayer.SQLite;
 
 public class SQLiteContextFactory : IDesignTimeDbContextFactory<SQLiteDbContext>
 {

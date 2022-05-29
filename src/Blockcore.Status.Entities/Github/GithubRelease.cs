@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace blockcore.status.Entities.Github;
+namespace BlockcoreStatus.Entities.Github;
 public class GithubRelease
 {
     [Key]

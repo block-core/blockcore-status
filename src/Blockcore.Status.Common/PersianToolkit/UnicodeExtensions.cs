@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace blockcore.status.Common.PersianToolkit;
+namespace BlockcoreStatus.Common.PersianToolkit;
 
 public static class UnicodeExtensions
 {

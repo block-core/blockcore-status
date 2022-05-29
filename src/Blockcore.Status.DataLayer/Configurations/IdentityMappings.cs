@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace blockcore.status.DataLayer.Configurations;
+namespace BlockcoreStatus.DataLayer.Configurations;
 
 public static class IdentityMappings
 {

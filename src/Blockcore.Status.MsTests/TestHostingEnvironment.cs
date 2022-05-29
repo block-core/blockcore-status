@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 
-namespace blockcore.status.MsTests;
+namespace BlockcoreStatus.MsTests;
 
 public class TestHostingEnvironment : IWebHostEnvironment
 {

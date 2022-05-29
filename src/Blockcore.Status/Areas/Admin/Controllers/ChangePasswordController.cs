@@ -1,9 +1,9 @@
-﻿using blockcore.status.Common.IdentityToolkit;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin;
-using blockcore.status.ViewModels.Admin.Emails;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.Common.IdentityToolkit;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin;
+using BlockcoreStatus.ViewModels.Admin.Emails;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using BreadCrumb.Core;
 using Common.Web.Core;
 using PersianUtils.Core;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Areas.Admin.Controllers;
+namespace BlockcoreStatus.Areas.Admin.Controllers;
 
 [Authorize, Area(AreaConstants.AdminArea),
  BreadCrumb(Title = "Change Password", UseDefaultRouteUrl = true, Order = 0)]

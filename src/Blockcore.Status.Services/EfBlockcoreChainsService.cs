@@ -1,14 +1,14 @@
-﻿using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities;
-using blockcore.status.Services.Contracts;
-using blockcore.status.ViewModels.Admin.Settings;
-using blockcore.status.ViewModels.Chains;
+﻿using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities;
+using BlockcoreStatus.Services.Contracts;
+using BlockcoreStatus.ViewModels.Admin.Settings;
+using BlockcoreStatus.ViewModels.Chains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using blockcore.status.Common.WebToolkit;
+using BlockcoreStatus.Common.WebToolkit;
 
-namespace blockcore.status.Services;
+namespace BlockcoreStatus.Services;
 
 public class EfBlockcoreChainsService : IBlockcoreChainsService
 {

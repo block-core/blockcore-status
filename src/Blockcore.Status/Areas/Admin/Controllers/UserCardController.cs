@@ -1,12 +1,12 @@
-﻿using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.Services.Admin;
-using blockcore.status.ViewModels.Admin;
+﻿using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.Services.Admin;
+using BlockcoreStatus.ViewModels.Admin;
 using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Admin.Controllers;
+namespace BlockcoreStatus.Areas.Admin.Controllers;
 
 [AllowAnonymous, Area(AreaConstants.AdminArea),
  BreadCrumb(Title = "User Card", UseDefaultRouteUrl = true, Order = 0)]

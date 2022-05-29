@@ -1,8 +1,8 @@
-﻿using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class IdentityServicesRegistry
 {

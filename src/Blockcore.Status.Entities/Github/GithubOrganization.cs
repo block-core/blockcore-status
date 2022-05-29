@@ -1,8 +1,8 @@
-﻿using blockcore.status.Entities.AuditableEntity;
+﻿using BlockcoreStatus.Entities.AuditableEntity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Entities.Github;
+namespace BlockcoreStatus.Entities.Github;
 
 public class GithubOrganization : IAuditableEntity
 {

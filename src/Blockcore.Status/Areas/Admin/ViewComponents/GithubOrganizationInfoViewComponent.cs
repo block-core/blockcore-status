@@ -1,10 +1,10 @@
-﻿using blockcore.status.Services.Contracts;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin;
-using blockcore.status.ViewModels.Github;
+﻿using BlockcoreStatus.Services.Contracts;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin;
+using BlockcoreStatus.ViewModels.Github;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.Areas.Admin.ViewComponents;
+namespace BlockcoreStatus.Areas.Admin.ViewComponents;
 
 public class GithubOrganizationInfoViewComponent : ViewComponent
 {

@@ -1,4 +1,4 @@
-namespace blockcore.status.Entities.Admin;
+namespace BlockcoreStatus.Entities.Admin;
 
 public class AppDataProtectionKey
 {

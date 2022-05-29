@@ -1,6 +1,6 @@
 using MsLogLevel = Microsoft.Extensions.Logging.LogLevel;
 
-namespace blockcore.status.ViewModels.Admin.Settings;
+namespace BlockcoreStatus.ViewModels.Admin.Settings;
 
 public class Loglevel
 {

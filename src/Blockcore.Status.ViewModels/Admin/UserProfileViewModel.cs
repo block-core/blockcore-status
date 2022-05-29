@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace blockcore.status.ViewModels.Admin;
+namespace BlockcoreStatus.ViewModels.Admin;
 
 public class UserProfileViewModel
 {

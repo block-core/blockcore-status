@@ -1,14 +1,14 @@
-using blockcore.status.Common.PersianToolkit;
-using blockcore.status.Common.WebToolkit;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.Common.PersianToolkit;
+using BlockcoreStatus.Common.WebToolkit;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace blockcore.status.DataLayer.SQLite;
+namespace BlockcoreStatus.DataLayer.SQLite;
 
 public static class SQLiteServiceCollectionExtensions
 {

@@ -1,12 +1,12 @@
-﻿using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
+﻿using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class ApplicationSignInManager :
     SignInManager<User>,

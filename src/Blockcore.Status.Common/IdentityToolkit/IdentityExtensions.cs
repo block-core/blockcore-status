@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace blockcore.status.Common.IdentityToolkit;
+namespace BlockcoreStatus.Common.IdentityToolkit;
 
 public static class IdentityExtensions
 {

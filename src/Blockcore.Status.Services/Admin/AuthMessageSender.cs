@@ -1,9 +1,9 @@
-﻿using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class AuthMessageSender : IEmailSender, ISmsSender
 {

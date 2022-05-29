@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using blockcore.status.Entities.Admin;
+using BlockcoreStatus.Entities.Admin;
 using Microsoft.AspNetCore.Identity;
 
-namespace blockcore.status.Services.Contracts.Admin;
+namespace BlockcoreStatus.Services.Contracts.Admin;
 
 public interface IApplicationRoleStore : IDisposable
 {

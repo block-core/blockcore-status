@@ -1,8 +1,8 @@
-﻿using blockcore.status.Entities.Admin;
+﻿using BlockcoreStatus.Entities.Admin;
 using System.Security.Claims;
-using blockcore.status.ViewModels.Admin;
+using BlockcoreStatus.ViewModels.Admin;
 
-namespace blockcore.status.Services.Contracts.Admin;
+namespace BlockcoreStatus.Services.Contracts.Admin;
 
 public interface ISiteStatService
 {

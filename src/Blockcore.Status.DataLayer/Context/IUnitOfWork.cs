@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace blockcore.status.DataLayer.Context;
+namespace BlockcoreStatus.DataLayer.Context;
 
 public interface IUnitOfWork : IDisposable
 {

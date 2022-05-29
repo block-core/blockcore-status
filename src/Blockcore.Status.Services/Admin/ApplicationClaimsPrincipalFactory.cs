@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 
 public class ApplicationClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, Role>

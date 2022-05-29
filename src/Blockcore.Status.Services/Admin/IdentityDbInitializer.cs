@@ -1,8 +1,8 @@
-﻿using blockcore.status.Common.IdentityToolkit;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.Common.IdentityToolkit;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class IdentityDbInitializer : IIdentityDbInitializer
 {

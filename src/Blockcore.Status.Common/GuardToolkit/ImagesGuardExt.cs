@@ -2,7 +2,7 @@
 using System.Runtime.Versioning;
 using Microsoft.AspNetCore.Http;
 
-namespace blockcore.status.Common.GuardToolkit;
+namespace BlockcoreStatus.Common.GuardToolkit;
 
 public static class ImagesGuardExt
 {

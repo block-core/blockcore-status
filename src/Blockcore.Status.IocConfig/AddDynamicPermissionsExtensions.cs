@@ -1,8 +1,8 @@
-using blockcore.status.Services.Admin;
+using BlockcoreStatus.Services.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class AddDynamicPermissionsExtensions
 {

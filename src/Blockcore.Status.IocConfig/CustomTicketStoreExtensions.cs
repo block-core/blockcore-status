@@ -1,10 +1,10 @@
-using blockcore.status.DataLayer.MSSQL;
-using blockcore.status.Services.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.DataLayer.MSSQL;
+using BlockcoreStatus.Services.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class CustomTicketStoreExtensions
 {

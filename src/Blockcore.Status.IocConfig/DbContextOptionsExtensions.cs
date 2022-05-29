@@ -1,13 +1,13 @@
-using blockcore.status.DataLayer.Context;
-using blockcore.status.DataLayer.InMemoryDatabase;
-using blockcore.status.DataLayer.MSSQL;
-using blockcore.status.DataLayer.SQLite;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.DataLayer.InMemoryDatabase;
+using BlockcoreStatus.DataLayer.MSSQL;
+using BlockcoreStatus.DataLayer.SQLite;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class DbContextOptionsExtensions
 {

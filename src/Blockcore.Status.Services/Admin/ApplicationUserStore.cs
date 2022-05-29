@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class ApplicationUserStore :
     UserStore<User, Role, ApplicationDbContext, int, UserClaim, UserRole, UserLogin, UserToken, RoleClaim>,

@@ -1,6 +1,6 @@
-﻿using blockcore.status.Entities.Admin;
+﻿using BlockcoreStatus.Entities.Admin;
 
-namespace blockcore.status.ViewModels.Admin;
+namespace BlockcoreStatus.ViewModels.Admin;
 
 public class RoleAndUsersCountViewModel
 {

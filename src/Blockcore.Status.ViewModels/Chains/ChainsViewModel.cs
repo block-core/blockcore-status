@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace blockcore.status.ViewModels.Chains;
+namespace BlockcoreStatus.ViewModels.Chains;
  public class ChainsViewModel
 {
     public string name { get; set; }

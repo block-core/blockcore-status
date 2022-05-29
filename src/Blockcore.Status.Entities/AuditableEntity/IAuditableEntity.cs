@@ -1,4 +1,4 @@
-﻿namespace blockcore.status.Entities.AuditableEntity;
+﻿namespace BlockcoreStatus.Entities.AuditableEntity;
 
 public interface IAuditableEntity
 {

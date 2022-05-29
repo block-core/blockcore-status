@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
-using blockcore.status.Services.Contracts.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Http;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class SecurityTrimmingService : ISecurityTrimmingService
 {

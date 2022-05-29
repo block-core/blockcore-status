@@ -1,7 +1,7 @@
-using blockcore.status.DataLayer.Context;
+using BlockcoreStatus.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace blockcore.status.DataLayer.MSSQL;
+namespace BlockcoreStatus.DataLayer.MSSQL;
 
 public class MsSqlDbContext : ApplicationDbContext
 {

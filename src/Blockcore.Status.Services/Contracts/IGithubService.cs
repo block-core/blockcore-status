@@ -1,5 +1,5 @@
-﻿using blockcore.status.Entities.Github;
-using blockcore.status.ViewModels.Github;
+﻿using BlockcoreStatus.Entities.Github;
+using BlockcoreStatus.ViewModels.Github;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace blockcore.status.Services.Contracts;
+namespace BlockcoreStatus.Services.Contracts;
 public interface IGithubService
 {
     //get data from github with Octokit

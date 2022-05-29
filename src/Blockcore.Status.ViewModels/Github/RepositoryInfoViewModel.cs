@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace blockcore.status.ViewModels.Github;
+namespace BlockcoreStatus.ViewModels.Github;
  public class RepositoryInfoViewModel
 {
     public string Name { get; set; }

@@ -1,7 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
-using blockcore.status.Common.WebToolkit;
-using blockcore.status.Services.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.Common.WebToolkit;
+using BlockcoreStatus.Services.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class CustomDataProtectionExtensions
 {

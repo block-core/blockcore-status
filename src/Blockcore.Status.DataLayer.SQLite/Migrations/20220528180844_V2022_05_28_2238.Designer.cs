@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using blockcore.status.DataLayer.SQLite;
+using BlockcoreStatus.DataLayer.SQLite;
 
 #nullable disable
 
-namespace blockcore.status.DataLayer.SQLite.Migrations
+namespace BlockcoreStatus.DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(SQLiteDbContext))]
     [Migration("20220528180844_V2022_05_28_2238")]

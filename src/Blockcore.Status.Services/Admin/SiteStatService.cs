@@ -1,12 +1,12 @@
 ﻿using System.Security.Claims;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin;
 using PersianUtils.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace blockcore.status.Services.Admin;
+namespace BlockcoreStatus.Services.Admin;
 
 public class SiteStatService : ISiteStatService
 {

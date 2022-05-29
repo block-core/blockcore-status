@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using blockcore.status.DataLayer.SQLite;
+using BlockcoreStatus.DataLayer.SQLite;
 
 #nullable disable
 
-namespace blockcore.status.DataLayer.SQLite.Migrations
+namespace BlockcoreStatus.DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(SQLiteDbContext))]
     partial class SQLiteDbContextModelSnapshot : ModelSnapshot

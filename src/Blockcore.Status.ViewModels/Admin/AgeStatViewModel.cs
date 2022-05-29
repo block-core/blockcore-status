@@ -1,7 +1,7 @@
-﻿using blockcore.status.Entities.Admin;
+﻿using BlockcoreStatus.Entities.Admin;
 using PersianUtils.Core;
 
-namespace blockcore.status.ViewModels.Admin;
+namespace BlockcoreStatus.ViewModels.Admin;
 
 public class AgeStatViewModel
 {

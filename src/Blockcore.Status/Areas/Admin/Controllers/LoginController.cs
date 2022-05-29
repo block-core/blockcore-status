@@ -1,13 +1,13 @@
-﻿using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.ViewModels.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+﻿using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.ViewModels.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Areas.Admin.Controllers;
+namespace BlockcoreStatus.Areas.Admin.Controllers;
 
 [Area(AreaConstants.AdminArea), AllowAnonymous,
  BreadCrumb(Title = "Login", UseDefaultRouteUrl = true, Order = 0)]

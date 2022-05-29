@@ -1,13 +1,13 @@
 ﻿using System.Collections.Concurrent;
-using blockcore.status.DataLayer.Context;
-using blockcore.status.Entities.AuditableEntity;
-using blockcore.status.Entities.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.DataLayer.Context;
+using BlockcoreStatus.Entities.AuditableEntity;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Common.Web.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace blockcore.status.Services.Admin.Logger;
+namespace BlockcoreStatus.Services.Admin.Logger;
 
 public class DbLoggerProvider : ILoggerProvider
 {

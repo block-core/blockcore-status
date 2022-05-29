@@ -1,10 +1,10 @@
-﻿using blockcore.status.Services.Contracts;
+﻿using BlockcoreStatus.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Octokit;
 using System.Threading.Tasks;
 
 
-namespace blockcore.status.Controllers;
+namespace BlockcoreStatus.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class ChainsController : Controller

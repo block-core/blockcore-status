@@ -1,8 +1,8 @@
-using blockcore.status.Common.EFCoreToolkit;
-using blockcore.status.DataLayer.Context;
+using BlockcoreStatus.Common.EFCoreToolkit;
+using BlockcoreStatus.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace blockcore.status.DataLayer.SQLite;
+namespace BlockcoreStatus.DataLayer.SQLite;
 
 public class SQLiteDbContext : ApplicationDbContext
 {

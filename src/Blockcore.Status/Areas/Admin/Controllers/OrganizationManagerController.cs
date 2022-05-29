@@ -1,19 +1,19 @@
-﻿using blockcore.status.Common.IdentityToolkit;
-using blockcore.status.Services.Contracts.Admin;
-using blockcore.status.Services.Admin;
-using blockcore.status.ViewModels.Admin;
+﻿using BlockcoreStatus.Common.IdentityToolkit;
+using BlockcoreStatus.Services.Contracts.Admin;
+using BlockcoreStatus.Services.Admin;
+using BlockcoreStatus.ViewModels.Admin;
 using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using blockcore.status.Entities.Admin;
+using BlockcoreStatus.Entities.Admin;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using blockcore.status.Services.Contracts;
-using blockcore.status.Entities.Github;
-using blockcore.status.ViewModels.Github;
+using BlockcoreStatus.Services.Contracts;
+using BlockcoreStatus.Entities.Github;
+using BlockcoreStatus.ViewModels.Github;
 
-namespace blockcore.status.Areas.Admin.Controllers;
+namespace BlockcoreStatus.Areas.Admin.Controllers;
 
 [Authorize(Roles = ConstantRoles.Admin), Area(AreaConstants.AdminArea),
  BreadCrumb(Title = "Organization Manager", UseDefaultRouteUrl = true, Order = 0)]

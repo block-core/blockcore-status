@@ -1,12 +1,12 @@
-using blockcore.status.Entities.Admin;
-using blockcore.status.Services.Admin;
-using blockcore.status.ViewModels.Admin.Settings;
+using BlockcoreStatus.Entities.Admin;
+using BlockcoreStatus.Services.Admin;
+using BlockcoreStatus.ViewModels.Admin.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace blockcore.status.IocConfig;
+namespace BlockcoreStatus.IocConfig;
 
 public static class AddIdentityOptionsExtensions
 {
