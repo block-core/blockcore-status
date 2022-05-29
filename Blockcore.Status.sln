@@ -5,27 +5,27 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36B0B268-BEB8-41AB-9ABC-D4030362F3F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status", "src\blockcore.status\Blockcore.Status.csproj", "{2297A266-8592-43FE-ADD3-8A38B102D7D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status", "src\Blockcore.Status\Blockcore.Status.csproj", "{2297A266-8592-43FE-ADD3-8A38B102D7D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Services", "src\blockcore.status.Services\Blockcore.Status.Services.csproj", "{B2A0D09F-900C-442D-A189-96D9AA4FFC64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Services", "src\Blockcore.Status.Services\Blockcore.Status.Services.csproj", "{B2A0D09F-900C-442D-A189-96D9AA4FFC64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.ViewModels", "src\blockcore.status.ViewModels\Blockcore.Status.ViewModels.csproj", "{C02C3264-B934-41CE-AF65-BEE3DF541AD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.ViewModels", "src\bBlockcore.Status.ViewModels\Blockcore.Status.ViewModels.csproj", "{C02C3264-B934-41CE-AF65-BEE3DF541AD3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Entities", "src\blockcore.status.Entities\Blockcore.Status.Entities.csproj", "{F879045B-B29C-4AF7-B38B-1230617987B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Entities", "src\Blockcore.Status.Entities\Blockcore.Status.Entities.csproj", "{F879045B-B29C-4AF7-B38B-1230617987B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer", "src\blockcore.status.DataLayer\Blockcore.Status.DataLayer.csproj", "{6CD5A649-DBE1-478A-AD1F-E2A57731283B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer", "src\Blockcore.Status.DataLayer\Blockcore.Status.DataLayer.csproj", "{6CD5A649-DBE1-478A-AD1F-E2A57731283B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.MsTests", "src\blockcore.status.MsTests\Blockcore.Status.MsTests.csproj", "{CC9AD44C-903C-4446-9FE1-036C88DAF696}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.MsTests", "src\Blockcore.Status.MsTests\Blockcore.Status.MsTests.csproj", "{CC9AD44C-903C-4446-9FE1-036C88DAF696}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Common", "src\blockcore.status.Common\Blockcore.Status.Common.csproj", "{35EF6FD8-946A-4A76-94CA-B2D3050F39FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.Common", "src\Blockcore.Status.Common\Blockcore.Status.Common.csproj", "{35EF6FD8-946A-4A76-94CA-B2D3050F39FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.IocConfig", "src\blockcore.status.IocConfig\Blockcore.Status.IocConfig.csproj", "{61DD7F28-AEB8-4B38-8E13-C51EC579F3F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.IocConfig", "src\Blockcore.Status.IocConfig\Blockcore.Status.IocConfig.csproj", "{61DD7F28-AEB8-4B38-8E13-C51EC579F3F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer.MSSQL", "src\blockcore.status.DataLayer.MSSQL\Blockcore.Status.DataLayer.MSSQL.csproj", "{AFCB7129-1F79-4E38-BC58-A08C916AC1DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer.MSSQL", "src\Blockcore.Status.DataLayer.MSSQL\Blockcore.Status.DataLayer.MSSQL.csproj", "{AFCB7129-1F79-4E38-BC58-A08C916AC1DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer.SQLite", "src\blockcore.status.DataLayer.SQLite\Blockcore.Status.DataLayer.SQLite.csproj", "{3BEFF2C3-A63A-4A47-9F57-A87F18A93429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer.SQLite", "src\Blockcore.Status.DataLayer.SQLite\Blockcore.Status.DataLayer.SQLite.csproj", "{3BEFF2C3-A63A-4A47-9F57-A87F18A93429}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer.InMemoryDatabase", "src\blockcore.status.DataLayer.InMemoryDatabase\Blockcore.Status.DataLayer.InMemoryDatabase.csproj", "{9AE64D6A-BBAD-45E2-94F0-18FAD5911D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockcore.Status.DataLayer.InMemoryDatabase", "src\Blockcore.Status.DataLayer.InMemoryDatabase\Blockcore.Status.DataLayer.InMemoryDatabase.csproj", "{9AE64D6A-BBAD-45E2-94F0-18FAD5911D21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

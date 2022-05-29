@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceRoot}/src/blockcore.status/bin/Debug/net6.0/blockcore.status.dll",
+            "program": "${workspaceRoot}/src/Blockcore.Status/bin/Debug/net6.0/Blockcore.Status.dll",
             "args": [],
-            "cwd": "${workspaceRoot}/src/blockcore.status",
+            "cwd": "${workspaceRoot}/src/Blockcore.Status",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {

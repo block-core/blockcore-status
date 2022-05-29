@@ -29,9 +29,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     
     env:
-      PROJECT_NAME: 'blockcore.status'
-      SOLUTION_PATH: 'blockcore.status.sln'
-      PROJECT_PATH: 'src/blockcore.status/blockcore.status.csproj' 
+      PROJECT_NAME: 'Blockcore.Status'
+      SOLUTION_PATH: 'Blockcore.Status.sln'
+      PROJECT_PATH: 'src/Blockcore.Status/Blockcore.Status.csproj' 
       BUILD_CONFIGURATION: 'Release'
 
     steps:

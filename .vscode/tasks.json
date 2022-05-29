@@ -9,7 +9,7 @@
             "command": "dotnet",
             "args": [
                 "build",
-                "${workspaceRoot}/src/blockcore.status/blockcore.status.csproj"
+                "${workspaceRoot}/src/Blockcore.Status/Blockcore.Status.csproj"
             ],
             "problemMatcher": "$msCompile",
             "group": "build"
