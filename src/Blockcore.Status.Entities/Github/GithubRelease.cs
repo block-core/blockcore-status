@@ -20,12 +20,12 @@ public class GithubRelease
     public string Name { get; set; }
     public bool Draft { get; set; }
     public bool Prerelease { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime? PublishedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? PublishedAt { get; set; }
     public string TarballUrl { get; set; }
     public string ZipballUrl { get; set; }
     public string Body { get; set; }
-    public DateTime LatestDataUpdate { get; set; }
+    public DateTimeOffset LatestDataUpdate { get; set; }
 
     public int GithubRepositoryId { get; set; }
     public virtual GithubRepository GithubRepository { get; set; }

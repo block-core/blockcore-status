@@ -26,9 +26,9 @@ public class GithubRepository : IAuditableEntity
     public int WatchersCount { get; set; }
     public string DefaultBranch { get; set; }
     public int OpenIssuesCount { get; set; }
-    public DateTime? PushedAt { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTimeOffset? PushedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
     public bool HasIssues { get; set; }
     public bool HasWiki { get; set; }
     public bool HasDownloads { get; set; }
@@ -36,7 +36,7 @@ public class GithubRepository : IAuditableEntity
     public long Size { get; set; }
     public bool Archived { get; set; }
     public bool IsSelect { get; set; }
-    public DateTime LatestDataUpdate { get; set; }
+    public DateTimeOffset LatestDataUpdate { get; set; }
     public int GithubOrganizationId { get; set; }
     public virtual GithubOrganization GithubOrganization { get; set; }
     public virtual GithubRelease GithubRelease { get; set; }

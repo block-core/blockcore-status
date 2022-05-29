@@ -131,7 +131,7 @@ public class EfGithubService : IGithubService
                     AvatarUrl = organization.AvatarUrl,
                     Blog = organization.Blog,
                     Company = organization.Company,
-                    CreatedAt = organization.CreatedAt.UtcDateTime,
+                    CreatedAt = organization.CreatedAt,
                     Description = organization.Description,
                     Email = organization.Email,
                     EventsUrl = organization.EventsUrl,
@@ -153,7 +153,7 @@ public class EfGithubService : IGithubService
                     PublicRepos = organization.PublicRepos,
                     ReposUrl = organization.ReposUrl,
                     Type = organization.Type.ToString(),
-                    UpdatedAt = organization.UpdatedAt.UtcDateTime,
+                    UpdatedAt = organization.UpdatedAt,
                     Url = organization.Url
                 });
                 await _uow.SaveChangesAsync();
@@ -193,7 +193,7 @@ public class EfGithubService : IGithubService
                 oldOrganization.AvatarUrl = organization.AvatarUrl;
                 oldOrganization.Blog = organization.Blog;
                 oldOrganization.Company = organization.Company;
-                oldOrganization.CreatedAt = organization.CreatedAt.UtcDateTime;
+                oldOrganization.CreatedAt = organization.CreatedAt;
                 oldOrganization.Description = organization.Description;
                 oldOrganization.Email = organization.Email;
                 oldOrganization.EventsUrl = organization.EventsUrl;
@@ -215,7 +215,7 @@ public class EfGithubService : IGithubService
                 oldOrganization.PublicRepos = organization.PublicRepos;
                 oldOrganization.ReposUrl = organization.ReposUrl;
                 oldOrganization.Type = organization.Type.ToString();
-                oldOrganization.UpdatedAt = organization.UpdatedAt.UtcDateTime;
+                oldOrganization.UpdatedAt = organization.UpdatedAt;
                 oldOrganization.Url = organization.Url;
 
                 githubOrganizations.Update(oldOrganization);
@@ -349,7 +349,7 @@ public class EfGithubService : IGithubService
                         Id = item.Id,
                         IsSelect = false,
                         CloneUrl = item.CloneUrl,
-                        CreatedAt = item.CreatedAt.UtcDateTime,
+                        CreatedAt = item.CreatedAt,
                         DefaultBranch = item.DefaultBranch,
                         Description = item.Description,
                         ForksCount = item.ForksCount,
@@ -360,12 +360,12 @@ public class EfGithubService : IGithubService
                         LatestDataUpdate = DateTime.UtcNow,
                         WatchersCount = item.WatchersCount,
                         Url = item.Url,
-                        UpdatedAt = item.UpdatedAt.UtcDateTime,
+                        UpdatedAt = item.UpdatedAt,
                         SvnUrl = item.SvnUrl,
                         StargazersCount = item.StargazersCount,
                         SshUrl = item.SshUrl,
                         Size = item.Size,
-                        PushedAt = item.PushedAt.HasValue ? item.PushedAt.Value.UtcDateTime : null,
+                        PushedAt = item.PushedAt.HasValue ? item.PushedAt.Value : null,
                         OpenIssuesCount = item.OpenIssuesCount
                     };
                     githubRepositories.Add(newrepo);
@@ -414,7 +414,7 @@ public class EfGithubService : IGithubService
                     localRepo.HtmlUrl = pubRepo.HtmlUrl;
                     localRepo.Id = pubRepo.Id;
                     localRepo.CloneUrl = pubRepo.CloneUrl;
-                    localRepo.CreatedAt = pubRepo.CreatedAt.UtcDateTime;
+                    localRepo.CreatedAt = pubRepo.CreatedAt;
                     localRepo.DefaultBranch = pubRepo.DefaultBranch;
                     localRepo.Description = pubRepo.Description;
                     localRepo.ForksCount = pubRepo.ForksCount;
@@ -425,12 +425,12 @@ public class EfGithubService : IGithubService
                     localRepo.LatestDataUpdate = DateTime.UtcNow;
                     localRepo.WatchersCount = pubRepo.WatchersCount;
                     localRepo.Url = pubRepo.Url;
-                    localRepo.UpdatedAt = pubRepo.UpdatedAt.UtcDateTime;
+                    localRepo.UpdatedAt = pubRepo.UpdatedAt;
                     localRepo.SvnUrl = pubRepo.SvnUrl;
                     localRepo.StargazersCount = pubRepo.StargazersCount;
                     localRepo.SshUrl = pubRepo.SshUrl;
                     localRepo.Size = pubRepo.Size;
-                    localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value.UtcDateTime : null;
+                    localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value : null;
                     localRepo.OpenIssuesCount = pubRepo.OpenIssuesCount;
 
 
@@ -728,13 +728,13 @@ public class EfGithubService : IGithubService
                             Id = latestRelease.Id,
                             AssetsUrl = latestRelease.AssetsUrl,
                             Body = latestRelease.Body,
-                            CreatedAt = latestRelease.CreatedAt.UtcDateTime,
+                            CreatedAt = latestRelease.CreatedAt,
                             Draft = latestRelease.Draft,
                             HtmlUrl = latestRelease.HtmlUrl,
                             LatestDataUpdate = DateTime.UtcNow,
                             NodeId = latestRelease.NodeId,
                             Prerelease = latestRelease.Prerelease,
-                            PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value.UtcDateTime : null,
+                            PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value : null,
                             ZipballUrl = latestRelease.ZipballUrl,
                             TagName = latestRelease.TagName,
                             TarballUrl = latestRelease.TarballUrl,
@@ -805,13 +805,13 @@ public class EfGithubService : IGithubService
                             release.Id = latestRelease.Id;
                             release.AssetsUrl = latestRelease.AssetsUrl;
                             release.Body = latestRelease.Body;
-                            release.CreatedAt = latestRelease.CreatedAt.UtcDateTime;
+                            release.CreatedAt = latestRelease.CreatedAt;
                             release.Draft = latestRelease.Draft;
                             release.HtmlUrl = latestRelease.HtmlUrl;
                             release.LatestDataUpdate = DateTime.UtcNow;
                             release.NodeId = latestRelease.NodeId;
                             release.Prerelease = latestRelease.Prerelease;
-                            release.PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value.UtcDateTime : null;
+                            release.PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value : null;
                             release.ZipballUrl = latestRelease.ZipballUrl;
                             release.TagName = latestRelease.TagName;
                             release.TarballUrl = latestRelease.TarballUrl;
@@ -938,13 +938,13 @@ public class EfGithubService : IGithubService
                                     release.Id = latestRelease.Id;
                                     release.AssetsUrl = latestRelease.AssetsUrl;
                                     release.Body = latestRelease.Body;
-                                    release.CreatedAt = latestRelease.CreatedAt.UtcDateTime;
+                                    release.CreatedAt = latestRelease.CreatedAt;
                                     release.Draft = latestRelease.Draft;
                                     release.HtmlUrl = latestRelease.HtmlUrl;
-                                    release.LatestDataUpdate = DateTime.UtcNow;
+                                    release.LatestDataUpdate = DateTimeOffset.UtcNow;
                                     release.NodeId = latestRelease.NodeId;
                                     release.Prerelease = latestRelease.Prerelease;
-                                    release.PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value.UtcDateTime : null;
+                                    release.PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value : null;
                                     release.ZipballUrl = latestRelease.ZipballUrl;
                                     release.TagName = latestRelease.TagName;
                                     release.TarballUrl = latestRelease.TarballUrl;

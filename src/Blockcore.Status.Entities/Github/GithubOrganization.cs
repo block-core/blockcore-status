@@ -32,10 +32,10 @@ public class GithubOrganization : IAuditableEntity
     public int Followers { get; set; }
     public int Following { get; set; }
     public string HtmlUrl { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
     public string Type { get; set; }
-    public DateTime LatestDataUpdate { get; set; }
+    public DateTimeOffset LatestDataUpdate { get; set; }
 
     public virtual ICollection<GithubRepository> GithubRepositories { get; set; }
 }
