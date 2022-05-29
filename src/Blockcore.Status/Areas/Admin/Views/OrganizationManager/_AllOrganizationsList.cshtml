@@ -25,7 +25,7 @@
 
                     <tr>
                         <td class="text-center">@item.Login</td>
-                           <td class="text-center">@item.LatestDataUpdate.ToLocalTime().ToString()</td>
+                           <td class="text-center">@item.LatestDataUpdate.LocalDateTime</td>
                         <td class="text-center">
                             <a href="#" id="btnEdit-@item.GithubOrganizationId" data-edit-id="@item.GithubOrganizationId" class="btn btn-sm btn-primary">Edit</a>
                             <a href="#" id="btnDelete-@item.GithubOrganizationId" data-delete-id="@item.GithubOrganizationId" class="btn btn-sm btn-danger">Delete</a>

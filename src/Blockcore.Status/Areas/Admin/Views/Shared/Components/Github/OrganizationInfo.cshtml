@@ -52,7 +52,7 @@
                             <div class="d-flex">
                                 <div>
                                     <h5 class="my-1 text-info"><a href="@item.RepositoryURL/releases" target="_blank">Last Version: @item.LastVersion</a> </h5>
-                                    <p class="mb-0 text-secondary">Pushed At: @item.PushedAt.ToLocalTime().ToString()</p>
+                                    <p class="mb-0 text-secondary">Pushed At: @item.PushedAt.LocalDateTime</p>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-@IconColor text-white ms-auto" title="Open Issues Count: @item.OpenIssuesCount">
                                     <img src="~/images/github.svg" width="50" />
