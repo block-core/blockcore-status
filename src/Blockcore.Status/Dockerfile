@@ -8,16 +8,16 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/Blockcore.Status/NuGet.config", "src/Blockcore.Status/"]
-COPY ["src/Blockcore.Status/blockcore.status.csproj", "src/Blockcore.Status/"]
-COPY ["src/Blockcore.Status.Common/blockcore.status.Common.csproj", "src/Blockcore.Status.Common/"]
-COPY ["src/Blockcore.Status.Entities/blockcore.status.Entities.csproj", "src/Blockcore.Status.Entities/"]
-COPY ["src/Blockcore.Status.ViewModels/blockcore.status.ViewModels.csproj", "src/Blockcore.Status.ViewModels/"]
-COPY ["src/Blockcore.Status.Services/blockcore.status.Services.csproj", "src/Blockcore.Status.Services/"]
-COPY ["src/Blockcore.Status.DataLayer/blockcore.status.DataLayer.csproj", "src/Blockcore.Status.DataLayer/"]
-COPY ["src/Blockcore.Status.IocConfig/blockcore.status.IocConfig.csproj", "src/Blockcore.Status.IocConfig/"]
-COPY ["src/Blockcore.Status.DataLayer.InMemoryDatabase/blockcore.status.DataLayer.InMemoryDatabase.csproj", "src/Blockcore.Status.DataLayer.InMemoryDatabase/"]
-COPY ["src/Blockcore.Status.DataLayer.SQLite/blockcore.status.DataLayer.SQLite.csproj", "src/Blockcore.Status.DataLayer.SQLite/"]
-COPY ["src/Blockcore.Status.DataLayer.MSSQL/blockcore.status.DataLayer.MSSQL.csproj", "src/Blockcore.Status.DataLayer.MSSQL/"]
+COPY ["src/Blockcore.Status/Blockcore.Status.csproj", "src/Blockcore.Status/"]
+COPY ["src/Blockcore.Status.Common/Blockcore.Status.Common.csproj", "src/Blockcore.Status.Common/"]
+COPY ["src/Blockcore.Status.Entities/Blockcore.Status.Entities.csproj", "src/Blockcore.Status.Entities/"]
+COPY ["src/Blockcore.Status.ViewModels/Blockcore.Status.ViewModels.csproj", "src/Blockcore.Status.ViewModels/"]
+COPY ["src/Blockcore.Status.Services/Blockcore.Status.Services.csproj", "src/Blockcore.Status.Services/"]
+COPY ["src/Blockcore.Status.DataLayer/Blockcore.Status.DataLayer.csproj", "src/Blockcore.Status.DataLayer/"]
+COPY ["src/Blockcore.Status.IocConfig/Blockcore.Status.IocConfig.csproj", "src/Blockcore.Status.IocConfig/"]
+COPY ["src/Blockcore.Status.DataLayer.InMemoryDatabase/Blockcore.Status.DataLayer.InMemoryDatabase.csproj", "src/Blockcore.Status.DataLayer.InMemoryDatabase/"]
+COPY ["src/Blockcore.Status.DataLayer.SQLite/Blockcore.Status.DataLayer.SQLite.csproj", "src/Blockcore.Status.DataLayer.SQLite/"]
+COPY ["src/Blockcore.Status.DataLayer.MSSQL/Blockcore.Status.DataLayer.MSSQL.csproj", "src/Blockcore.Status.DataLayer.MSSQL/"]
 RUN dotnet restore "src/Blockcore.Status/Blockcore.Status.csproj"
 COPY . .
 WORKDIR "/src/src/Blockcore.Status"

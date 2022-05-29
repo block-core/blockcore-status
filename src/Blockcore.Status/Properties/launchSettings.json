@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "blockcore.status": {
+    "Blockcore.Status": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

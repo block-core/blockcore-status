@@ -1,5 +1,5 @@
 rem dotnet tool update -g snitch
-rem snitch blockcore.status.csproj
+rem snitch Blockcore.Status.csproj
 dotnet tool install --global DetectDuplicates
 detectduplicates
 pause

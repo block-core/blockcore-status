@@ -10,4 +10,4 @@ RUN curl -Ls https://github.com/block-core/blockcore-status/releases/download/#{
     | tar -xvz -C .
 
 EXPOSE 5050
-ENTRYPOINT ["dotnet", "blockcore.status.dll"]
+ENTRYPOINT ["dotnet", "Blockcore.Status.dll"]
