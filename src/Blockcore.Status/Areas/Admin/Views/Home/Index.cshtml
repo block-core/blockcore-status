@@ -1,5 +1,21 @@
-﻿<div class="card card-info">
-    <div class="card-header">
-        <h4>Welcome to Admin!</h4>
+﻿<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Welcome to the Admin Page</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <a asp-area="@AreaConstants.AdminArea" asp-controller="OrganizationManager" asp-action="Index">
+                    <div class="d-flex justify-content-center h-100">
+                        <div class="image-outer-container">
+                            <div class="image-inner-container">
+                                <img src="/images/github.svg">
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Github Organization Manager</h5>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
