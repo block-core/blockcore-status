@@ -97,6 +97,10 @@ function dataAjaxSuccess(data, status, xhr) {
         caption: 'Confirm the operation',
         body: '<div class="alert alert-success"> <span class="fas fa-thumbs-up" aria-hidden="true"></span> The requested operation was completed successfully.</div>'
     });
+    setTimeout(function () {
+        $('.modal').modal('hide');
+        location.reload();
+    }, 2000);
 }
 
 function dataAjaxFailure(xhr, status, error) {
