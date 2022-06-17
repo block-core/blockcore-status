@@ -7,11 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockcoreStatus.ViewModels.Home;
-public class HomeViewModel
+public class PageViewModel
 {
-    public IReadOnlyList<string> Organizations { get; set; }
-    public IReadOnlyList<ChainsViewModel> Chains { get; set; }
-    public IReadOnlyList<IndexersViewModel> Indexers { get; set; }
-
+    public int? Page { get; set; }
 
 }

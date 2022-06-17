@@ -16,9 +16,9 @@ public class IndexersViewComponent : ViewComponent
     }
 
 
-    public async Task<IViewComponentResult> InvokeAsync()
+    public async Task<IViewComponentResult> InvokeAsync( )
     {
-        var indexers = await _indexer.GetAllIndexers();
+        var indexers = await _indexer.GetIndexers();
 
         return View("~/Areas/Admin/Views/Shared/Components/Indexers/Default.cshtml", indexers);
     }

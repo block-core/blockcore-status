@@ -4,6 +4,7 @@ using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Octokit;
 using ProductHeaderValue = Octokit.ProductHeaderValue;
 
@@ -14,12 +15,15 @@ public class HomeController : Controller
 {
     private readonly IGithubService _github;
     private readonly IBlockcoreChainsService _chain;
+    private readonly IBlockcoreIndexersService _indexer;
 
 
-    public HomeController(IGithubService github, IBlockcoreChainsService chain)
+    public HomeController(IGithubService github, IBlockcoreChainsService chain, IBlockcoreIndexersService indexer)
     {
         _github = github ?? throw new ArgumentNullException(nameof(github));
         _chain = chain ?? throw new ArgumentNullException(nameof(chain));
+        _indexer = indexer ?? throw new ArgumentNullException(nameof(indexer));
+
     }
 
     [BreadCrumb(Title = "Index", Order = 1)]
@@ -33,14 +37,30 @@ public class HomeController : Controller
             OrganizationsList.Add(item.Login);
         }
         var chains = await _chain.GetAllChains();
+        var indexers = await _indexer.GetIndexers(0);
 
 
         var model = new HomeViewModel()
         {
             Organizations = OrganizationsList,
-            Chains = chains
+            Chains = chains,
+            Indexers = indexers 
         };
         return View(model);
+    }
+
+    [BreadCrumb(Title = "Index", Order = 1), NoBrowserCache]
+    [HttpPost]
+    [AjaxOnly]
+    public async Task<IActionResult> Indexers([FromBody] PageViewModel model)
+    {
+        var pageNumber = model.Page ?? 1;
+        var indexers = await _indexer.GetIndexers(pageNumber);
+
+        if (indexers == null || !indexers.Any())
+            return Content("no-more-info");
+        return PartialView("_IndexerList", indexers);
+
     }
 
     [BreadCrumb(Title = "Error", Order = 1)]
@@ -49,10 +69,7 @@ public class HomeController : Controller
         return View();
     }
 
-    /// <summary>
-    ///     To test automatic challenge after redirecting from another site
-    ///     Sample URL: http://localhost:5000/Home/CallBackResult?token=1&status=2&orderId=3&terminalNo=4&rrn=5
-    /// </summary>
+ 
     [Authorize]
     public IActionResult CallBackResult(long token, string status, string orderId, string terminalNo, string rrn)
     {

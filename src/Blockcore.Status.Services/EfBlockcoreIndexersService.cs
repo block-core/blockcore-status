@@ -22,27 +22,28 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
 
     public async Task<List<IndexersViewModel>> GetAllIndexers()
     {
-        var list = new List<string>();
+        var urllist = new List<string>();
         using (HttpClient _httpClient = new HttpClient())
         {
             string txt = await _httpClient.GetStringAsync("https://raw.githubusercontent.com/block-core/blockcore-wallet/main/angular/src/shared/servers.ts");
-            list.AddRange(from Match item in _regex.Matches(txt)
-                          where !list.Contains(item.Value)
-                          select item.Value);
+            urllist.AddRange(from Match item in _regex.Matches(txt)
+                             where !urllist.Contains(item.Value)
+                             select item.Value);
         }
-        list.AddRange(from item in await _blockcoreChains.GetAllChains()
-                      let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
-                      where !list.Contains(blockcoreIndexer)
-                      select blockcoreIndexer);
+        urllist.AddRange(from item in await _blockcoreChains.GetAllChains()
+                         let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
+                         where !urllist.Contains(blockcoreIndexer)
+                         select blockcoreIndexer);
+
         var Indexerlist = new List<IndexersViewModel>();
         try
         {
-            foreach (var indexer in list)
+            foreach (var indexer in urllist.OrderBy(c => c))
             {
                 var indexerWithStatus = new IndexersViewModel();
-                indexerWithStatus.IsActive = await PingIndexer(indexer);
+                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
                 indexerWithStatus.Url = indexer;
-          
+
                 Indexerlist.Add(indexerWithStatus);
             }
             return Indexerlist;
@@ -68,4 +69,48 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
             return false;
         }
     }
+
+    public Task<IndexerLocationViewModel> GetIndexerLocation(string indexerUrl)
+    {
+        return Task.FromResult(new IndexerLocationViewModel());
+    }
+
+    public async Task<List<IndexersViewModel>> GetIndexers(int page = 1, int pageSize = 15)
+    {
+        var urllist = new List<string>();
+        using (HttpClient _httpClient = new HttpClient())
+        {
+            string txt = await _httpClient.GetStringAsync("https://raw.githubusercontent.com/block-core/blockcore-wallet/main/angular/src/shared/servers.ts");
+            urllist.AddRange(from Match item in _regex.Matches(txt)
+                             where !urllist.Contains(item.Value)
+                             select item.Value);
+        }
+        urllist.AddRange(from item in await _blockcoreChains.GetAllChains()
+                         let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
+                         where !urllist.Contains(blockcoreIndexer) && !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME"
+, StringComparison.Ordinal)
+                         select blockcoreIndexer);
+        urllist.Add("https://homecoin.indexer.blockcore.net");
+        var totalCount = urllist.Count;
+
+        var pagingList = urllist.OrderBy(c => c).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        var Indexerlist = new List<IndexersViewModel>();
+        try
+        {
+            foreach (var indexer in pagingList.OrderBy(c => c))
+            {
+                var indexerWithStatus = new IndexersViewModel();
+                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
+                indexerWithStatus.Url = indexer;
+
+                Indexerlist.Add(indexerWithStatus);
+            }
+            return Indexerlist;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }

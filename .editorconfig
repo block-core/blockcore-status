@@ -253,3 +253,5 @@ dotnet_diagnostic.MA0009.severity = suggestion
 dotnet_diagnostic.CA2234.severity = suggestion
 
 dotnet_diagnostic.CS0168.severity = suggestion
+
+dotnet_diagnostic.CS1988.severity = suggestion

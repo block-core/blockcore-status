@@ -49,12 +49,15 @@
     <Watch Include="**\*.js" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*;wwwroot\**\*;src\**\*" />
   </ItemGroup>
   <ItemGroup>
+    <Watch Remove="Scripts\InfiniteScroll.js" />
     <Watch Remove="Scripts\theme.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\App_Data\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\InfiniteScroll.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="AsyncFixer" Version="1.6.0">

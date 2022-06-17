@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockcoreStatus.ViewModels.Indexers;
-public class IndexersViewModel
+public class IndexerLocationViewModel
 {
     public string Url { get; set; }
-    public bool IsActive { get; set; }
     public string IpAddress { get; set; }
     public string Latitude  { get; set; }
     public string Longitude { get; set; }

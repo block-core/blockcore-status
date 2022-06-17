@@ -9,6 +9,9 @@ namespace BlockcoreStatus.Services.Contracts;
 public interface IBlockcoreIndexersService
 {
     Task<bool> PingIndexer(string indexerUrl);
+    Task<IndexerLocationViewModel> GetIndexerLocation(string indexerUrl);
     Task<List<IndexersViewModel>> GetAllIndexers();
+    Task<List<IndexersViewModel>> GetIndexers(int page = 1, int pageSize = 15);
+
 
 }

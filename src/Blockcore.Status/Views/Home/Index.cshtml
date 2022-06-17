@@ -44,8 +44,42 @@
 		</div>
 	</cache>
 }
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+	<h1 class="display-4">Blockcore Indexers</h1>
+</div>
+<partial name="_IndexerList" model=Model.Indexers />
+
+<div id="MoreInfoDiv">
+</div>
+
+<div id="ProgressDiv" align="center" style="display: none">
+	<br />
+	<img src="@Url.Content("/images/loadingAnimation.gif")" alt="loading..." />
+</div>
+<div align="center" style="margin-bottom: 9px;">
+	<span id="moreInfoButton" style="width: 90%;" class="btn btn-info">More ...</span>
+</div>
 
 
-<cache expires-after="@TimeSpan.FromMinutes(5)">
-	<vc:indexers></vc:indexers>
-</cache>
+@section Scripts
+	{
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#moreInfoButton").InfiniteScroll({
+				moreInfoDiv: '#MoreInfoDiv',
+				progressDiv: '#ProgressDiv',
+				loadInfoUrl: '@Url.Action("Indexers", "Home")',
+				loginUrl: '/Admin/Login',
+				errorHandler: function() {
+					alert('There was an error');
+				},
+				completeHandler: function() {
+
+				},
+				noMoreInfoHandler: function() {
+					alert('No more indexers found');
+				}
+			});
+		});
+	</script>
+}
