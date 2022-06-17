@@ -1,0 +1,19 @@
+﻿@model IEnumerable<IndexersViewModel>
+@if (Model.Any())
+{
+	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+		<h1 class="display-4">Blockcore Indexers</h1>
+	</div>
+	<div class="row mb-5">
+		<div class="col-12">
+			<ul class="list-group">
+				@foreach (var item in Model)
+				{
+					var icon = item.IsActive ? "fas fa-check-circle text-success" : "fas fa-times-circle text-danger";
+					<li class="list-group-item list-group-item-action"><i class="@icon mx-3"></i>@item.Url</li>
+				}
+			</ul>
+		</div>
+	</div>
+}
+
