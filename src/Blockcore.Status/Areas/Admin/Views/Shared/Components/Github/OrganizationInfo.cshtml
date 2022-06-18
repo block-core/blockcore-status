@@ -1,16 +1,18 @@
 ﻿@model OrganizationInfoViewModel
 <div class="card flex-md-row mb-4 box-shadow h-md-100">
  		<div class="d-flex justify-content-center h-100">
-			<div class="image-outer-container">
-				<div class="green-icon"></div>
-				<div class="image-inner-container">
-					<img src="@Model.AvatarUrl" alt="@Model.Name">
-				</div>
-			</div>
+			<a target="_blank" href="@Model.HTMLurl">
+                <div class="image-outer-container">
+				    <div class="green-icon"></div>
+			    	<div class="image-inner-container">
+				    	<img src="@Model.AvatarUrl" alt="@Model.Name">
+			    	</div>
+			    </div>
+            </a>
 		</div>
     <div class="card-body d-flex flex-column align-items-start">
         <h3 class="mb-0 text-info">
-            <a target="_blank" href="@Model.Apiurl">@Model.Name</a>
+            <a target="_blank" href="@Model.APIurl">@Model.Name</a>
         </h3>
         <div class="mb-1 text-muted">@Model.Description</div>
         <a href="@Model.Blog">@Model.Blog</a>
