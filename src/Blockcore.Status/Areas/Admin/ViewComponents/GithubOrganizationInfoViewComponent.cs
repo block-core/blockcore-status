@@ -32,7 +32,7 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
                 HTMLurl = org.HtmlUrl,
                 Repositories = org.GithubRepositories.Where(c => c.IsSelect).Select(c => new RepositoryInfoViewModel()
                 {
-                    LastVersion = c.GithubRelease == null ? " - " : c.GithubRelease.Name,
+                    LastVersion = c.GithubRelease == null ? " - " : c.GithubRelease.TagName,
                     Name = c.Name,
                     RepositoryURL = c.HtmlUrl,
                     UpdatedAt = c.UpdatedAt,
