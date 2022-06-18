@@ -315,7 +315,7 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> AndRepositoriesToDB(int orgId)
+    public async Task<bool> AddRepositoriesToDB(int orgId)
     {
         if (orgId == 0)
         {
@@ -433,7 +433,6 @@ public class EfGithubService : IGithubService
                     localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value : null;
                     localRepo.OpenIssuesCount = pubRepo.OpenIssuesCount;
 
-
                     githubRepositories.Update(localRepo);
                     await _uow.SaveChangesAsync();
                 }
@@ -487,7 +486,7 @@ public class EfGithubService : IGithubService
                 var org = await githubOrganizations.Where(c => c.GithubOrganizationId == orgId).FirstOrDefaultAsync();
                 if (repo.GithubRelease != null)
                 {
-                    await UpdateLatestRepositoryReleaseInDB(org.Name, repo.Name);
+                    await UpdateLatestRepositoryReleaseInDB(org.Login, repo.Name);
                 }
                 else
                 {

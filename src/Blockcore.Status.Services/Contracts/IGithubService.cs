@@ -25,7 +25,7 @@ public interface IGithubService
     Task<IReadOnlyList<GithubOrganization>> GetAllOrganizationFromDB();
 
 
-    Task<bool> AndRepositoriesToDB(int orgId);
+    Task<bool> AddRepositoriesToDB(int orgId);
     Task<bool> UpdateRepositoriesInDB(int orgId);
     Task<bool> UpdateReposSelectedForShow(string[] repositories, int orgId);
     Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId);

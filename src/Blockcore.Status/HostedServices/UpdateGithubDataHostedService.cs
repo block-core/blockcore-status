@@ -20,17 +20,19 @@ public class UpdateGithubDataHostedService : BackgroundService
             {
                 using (var scope = _serviceProvider.CreateScope())
                 {
-                    var _github = scope.ServiceProvider.GetRequiredService<IGithubService>();
+                    var _githubService = scope.ServiceProvider.GetRequiredService<IGithubService>();
 
-                    var orgs = await _github.GetAllOrganizationFromDB();
+                    var orgs = await _githubService.GetAllOrganizationFromDB();
                     foreach (var org in orgs)
                     {
-                        await _github.UpdateOrganizationInDB(org.Login);
-                        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
-                        await _github.UpdateRepositoriesInDB(org.GithubOrganizationId);
-                        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
-                        await _github.UpdateLatestRepositoriesReleaseInDB(org.Login);
-                        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+                        await _githubService.UpdateOrganizationInDB(org.Login);
+                        await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                       
+                        await _githubService.UpdateRepositoriesInDB(org.GithubOrganizationId);
+                        await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                       
+                        await _githubService.UpdateLatestRepositoriesReleaseInDB(org.Login);
+                        await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
                     }
 
