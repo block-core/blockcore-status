@@ -298,6 +298,22 @@ ul.nav.navbar-nav {
     border-radius: 50%;
 }
 
- 
+
+::-webkit-scrollbar {
+    width: 5px;
+}
 
 
+::-webkit-scrollbar-track {
+    background: #ccc;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
