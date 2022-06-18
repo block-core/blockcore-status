@@ -51,14 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <Watch Remove="Scripts\InfiniteScroll.js" />
+    <Watch Remove="Scripts\mapbox-gl.js" />
     <Watch Remove="Scripts\theme.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\App_Data\" />
-    <Folder Include="wwwroot\css\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="wwwroot\css\mapbox-gl.css" />
     <None Include="wwwroot\js\InfiniteScroll.js" />
+    <None Include="wwwroot\js\mapbox-gl.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="AsyncFixer" Version="1.6.0">

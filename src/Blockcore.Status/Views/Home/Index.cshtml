@@ -11,8 +11,10 @@
 		<h1 class="display-4">Blockcore Repositories</h1>
 	</div>
 	<cache expires-after="@TimeSpan.FromMinutes(30)">
-		
-	</cache><vc:github-organization-info org-name="@item"></vc:github-organization-info>
+
+	</cache>
+
+	<vc:github-organization-info org-name="@item"></vc:github-organization-info>
 }
 
 @if (Model.Chains.Any())
@@ -47,6 +49,9 @@
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
 	<h1 class="display-4">Blockcore Indexers</h1>
 </div>
+
+<div id="map" class="mb-5"></div>
+
 <partial name="_IndexerList" model=Model.Indexers />
 
 <div id="MoreInfoDiv">
@@ -57,7 +62,7 @@
 	<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </div>
 <div align="center" class="mb-5 mt-3">
-	<span id="moreInfoButton"  class="btn btn-info w-100">More ...</span>
+	<span id="moreInfoButton" class="btn btn-info w-100">More ...</span>
 </div>
 
 @section Scripts
@@ -77,9 +82,39 @@
 				},
 				noMoreInfoHandler: function() {
 					alert('No more indexers found');
-                    $("#moreInfoButton").hide();
+					$("#moreInfoButton").hide();
 				}
 			});
+			var mapStyle = "light-v10";
+			if (isDark) {
+				mapStyle = "dark-v10";
+			}
+			mapboxgl.accessToken = 'pk.eyJ1IjoibWlsYWRzb2Z0IiwiYSI6ImNrNmk0NXZleDAydmczZm16Mnp0d2ZnbWcifQ.6oMayFubeLqlMpFNsnS-ew';
+			const map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/mapbox/' + mapStyle,
+				center: [12.550343, 55.665957],
+				zoom: 0
+			});
+
+
+			$("#theme-toggler").click(function() {
+				var mapStyle = "light-v10";
+				if (isDark) {
+					mapStyle = "dark-v10";
+				} 
+				map.setStyle('mapbox://styles/mapbox/' + mapStyle);
+			});
+
+
+			const marker1 = new mapboxgl.Marker()
+				.setLngLat([5.2203, 46.2056])
+				.addTo(map);
+
+			const marker2 = new mapboxgl.Marker({ color: 'black' })
+				.setLngLat([12.65147, 55.608166])
+				.addTo(map);
+
 		});
 	</script>
 }

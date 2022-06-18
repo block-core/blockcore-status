@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using System.Linq;
 using BlockcoreStatus.ViewModels.Indexers;
+using BlockcoreStatus.Common.WebToolkit;
 
 namespace BlockcoreStatus.Services;
 
@@ -41,8 +42,17 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
             foreach (var indexer in urllist.OrderBy(c => c))
             {
                 var indexerWithStatus = new IndexersViewModel();
-                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
                 indexerWithStatus.Url = indexer;
+                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
+
+                if (indexerWithStatus.IsActive)
+                {
+                    var location = await GetIndexerLocation(indexer);
+                    if (location != null)
+                    {
+                        indexerWithStatus.Location = location;
+                    }
+                }
 
                 Indexerlist.Add(indexerWithStatus);
             }
@@ -70,9 +80,17 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
         }
     }
 
-    public Task<IndexerLocationViewModel> GetIndexerLocation(string indexerUrl)
+    public async Task<IndexerLocationViewModel> GetIndexerLocation(string indexerUrl)
     {
-        return Task.FromResult(new IndexerLocationViewModel());
+        try
+        {
+            var location = await new JsonToObjects<IndexerLocationViewModel>().DownloadAndConverToObjectAsync("http://ip-api.com/json/" + indexerUrl.Replace("https://", "", StringComparison.Ordinal));
+            return location;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public async Task<List<IndexersViewModel>> GetIndexers(int page = 1, int pageSize = 15)
@@ -87,8 +105,9 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
         }
         urllist.AddRange(from item in await _blockcoreChains.GetAllChains()
                          let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
-                         where !urllist.Contains(blockcoreIndexer) && !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME"
-, StringComparison.Ordinal)
+                         where !urllist.Contains(blockcoreIndexer) &&
+                         !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME", StringComparison.Ordinal)
+
                          select blockcoreIndexer);
         urllist.Add("https://homecoin.indexer.blockcore.net");
         var totalCount = urllist.Count;
@@ -100,8 +119,19 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
             foreach (var indexer in pagingList.OrderBy(c => c))
             {
                 var indexerWithStatus = new IndexersViewModel();
-                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
                 indexerWithStatus.Url = indexer;
+                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
+
+                if (indexerWithStatus.IsActive)
+                {
+                    var location = await GetIndexerLocation(indexer);
+                    if (location != null)
+                    {
+                        indexerWithStatus.Location = location;
+                    }
+                }
+
+
 
                 Indexerlist.Add(indexerWithStatus);
             }
