@@ -239,3 +239,19 @@ dotnet_diagnostic.CA1062.severity = suggestion
 dotnet_diagnostic.MA0048.severity = suggestion
 
 dotnet_diagnostic.IDE0161.severity = suggestion
+
+dotnet_diagnostic.IDE0059.severity = suggestion
+
+dotnet_diagnostic.S1075.severity = suggestion
+
+dotnet_diagnostic.S1481.severity = suggestion
+
+dotnet_diagnostic.CA1816.severity = suggestion
+
+dotnet_diagnostic.MA0009.severity = suggestion
+
+dotnet_diagnostic.CA2234.severity = suggestion
+
+dotnet_diagnostic.CS0168.severity = suggestion
+
+dotnet_diagnostic.CS1988.severity = suggestion

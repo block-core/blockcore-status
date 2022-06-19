@@ -2,42 +2,40 @@
 @model IEnumerable<GithubOrganization>
 
 <div class="table-responsive">
-    <table id="all-roles-list" class="table table-striped table-hover table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th class="text-center"> Organization Login </th>
-                <th class="text-center"> latest Updete </th>
-                <th class="text-center"> Organization Management </th>
-                <th class="text-center"> Manage Repositories </th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (!Model.Any())
-            {
-                <tr>
-                    <td colspan="5" class="text-center">No Organization found</td>
-                </tr>
-            }
-            else
-            {
-                foreach (var item in Model)
-                {
+	<table id="all-roles-list" class="table table-striped table-hover table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th class="text-center"> Organization Login </th>
+				<th class="text-center"> Organization Management </th>
+				<th class="text-center"> Manage Repositories </th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (!Model.Any())
+			{
+				<tr>
+					<td colspan="5" class="text-center">No Organization found</td>
+				</tr>
+			}
+			else
+			{
+				foreach (var item in Model)
+				{
 
-                    <tr>
-                        <td class="text-center">@item.Login</td>
-                           <td class="text-center">@item.LatestDataUpdate.LocalDateTime</td>
-                        <td class="text-center">
-                            <a href="#" id="btnEdit-@item.GithubOrganizationId" data-edit-id="@item.GithubOrganizationId" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="#" id="btnDelete-@item.GithubOrganizationId" data-delete-id="@item.GithubOrganizationId" class="btn btn-sm btn-danger">Delete</a>
-                        </td>
-                        <td class="text-center">
-                            <a class="btn btn-sm btn-info" asp-action="RepositoryInOrganization" asp-route-id="@item.GithubOrganizationId">
-                                View and change repositoreis list
-                            </a>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+					<tr>
+						<td class="text-center">@item.Login</td>
+						<td class="text-center">
+							<a href="#" id="btnEdit-@item.GithubOrganizationId" data-edit-id="@item.GithubOrganizationId" class="btn btn-sm btn-primary">Edit</a>
+							<a href="#" id="btnDelete-@item.GithubOrganizationId" data-delete-id="@item.GithubOrganizationId" class="btn btn-sm btn-danger">Delete</a>
+						</td>
+						<td class="text-center">
+							<a class="btn btn-sm btn-info" asp-action="RepositoryInOrganization" asp-route-id="@item.GithubOrganizationId">
+								View and change repositoreis list
+							</a>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
 </div>

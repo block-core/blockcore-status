@@ -315,7 +315,7 @@ public class EfGithubService : IGithubService
     /// </summary>
     /// <param name="orgId"></param>
     /// <returns></returns>
-    public async Task<bool> AndRepositoriesToDB(int orgId)
+    public async Task<bool> AddRepositoriesToDB(int orgId)
     {
         if (orgId == 0)
         {
@@ -396,50 +396,51 @@ public class EfGithubService : IGithubService
             var org = await GetOrganizationById(orgId);
             var orgsRepos = org.GithubRepositories;
             var publicRepos = await GetAllRepositoriesFromGithub(org.Login);
-
-            foreach (var pubRepo in publicRepos)
+            if (publicRepos != null)
             {
-                foreach (var localRepo in from localRepo in orgsRepos
-                                          where string.Equals(pubRepo.Name, localRepo.Name, StringComparison.Ordinal)
-                                          select localRepo)
+                foreach (var pubRepo in publicRepos)
                 {
-                    localRepo.GitUrl = pubRepo.Name;
-                    localRepo.Name = pubRepo.Name;
-                    localRepo.HasDownloads = pubRepo.HasDownloads;
-                    localRepo.HasIssues = pubRepo.HasIssues;
-                    localRepo.Archived = pubRepo.Archived;
-                    localRepo.HasPages = pubRepo.HasPages;
-                    localRepo.HasWiki = pubRepo.HasWiki;
-                    localRepo.Homepage = pubRepo.Homepage;
-                    localRepo.HtmlUrl = pubRepo.HtmlUrl;
-                    localRepo.Id = pubRepo.Id;
-                    localRepo.CloneUrl = pubRepo.CloneUrl;
-                    localRepo.CreatedAt = pubRepo.CreatedAt;
-                    localRepo.DefaultBranch = pubRepo.DefaultBranch;
-                    localRepo.Description = pubRepo.Description;
-                    localRepo.ForksCount = pubRepo.ForksCount;
-                    localRepo.FullName = pubRepo.FullName;
-                    localRepo.Language = pubRepo.Language;
-                    localRepo.MirrorUrl = pubRepo.MirrorUrl;
-                    localRepo.NodeId = pubRepo.NodeId;
-                    localRepo.LatestDataUpdate = DateTime.UtcNow;
-                    localRepo.WatchersCount = pubRepo.WatchersCount;
-                    localRepo.Url = pubRepo.Url;
-                    localRepo.UpdatedAt = pubRepo.UpdatedAt;
-                    localRepo.SvnUrl = pubRepo.SvnUrl;
-                    localRepo.StargazersCount = pubRepo.StargazersCount;
-                    localRepo.SshUrl = pubRepo.SshUrl;
-                    localRepo.Size = pubRepo.Size;
-                    localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value : null;
-                    localRepo.OpenIssuesCount = pubRepo.OpenIssuesCount;
+                    foreach (var localRepo in from localRepo in orgsRepos
+                                              where string.Equals(pubRepo.Name, localRepo.Name, StringComparison.Ordinal)
+                                              select localRepo)
+                    {
+                        localRepo.GitUrl = pubRepo.Name;
+                        localRepo.Name = pubRepo.Name;
+                        localRepo.HasDownloads = pubRepo.HasDownloads;
+                        localRepo.HasIssues = pubRepo.HasIssues;
+                        localRepo.Archived = pubRepo.Archived;
+                        localRepo.HasPages = pubRepo.HasPages;
+                        localRepo.HasWiki = pubRepo.HasWiki;
+                        localRepo.Homepage = pubRepo.Homepage;
+                        localRepo.HtmlUrl = pubRepo.HtmlUrl;
+                        localRepo.Id = pubRepo.Id;
+                        localRepo.CloneUrl = pubRepo.CloneUrl;
+                        localRepo.CreatedAt = pubRepo.CreatedAt;
+                        localRepo.DefaultBranch = pubRepo.DefaultBranch;
+                        localRepo.Description = pubRepo.Description;
+                        localRepo.ForksCount = pubRepo.ForksCount;
+                        localRepo.FullName = pubRepo.FullName;
+                        localRepo.Language = pubRepo.Language;
+                        localRepo.MirrorUrl = pubRepo.MirrorUrl;
+                        localRepo.NodeId = pubRepo.NodeId;
+                        localRepo.LatestDataUpdate = DateTime.UtcNow;
+                        localRepo.WatchersCount = pubRepo.WatchersCount;
+                        localRepo.Url = pubRepo.Url;
+                        localRepo.UpdatedAt = pubRepo.UpdatedAt;
+                        localRepo.SvnUrl = pubRepo.SvnUrl;
+                        localRepo.StargazersCount = pubRepo.StargazersCount;
+                        localRepo.SshUrl = pubRepo.SshUrl;
+                        localRepo.Size = pubRepo.Size;
+                        localRepo.PushedAt = pubRepo.PushedAt.HasValue ? pubRepo.PushedAt.Value : null;
+                        localRepo.OpenIssuesCount = pubRepo.OpenIssuesCount;
 
-
-                    githubRepositories.Update(localRepo);
-                    await _uow.SaveChangesAsync();
+                        githubRepositories.Update(localRepo);
+                        await _uow.SaveChangesAsync();
+                    }
                 }
+                return true;
             }
-
-            return true;
+            return false;
         }
         catch
         {
@@ -487,7 +488,7 @@ public class EfGithubService : IGithubService
                 var org = await githubOrganizations.Where(c => c.GithubOrganizationId == orgId).FirstOrDefaultAsync();
                 if (repo.GithubRelease != null)
                 {
-                    await UpdateLatestRepositoryReleaseInDB(org.Name, repo.Name);
+                    await UpdateLatestRepositoryReleaseInDB(org.Login, repo.Name);
                 }
                 else
                 {

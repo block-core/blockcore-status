@@ -30,6 +30,7 @@ function enableDarkTheme() {
 }
 
 function disableDarkTheme() {
+
     document.getElementsByTagName('body')[0].setAttribute('class', 'bootstrap bg-image');
     THEME_TOGGLER.innerHTML = "<i class='fas fa-moon'></i> Dark";
 }

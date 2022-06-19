@@ -216,7 +216,7 @@ public class OrganizationManagerController : Controller
     [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> GetAndAddRepositoryInOrganization( int OrgId)
     {
-        var result =await _githubService.AndRepositoriesToDB(OrgId);
+        var result =await _githubService.AddRepositoriesToDB(OrgId);
         if (result)
         {
             return Json(new { success = true });

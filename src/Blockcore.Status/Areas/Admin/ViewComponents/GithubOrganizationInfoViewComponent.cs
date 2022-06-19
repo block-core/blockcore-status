@@ -28,7 +28,8 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
                 AvatarUrl = org.AvatarUrl,
                 Blog = org.Blog,
                 Login = org.Login,
-                Apiurl = org.Url,
+                APIurl = org.Url,
+                HTMLurl = org.HtmlUrl,
                 Repositories = org.GithubRepositories.Where(c => c.IsSelect).Select(c => new RepositoryInfoViewModel()
                 {
                     LastVersion = c.GithubRelease == null ? " - " : c.GithubRelease.TagName,
@@ -38,7 +39,7 @@ public class GithubOrganizationInfoViewComponent : ViewComponent
                     PushedAt = c.PushedAt.Value,
                     OpenIssuesCount = c.OpenIssuesCount
                 }).ToList()
-            }) ;
+            });
     }
 
 }
