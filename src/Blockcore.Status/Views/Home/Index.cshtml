@@ -26,7 +26,7 @@
 		<div class="row">
 			@foreach (var chain in Model.Chains)
 			{
-				<div class="col-md-4">
+				<div class="col-lg-3 col-md-4 col-sm-6">
 					<div class="card text-center">
 						<div class="card-body">
 							<div class="d-flex justify-content-center h-100">
@@ -49,8 +49,9 @@
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
 	<h1 class="display-4">Blockcore Indexers</h1>
 </div>
-
-<div id="map" class="mb-5"></div>
+<div class="card mb-5">
+	<div id="map" ></div>
+</div>
 
 <partial name="_IndexerList" model=Model.Indexers />
 
@@ -102,7 +103,7 @@
 				var mapStyle = "light-v10";
 				if (isDark) {
 					mapStyle = "dark-v10";
-				} 
+				}
 				map.setStyle('mapbox://styles/mapbox/' + mapStyle);
 			});
 
