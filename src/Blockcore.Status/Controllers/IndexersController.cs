@@ -19,7 +19,7 @@ public class IndexersController : Controller
     [HttpGet("[action]")]
     public async Task<IActionResult> GetAllIndexers()
     {
-        var result = await _indexer.GetAllIndexers();
+        var result = await _indexer.GetAllIndexerFromDB();
         if (result == null)
         {
             return NotFound();

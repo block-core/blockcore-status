@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using BlockcoreStatus.Entities.Github;
+using Blockcore.Status.Entities.Indexer;
 
 namespace BlockcoreStatus.DataLayer.Context;
 
@@ -26,6 +27,8 @@ public class ApplicationDbContext :
     public virtual DbSet<GithubOrganization> Organizations { set; get; }
     public virtual DbSet<GithubRepository> Repositories { set; get; }
     public virtual DbSet<GithubRelease> Releases { set; get; }
+    public virtual DbSet<BlockcoreIndexers> BlockcoreIndexers { set; get; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // it should be placed here, otherwise it will rewrite the following settings!

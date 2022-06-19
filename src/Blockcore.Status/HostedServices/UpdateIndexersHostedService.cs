@@ -22,7 +22,7 @@ public class UpdateIndexersHostedService : BackgroundService
                 {
                     var indexersService = scope.ServiceProvider.GetRequiredService<IBlockcoreIndexersService>();
 
-                    //Update status and Ip location
+                    await indexersService.AddOrUpdateIndexerToDB();
 
                     await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
                 }

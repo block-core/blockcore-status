@@ -37,29 +37,43 @@ public class HomeController : Controller
             OrganizationsList.Add(item.Login);
         }
         var chains = await _chain.GetAllChains();
-        var indexers = await _indexer.GetIndexers(0);
+        var indexers = await _indexer.GetIndexerFromDB(0);
 
 
         var model = new HomeViewModel()
         {
             Organizations = OrganizationsList,
             Chains = chains,
-            Indexers = indexers 
+            Indexers = indexers
         };
         return View(model);
     }
 
-    [BreadCrumb(Title = "Index", Order = 1), NoBrowserCache]
+    [NoBrowserCache]
     [HttpPost]
     [AjaxOnly]
     public async Task<IActionResult> Indexers([FromBody] PageViewModel model)
     {
         var pageNumber = model.Page ?? 1;
-        var indexers = await _indexer.GetIndexers(pageNumber);
+        //var indexers = await _indexer.GetIndexerFromDB(pageNumber);
+        var indexers = await _indexer.GetAllIndexerFromDB();
 
         if (indexers == null || !indexers.Any())
             return Content("no-more-info");
         return PartialView("_IndexerList", indexers);
+
+    }
+    [AjaxOnly]
+    public async Task<IActionResult> IndexersMarker()
+    {
+        var indexers = await _indexer.GetAllIndexerFromDB();
+        var model = indexers.Where(c => c.IsActive).GroupBy(c => c.Query).Select(g => new
+        {
+            GroupId = g.Key,
+            Count = g.Count(),
+            Location = g.Select(c => new { c.Lat, c.Lon, c.Query }).FirstOrDefault()
+        }).ToList();
+        return Json(model);
 
     }
 
@@ -69,7 +83,7 @@ public class HomeController : Controller
         return View();
     }
 
- 
+
     [Authorize]
     public IActionResult CallBackResult(long token, string status, string orderId, string terminalNo, string rrn)
     {
