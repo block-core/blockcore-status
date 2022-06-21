@@ -30,7 +30,7 @@ public interface IGithubService
     Task<bool> UpdateReposSelectedForShow(string[] repositories, int orgId);
     Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId);
 
-    Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId, int page , int pageSize = 10);
+    Task<IReadOnlyList<GithubRepository>> GetAllRepositoriesFromDB(int orgId, int page, int pageSize = 10);
     Task<GithubRepository> GetRepositoryByNameFromDB(string owner, string name);
 
 
@@ -38,8 +38,8 @@ public interface IGithubService
 
     Task<bool> AddLatestRepositoryReleaseToDB(string owner, string name);
     Task<bool> UpdateLatestRepositoryReleaseInDB(string owner, string name);
-    Task<bool> UpdateLatestRepositoriesReleaseInDB(string owner);
     Task<GithubRelease> GetLatestRepositoryReleaseFromDB(string owner, string name);
 
+    Task<bool> UpdateLatestRepositoriesReleaseInDB(string owner);
 
 }

@@ -688,7 +688,11 @@ public class EfGithubService : IGithubService
             SvnUrl = c.SvnUrl,
             UpdatedAt = c.UpdatedAt,
             WatchersCount = c.WatchersCount,
-            Url = c.Url
+            Url = c.Url,
+            IsSelect = c.IsSelect,
+            GithubRelease = c.GithubRelease,
+            GithubRepositoryId = c.GithubRepositoryId
+
 
         }).ToListAsync();
 
@@ -931,10 +935,9 @@ public class EfGithubService : IGithubService
 
                             if (latestRelease != null)
                             {
-                                var release = repo.GithubRelease;
+                                var release = await githubRelease.Where(c => c.GithubRepositoryId == repo.GithubRepositoryId).Select(c => c).FirstOrDefaultAsync();
                                 if (release != null)
                                 {
-                                    release.GithubRepositoryId = repo.GithubRepositoryId;
                                     release.Name = latestRelease.Name;
                                     release.Id = latestRelease.Id;
                                     release.AssetsUrl = latestRelease.AssetsUrl;
@@ -954,24 +957,49 @@ public class EfGithubService : IGithubService
                                     release.Url = latestRelease.Url;
 
                                     githubRelease.Update(release);
-
                                     await _uow.SaveChangesAsync();
-                                    return true;
+
                                 }
                                 else
                                 {
-                                    githubRelease.Remove(release);
+                                    await githubRelease.AddAsync(new GithubRelease()
+                                    {
+                                        GithubRepositoryId = repo.GithubRepositoryId,
+                                        Name = latestRelease.Name,
+                                        Id = latestRelease.Id,
+                                        AssetsUrl = latestRelease.AssetsUrl,
+                                        Body = latestRelease.Body,
+                                        CreatedAt = latestRelease.CreatedAt,
+                                        Draft = latestRelease.Draft,
+                                        HtmlUrl = latestRelease.HtmlUrl,
+                                        LatestDataUpdate = DateTime.UtcNow,
+                                        NodeId = latestRelease.NodeId,
+                                        Prerelease = latestRelease.Prerelease,
+                                        PublishedAt = latestRelease.PublishedAt.HasValue ? latestRelease.PublishedAt.Value : null,
+                                        ZipballUrl = latestRelease.ZipballUrl,
+                                        TagName = latestRelease.TagName,
+                                        TarballUrl = latestRelease.TarballUrl,
+                                        TargetCommitish = latestRelease.TargetCommitish,
+                                        UploadUrl = latestRelease.UploadUrl,
+                                        Url = latestRelease.Url,
+                                    });
                                     await _uow.SaveChangesAsync();
-                                    return true;
+
                                 }
                             }
                             else
                             {
+                                var releaseForRemove = await githubRelease.Where(c => c.GithubRepositoryId == repo.GithubRepositoryId).Select(c => c).FirstOrDefaultAsync();
 
-                                return false;
+                                if (releaseForRemove != null)
+                                {
+                                    githubRelease.Remove(releaseForRemove);
+                                    await _uow.SaveChangesAsync();
+                                }
+
                             }
                         }
-
+                        await Task.Delay(10000);
                     }
                 }
                 else
@@ -985,11 +1013,11 @@ public class EfGithubService : IGithubService
             }
 
         }
-        catch
+        catch (Exception ex)
         {
             return false;
 
         }
-        return false;
+        return true;
     }
 }

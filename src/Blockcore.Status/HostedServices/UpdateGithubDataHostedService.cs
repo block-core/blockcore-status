@@ -27,10 +27,10 @@ public class UpdateGithubDataHostedService : BackgroundService
                     {
                         await _githubService.UpdateOrganizationInDB(org.Login);
                         await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
-                       
+
                         await _githubService.UpdateRepositoriesInDB(org.GithubOrganizationId);
                         await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
-                       
+
                         await _githubService.UpdateLatestRepositoriesReleaseInDB(org.Login);
                         await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 

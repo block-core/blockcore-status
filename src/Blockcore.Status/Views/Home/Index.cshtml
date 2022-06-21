@@ -11,10 +11,10 @@
 		<h1 class="display-4">Blockcore Repositories</h1>
 	</div>
 	<cache expires-after="@TimeSpan.FromMinutes(30)">
+	   <vc:github-organization-info org-name="@item"></vc:github-organization-info>
+	</cache>	
 
-	</cache>
 
-	<vc:github-organization-info org-name="@item"></vc:github-organization-info>
 }
 
 @if (Model.Chains.Any())
