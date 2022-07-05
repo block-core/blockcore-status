@@ -1,4 +1,5 @@
-﻿using BlockcoreStatus.Services.Contracts;
+﻿using Blockcore.Status.Entities.Indexer;
+using BlockcoreStatus.Services.Contracts;
 using BlockcoreStatus.ViewModels.Home;
 using BreadCrumb.Core;
 using Common.Web.Core;
@@ -37,7 +38,7 @@ public class HomeController : Controller
             OrganizationsList.Add(item.Login);
         }
         var chains = await _chain.GetAllChains();
-        var indexers = await _indexer.GetIndexerFromDB(0);
+        var indexers = await _indexer.GetAllIndexerFromDB();
 
 
         var model = new HomeViewModel()
@@ -67,7 +68,13 @@ public class HomeController : Controller
     public async Task<IActionResult> IndexersMarker()
     {
         var indexers = await _indexer.GetAllIndexerFromDB();
-        var model = indexers.Where(c => c.IsActive).GroupBy(c => c.Query).Select(g => new
+        var IndexersList = new List<BlockcoreIndexers>();
+        foreach (var item in indexers)
+        {
+            IndexersList.AddRange(item.Indexers);
+        }
+
+        var model = IndexersList.Where(c => c.Online).GroupBy(c => c.Query).Select(g => new
         {
             GroupId = g.Key,
             Count = g.Count(),

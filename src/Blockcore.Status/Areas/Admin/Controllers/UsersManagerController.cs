@@ -84,7 +84,7 @@ public class UsersManagerController : Controller
         var result = await _userManager.UpdateUserAndSecurityStampAsync(
             userId, user =>
             {
-                user.IsActive = activate;
+                user.Online = activate;
                 thisUser = user;
             });
         if (!result.Succeeded)

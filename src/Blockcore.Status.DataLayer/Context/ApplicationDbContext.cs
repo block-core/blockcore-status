@@ -29,6 +29,7 @@ public class ApplicationDbContext :
     public virtual DbSet<GithubRelease> Releases { set; get; }
     public virtual DbSet<BlockcoreIndexers> BlockcoreIndexers { set; get; }
 
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // it should be placed here, otherwise it will rewrite the following settings!

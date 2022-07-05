@@ -9,7 +9,7 @@ public class BlockcoreIndexers
 {
     public int Id { get; set; }
     public string Url { get; set; }
-    public bool IsActive { get; set; }
+    public bool Online { get; set; }
     public string Status { get; set; }
     public string Country { get; set; }
     public string CountryCode { get; set; }

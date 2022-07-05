@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BlockcoreStatus.DataLayer.SQLite.Migrations
+namespace Blockcore.Status.DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(SQLiteDbContext))]
-    [Migration("20220619090303_V2022_06_19_1332")]
-    partial class V2022_06_19_1332
+    [Migration("20220705163020_V2022_07_05_2059")]
+    partial class V2022_07_05_2059
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,9 +42,6 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     b.Property<int>("FailedPings")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Isp")
                         .HasColumnType("TEXT")
                         .UseCollation("NOCASE");
@@ -54,6 +51,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
 
                     b.Property<double>("Lon")
                         .HasColumnType("REAL");
+
+                    b.Property<bool>("Online")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Org")
                         .HasColumnType("TEXT")
@@ -376,9 +376,6 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                         .HasColumnType("TEXT")
                         .UseCollation("NOCASE");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("IsEmailPublic")
                         .HasColumnType("INTEGER");
 
@@ -425,6 +422,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT")
                         .UseCollation("NOCASE");
+
+                    b.Property<bool>("Online")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT")

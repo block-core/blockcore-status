@@ -52,7 +52,7 @@ public class LoginController : Controller
                 return View(model);
             }
 
-            if (!user.IsActive)
+            if (!user.Online)
             {
                 ModelState.AddModelError(string.Empty, "Your account has been deactivated.");
                 return View(model);

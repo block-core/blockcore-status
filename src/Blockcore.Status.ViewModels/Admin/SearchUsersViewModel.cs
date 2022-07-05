@@ -27,7 +27,7 @@ public class SearchUsersViewModel
     public bool HasEmailConfirmed { set; get; }
 
     [Display(Name = "Activities Only")]
-    public bool UserIsActive { set; get; }
+    public bool UserOnline { set; get; }
 
     [Display(Name = "Active and Disabled Users")]
     public bool ShowAllUsers { set; get; }

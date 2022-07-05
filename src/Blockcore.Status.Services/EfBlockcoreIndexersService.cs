@@ -7,6 +7,10 @@ using System.Linq;
 using BlockcoreStatus.ViewModels.Indexers;
 using BlockcoreStatus.Common.WebToolkit;
 using Blockcore.Status.Entities.Indexer;
+using Microsoft.Extensions.Options;
+using BlockcoreStatus.ViewModels.Admin.Settings;
+using Blockcore.Status.ViewModels.Indexers;
+using Newtonsoft.Json;
 
 namespace BlockcoreStatus.Services;
 
@@ -14,57 +18,18 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
 {
 
     private readonly IBlockcoreChainsService _blockcoreChains;
-    private static readonly Regex _regex = new Regex(@"(http|ftp|https):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?");
     private readonly DbSet<BlockcoreIndexers> blockcoreIndexers;
+
     private readonly IUnitOfWork _uow;
-    public EfBlockcoreIndexersService(IUnitOfWork uow, IBlockcoreChainsService blockcoreChains)
+    private readonly IOptionsSnapshot<SiteSettings> _siteOptions;
+
+    public EfBlockcoreIndexersService(IUnitOfWork uow, IBlockcoreChainsService blockcoreChains, IOptionsSnapshot<SiteSettings> siteOptions)
     {
         _uow = uow ?? throw new ArgumentNullException(nameof(uow));
         _blockcoreChains = blockcoreChains;
         blockcoreIndexers = _uow.Set<BlockcoreIndexers>();
-    }
+        _siteOptions = siteOptions ?? throw new ArgumentNullException(nameof(siteOptions));
 
-    public async Task<List<IndexersViewModel>> GetAllIndexers()
-    {
-        var urllist = new List<string>();
-        using (HttpClient _httpClient = new HttpClient())
-        {
-            string txt = await _httpClient.GetStringAsync("https://raw.githubusercontent.com/block-core/blockcore-wallet/main/angular/src/shared/servers.ts");
-            urllist.AddRange(from Match item in _regex.Matches(txt)
-                             where !urllist.Contains(item.Value)
-                             select item.Value);
-        }
-        urllist.AddRange(from item in await _blockcoreChains.GetAllChains()
-                         let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
-                         where !urllist.Contains(blockcoreIndexer)
-                         select blockcoreIndexer);
-
-        var Indexerlist = new List<IndexersViewModel>();
-        try
-        {
-            foreach (var indexer in urllist.OrderBy(c => c))
-            {
-                var indexerWithStatus = new IndexersViewModel();
-                indexerWithStatus.Url = indexer;
-                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
-
-                if (indexerWithStatus.IsActive)
-                {
-                    var location = await GetIndexerLocation(indexer);
-                    if (location != null)
-                    {
-                        indexerWithStatus.Location = location;
-                    }
-                }
-
-                Indexerlist.Add(indexerWithStatus);
-            }
-            return Indexerlist;
-        }
-        catch (Exception ex)
-        {
-            return Indexerlist;
-        }
     }
 
     public async Task<bool> PingIndexer(string indexerUrl)
@@ -96,74 +61,19 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
         }
     }
 
-    public async Task<List<IndexersViewModel>> GetIndexers(int page = 1, int pageSize = 15)
-    {
-        var urllist = new List<string>();
-        using (HttpClient _httpClient = new HttpClient())
-        {
-            string txt = await _httpClient.GetStringAsync("https://raw.githubusercontent.com/block-core/blockcore-wallet/main/angular/src/shared/servers.ts");
-            urllist.AddRange(from Match item in _regex.Matches(txt)
-                             where !urllist.Contains(item.Value)
-                             select item.Value);
-        }
-        urllist.AddRange(from item in await _blockcoreChains.GetAllChains()
-                         let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
-                         where !urllist.Contains(blockcoreIndexer) &&
-                         !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME", StringComparison.Ordinal)
-
-                         select blockcoreIndexer);
-        urllist.Add("https://homecoin.indexer.blockcore.net");
-        var totalCount = urllist.Count;
-
-        var pagingList = urllist.OrderBy(c => c).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        var Indexerlist = new List<IndexersViewModel>();
-        try
-        {
-            foreach (var indexer in pagingList.OrderBy(c => c))
-            {
-                var indexerWithStatus = new IndexersViewModel();
-                indexerWithStatus.Url = indexer;
-                indexerWithStatus.IsActive = await PingIndexer(indexer + "/api/stats/heartbeat");
-
-                if (indexerWithStatus.IsActive)
-                {
-                    var location = await GetIndexerLocation(indexer);
-                    if (location != null)
-                    {
-                        indexerWithStatus.Location = location;
-                    }
-                }
-
-
-
-                Indexerlist.Add(indexerWithStatus);
-            }
-            return Indexerlist;
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
-    }
-
     public async Task AddOrUpdateIndexerToDB()
     {
-        var urllist = new List<string>();
-        using (HttpClient _httpClient = new HttpClient())
-        {
-            string txt = await _httpClient.GetStringAsync("https://raw.githubusercontent.com/block-core/blockcore-wallet/main/angular/src/shared/servers.ts");
-            urllist.AddRange(from Match item in _regex.Matches(txt)
-                             where !urllist.Contains(item.Value)
-                             select item.Value);
-        }
-        urllist.AddRange(from item in await _blockcoreChains.GetAllChains()
-                         let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
-                         where !urllist.Contains(blockcoreIndexer) &&
-                         !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME", StringComparison.Ordinal)
-                         select blockcoreIndexer);
-        urllist.Add("https://homecoin.indexer.blockcore.net");
+        var blockcore_indexer_list = new List<string>();
 
-        foreach (var url in urllist.OrderBy(c => c))
+        blockcore_indexer_list.AddRange(from item in await _blockcoreChains.GetAllChains()
+                                        let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
+                                        where !blockcore_indexer_list.Contains(blockcoreIndexer) &&
+                                        !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME", StringComparison.Ordinal)
+                                        select blockcoreIndexer);
+        blockcore_indexer_list.Add("https://homecoin.indexer.blockcore.net");
+
+
+        foreach (var url in blockcore_indexer_list.OrderBy(c => c))
         {
             var indexer = new BlockcoreIndexers();
             indexer.Url = url;
@@ -172,15 +82,15 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
                 try
                 {
                     var responseMessage = await _httpClient.GetAsync(new Uri(url + "/api/stats/heartbeat"));
-                    indexer.IsActive = responseMessage.IsSuccessStatusCode;
+                    indexer.Online = responseMessage.IsSuccessStatusCode;
                 }
                 catch
                 {
-                    indexer.IsActive = false;
+                    indexer.Online = false;
                 }
             }
 
-            if (indexer.IsActive)
+            if (indexer.Online)
             {
                 var location = await GetIndexerLocation(url);
                 if (location != null)
@@ -214,7 +124,7 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
                 var _indexer = await isExist.FirstOrDefaultAsync();
                 if (_indexer != null)
                 {
-                    _indexer.IsActive = indexer.IsActive;
+                    _indexer.Online = indexer.Online;
                     _indexer.Status = indexer.Status;
                     _indexer.Org = indexer.Org;
                     _indexer.Country = indexer.Country;
@@ -243,13 +153,67 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
             await Task.Delay(1000);
 
         }
+
+
     }
 
-    public async Task<List<BlockcoreIndexers>> GetAllIndexerFromDB()
+    public async Task<List<IndexersViewModel>> GetAllIndexerFromDB()
     {
         try
         {
-            return await blockcoreIndexers.ToListAsync();
+            var allIndexers = new List<IndexersViewModel>();
+
+            var blockcoreDomainIndexers = await blockcoreIndexers.ToListAsync();
+
+            allIndexers.Add(new IndexersViewModel() { NameServer = "blockcore.net", Indexers = blockcoreDomainIndexers });
+
+            string dns_service = _siteOptions.Value.BlockcoreDNS.Url;
+            var ns_list = new List<DNSServiceViewModel>();
+            var all_ns = await new JsonToObjects<IReadOnlyList<DNSServiceViewModel>>().DownloadAndConverToObjectAsync(dns_service);
+            if (all_ns.Count > 0)
+            {
+                foreach (var ns in all_ns)
+                {
+                    if (await PingIndexer(ns.DnsServer + "/api/dns/ipaddress"))
+                    {
+                        ns_list.Add(ns);
+                    }
+                }
+            }
+
+
+            foreach (var ns in ns_list.Select(c => c.DnsServer))
+            {
+                var ns_indexer_list = new List<BlockcoreIndexers>();
+                var services = await new JsonToObjects<List<dynamic>>().DownloadAndConverToObjectAsync(ns + "/api/dns/services/service/Indexer");
+                foreach (var indexer in services)
+                {
+                    var _indexer = new BlockcoreIndexers() { Url = indexer.domain, Online = indexer.online };
+                    var location = await GetIndexerLocation("https://" + indexer.domain);
+                    if (location != null)
+                    {
+                        if (string.Equals(location.status, "success", StringComparison.Ordinal))
+                        {
+                            _indexer.Status = location.status;
+                            _indexer.Org = location.org;
+                            _indexer.Country = location.country;
+                            _indexer.CountryCode = location.countryCode;
+                            _indexer.Region = location.region;
+                            _indexer.RegionName = location.regionName;
+                            _indexer.City = location.city;
+                            _indexer.Zip = location.zip;
+                            _indexer.Lat = location.lat;
+                            _indexer.Lon = location.lon;
+                            _indexer.Timezone = location.timezone;
+                            _indexer.Isp = location.isp;
+                            _indexer.Query = location.query;
+                        }
+                    }
+                    ns_indexer_list.Add(_indexer);
+                }
+                allIndexers.Add(new IndexersViewModel() { NameServer = ns, Indexers = ns_indexer_list });
+            }
+            return allIndexers;
         }
         catch
         {
@@ -257,15 +221,4 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
         }
     }
 
-    public async Task<List<BlockcoreIndexers>> GetIndexerFromDB(int page = 1, int pageSize = 50)
-    {
-        try
-        {
-            return await blockcoreIndexers.OrderBy(c => c.Url).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }

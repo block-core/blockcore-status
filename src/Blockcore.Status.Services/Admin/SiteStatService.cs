@@ -41,7 +41,7 @@ public class SiteStatService : ISiteStatService
         var day = now.Day;
         var month = now.Month;
         return _users.AsNoTracking()
-            .Where(user => user.BirthDate != null && user.IsActive
+            .Where(user => user.BirthDate != null && user.Online
                                                   && user.BirthDate.Value.Day == day
                                                   && user.BirthDate.Value.Month == month)
             .ToListAsync();
@@ -50,7 +50,7 @@ public class SiteStatService : ISiteStatService
     public async Task<AgeStatViewModel> GetUsersAverageAge()
     {
         var users = await _users.AsNoTracking()
-            .Where(x => x.BirthDate != null && x.IsActive)
+            .Where(x => x.BirthDate != null && x.Online)
             .OrderBy(x => x.BirthDate)
             .ToListAsync();
 

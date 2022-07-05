@@ -44,7 +44,7 @@ namespace Blockcore.Status.DataLayer.MSSQL.Migrations
                     b.Property<int>("FailedPings")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("Online")
                         .HasColumnType("bit");
 
                     b.Property<string>("Isp")
@@ -350,7 +350,7 @@ namespace Blockcore.Status.DataLayer.MSSQL.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("Online")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsEmailPublic")

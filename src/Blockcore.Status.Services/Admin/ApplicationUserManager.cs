@@ -254,7 +254,7 @@ public class ApplicationUserManager :
 
         if (!model.ShowAllUsers)
         {
-            query = query.Where(x => x.IsActive == model.UserIsActive);
+            query = query.Where(x => x.Online == model.UserOnline);
         }
 
         if (!string.IsNullOrWhiteSpace(model.TextToFind))
@@ -332,7 +332,7 @@ public class ApplicationUserManager :
 
         if (!showAllUsers)
         {
-            query = query.Where(x => x.IsActive);
+            query = query.Where(x => x.Online);
         }
 
         switch (sortByField)

@@ -100,7 +100,7 @@ public class ApplicationRoleManager :
 
         if (!showAllUsers)
         {
-            query = query.Where(x => x.IsActive);
+            query = query.Where(x => x.Online);
         }
 
         switch (sortByField)

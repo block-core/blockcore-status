@@ -18,8 +18,9 @@ COPY ["src/Blockcore.Status.IocConfig/Blockcore.Status.IocConfig.csproj", "src/B
 COPY ["src/Blockcore.Status.DataLayer.InMemoryDatabase/Blockcore.Status.DataLayer.InMemoryDatabase.csproj", "src/Blockcore.Status.DataLayer.InMemoryDatabase/"]
 COPY ["src/Blockcore.Status.DataLayer.SQLite/Blockcore.Status.DataLayer.SQLite.csproj", "src/Blockcore.Status.DataLayer.SQLite/"]
 COPY ["src/Blockcore.Status.DataLayer.MSSQL/Blockcore.Status.DataLayer.MSSQL.csproj", "src/Blockcore.Status.DataLayer.MSSQL/"]
-RUN dotnet restore "src/Blockcore.Status/Blockcore.Status.csproj"
 COPY . .
+RUN dotnet restore "src/Blockcore.Status/Blockcore.Status.csproj"
+
 WORKDIR "/src/src/Blockcore.Status"
 RUN dotnet build "Blockcore.Status.csproj" -c Release -o /app/build
 

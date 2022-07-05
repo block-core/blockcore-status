@@ -1,7 +1,7 @@
 ﻿@model SearchUsersViewModel
 @{
     int? searchResultsCount = Model?.PagedUsersList?.Users.Count;
-    var resultIsActive = searchResultsCount.HasValue ? "active" : "";
+    var resultOnline = searchResultsCount.HasValue ? "active" : "";
 }
 <div id="SearchUsers">
     <div class="card mt-5">
@@ -12,7 +12,7 @@
                     <a class="nav-link" href="#search" aria-controls="search" role="tab" data-toggle="tab">Search users</a>
                 </li>
                 <li role="presentation" class="nav-item">
-                    <a class="nav-link @resultIsActive" href="#searchResults" aria-controls="searchResults" role="tab" data-toggle="tab">
+                    <a class="nav-link @resultOnline" href="#searchResults" aria-controls="searchResults" role="tab" data-toggle="tab">
                        Search result
                         @if (searchResultsCount.HasValue)
                         {
@@ -97,8 +97,8 @@
                                 </div>
                                 <div>
                                     <div class="form-check">
-                                        <input asp-for="UserIsActive" />
-                                        <label asp-for="UserIsActive"></label>
+                                        <input asp-for="UserOnline" />
+                                        <label asp-for="UserOnline"></label>
                                     </div>
                                 </div>
                                 <div>
@@ -128,7 +128,7 @@
                         </div>
                     </form>
                 </div>
-                <div role="tabpanel" class="tab-pane @resultIsActive" id="searchResults">
+                <div role="tabpanel" class="tab-pane @resultOnline" id="searchResults">
                     @if (Model.PagedUsersList != null)
                     {
                         if (Model.PagedUsersList.Users.Any())

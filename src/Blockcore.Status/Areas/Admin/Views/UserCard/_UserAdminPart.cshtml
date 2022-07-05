@@ -51,7 +51,7 @@
                                 <strong>User Status</strong>
                             </td>
                             <td class="text-center">
-                                @if (user.IsActive)
+                                @if (user.Online)
                                 {
                                     <span class="badge badge-success text-white">Active</span>
                                 }
@@ -72,7 +72,7 @@
                                       data-ajax-failure="dataAjaxFailure"
                                       data-ajax-update="#usercard-@user.Id">
                                     <input name="userId" value="@user.Id" type="hidden" />
-                                    @if (user.IsActive)
+                                    @if (user.Online)
                                     {
                                         <input name="activate" value="false" type="hidden" />
                                         <button type="submit" class="btn btn-danger btn-sm  w-100">

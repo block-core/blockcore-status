@@ -37,7 +37,7 @@ public class User : IdentityUser<int>, IAuditableEntity
 
     public string Location { set; get; }
 
-    public bool IsActive { get; set; } = true;
+    public bool Online { get; set; } = true;
 
     public virtual ICollection<UserUsedPassword> UserUsedPasswords { get; set; }
 

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BlockcoreStatus.DataLayer.SQLite.Migrations
+namespace Blockcore.Status.DataLayer.SQLite.Migrations
 {
-    public partial class V2022_05_28_2238 : Migration
+    public partial class V2022_07_05_2059 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,7 +106,7 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                     LastVisitDateTime = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsEmailPublic = table.Column<bool>(type: "INTEGER", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Online = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedByBrowserName = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: true, collation: "NOCASE"),
                     CreatedByIp = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true, collation: "NOCASE"),
                     CreatedByUserId = table.Column<int>(type: "INTEGER", nullable: true),
@@ -132,6 +132,34 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlockcoreIndexers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Url = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Online = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Country = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    CountryCode = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Region = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    RegionName = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    City = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Zip = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Lat = table.Column<double>(type: "REAL", nullable: false),
+                    Lon = table.Column<double>(type: "REAL", nullable: false),
+                    Timezone = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Isp = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Org = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    Query = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
+                    FailedPings = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlockcoreIndexers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -544,6 +572,9 @@ namespace BlockcoreStatus.DataLayer.SQLite.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppUserUsedPasswords");
+
+            migrationBuilder.DropTable(
+                name: "BlockcoreIndexers");
 
             migrationBuilder.DropTable(
                 name: "Releases");

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockcoreStatus.ViewModels.Admin.Settings;
-public class BlockcoreIndexers
+public class BlockcoreDNS
 {
+    public string Url { get; set; }
 }

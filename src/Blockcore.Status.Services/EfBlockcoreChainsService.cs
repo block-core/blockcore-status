@@ -24,7 +24,7 @@ public class EfBlockcoreChainsService : IBlockcoreChainsService
 
     public async Task<IReadOnlyList<ChainsViewModel>> GetAllChains()
     {
-        string CHAINS_URL = _siteOptions.Value.BlockcoreChains.ChainsUrl;
+        string CHAINS_URL = _siteOptions.Value.BlockcoreChains.Url;
         try
         {
             return await new JsonToObjects<IReadOnlyList<ChainsViewModel>>().DownloadAndConverToObjectAsync(CHAINS_URL);

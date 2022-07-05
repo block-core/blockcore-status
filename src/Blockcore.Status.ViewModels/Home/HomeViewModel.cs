@@ -12,7 +12,7 @@ public class HomeViewModel
 {
     public IReadOnlyList<string> Organizations { get; set; }
     public IReadOnlyList<ChainsViewModel> Chains { get; set; }
-    public IReadOnlyList<BlockcoreIndexers> Indexers { get; set; }
+    public IReadOnlyList<IndexersViewModel> Indexers { get; set; }
 
 
 }

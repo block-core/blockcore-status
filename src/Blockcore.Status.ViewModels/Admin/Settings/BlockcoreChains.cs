@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace BlockcoreStatus.ViewModels.Admin.Settings;
 public class BlockcoreChains
 {
-    public string ChainsUrl { get; set; }
+    public string Url { get; set; }
 }
