@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using BlockcoreStatus.ViewModels.Indexers;
 using BlockcoreStatus.Common.WebToolkit;
-using Blockcore.Status.Entities.Indexer;
 using Microsoft.Extensions.Options;
 using BlockcoreStatus.ViewModels.Admin.Settings;
 using Blockcore.Status.ViewModels.Indexers;
@@ -78,11 +77,11 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
 
             foreach (var ns in ns_list.Select(c => c.DnsServer))
             {
-                var ns_indexer_list = new List<BlockcoreIndexers>();
+                var ns_indexer_list = new List<BlockcoreIndexersViewModel>();
                 var services = await new JsonToObjects<List<dynamic>>().DownloadAndConverToObjectAsync(ns + "/api/dns/services/service/Indexer");
                 foreach (var indexer in services)
                 {
-                    var _indexer = new BlockcoreIndexers() { Url = indexer.domain, Online = indexer.online };
+                    var _indexer = new BlockcoreIndexersViewModel() { Url = indexer.domain, Online = indexer.online };
                     var location = await GetIndexerLocation("https://" + indexer.domain);
                     if (location != null)
                     {

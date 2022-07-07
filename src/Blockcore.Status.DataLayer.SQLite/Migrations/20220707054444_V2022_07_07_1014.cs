@@ -5,13 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Blockcore.Status.DataLayer.SQLite.Migrations
 {
-    public partial class V2022_07_05_2059 : Migration
+    public partial class V2022_07_07_1014 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "dbo");
-
             migrationBuilder.CreateTable(
                 name: "AppDataProtectionKeys",
                 columns: table => new
@@ -78,7 +75,6 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AppSqlCache",
-                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", maxLength: 449, nullable: false, collation: "NOCASE"),
@@ -132,34 +128,6 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BlockcoreIndexers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Url = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Online = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Status = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Country = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    CountryCode = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Region = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    RegionName = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    City = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Zip = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Lat = table.Column<double>(type: "REAL", nullable: false),
-                    Lon = table.Column<double>(type: "REAL", nullable: false),
-                    Timezone = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Isp = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Org = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    Query = table.Column<string>(type: "TEXT", nullable: true, collation: "NOCASE"),
-                    FailedPings = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BlockcoreIndexers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -496,7 +464,6 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "Index_ExpiresAtTime",
-                schema: "dbo",
                 table: "AppSqlCache",
                 column: "ExpiresAtTime");
 
@@ -555,8 +522,7 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
                 name: "AppRoleClaims");
 
             migrationBuilder.DropTable(
-                name: "AppSqlCache",
-                schema: "dbo");
+                name: "AppSqlCache");
 
             migrationBuilder.DropTable(
                 name: "AppUserClaims");
@@ -572,9 +538,6 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppUserUsedPasswords");
-
-            migrationBuilder.DropTable(
-                name: "BlockcoreIndexers");
 
             migrationBuilder.DropTable(
                 name: "Releases");

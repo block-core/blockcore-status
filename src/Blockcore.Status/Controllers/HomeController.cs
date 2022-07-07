@@ -1,6 +1,6 @@
-﻿using Blockcore.Status.Entities.Indexer;
-using BlockcoreStatus.Services.Contracts;
+﻿using BlockcoreStatus.Services.Contracts;
 using BlockcoreStatus.ViewModels.Home;
+using BlockcoreStatus.ViewModels.Indexers;
 using BreadCrumb.Core;
 using Common.Web.Core;
 using Microsoft.AspNetCore.Authorization;
@@ -68,7 +68,7 @@ public class HomeController : Controller
     public async Task<IActionResult> IndexersMarker()
     {
         var indexers = await _indexer.GetAllIndexer();
-        var IndexersList = new List<BlockcoreIndexers>();
+        var IndexersList = new List<BlockcoreIndexersViewModel>();
         foreach (var item in indexers)
         {
             IndexersList.AddRange(item.Indexers);

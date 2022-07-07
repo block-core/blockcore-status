@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BlockcoreStatus.ViewModels.Indexers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blockcore.Status.Entities.Indexer;
-public class BlockcoreIndexers
+namespace BlockcoreStatus.ViewModels.Indexers;
+public class BlockcoreIndexersViewModel
 {
     public int Id { get; set; }
     public string Url { get; set; }

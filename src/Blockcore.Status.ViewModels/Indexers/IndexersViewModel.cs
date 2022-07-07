@@ -1,5 +1,4 @@
-﻿using Blockcore.Status.Entities.Indexer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +9,6 @@ namespace BlockcoreStatus.ViewModels.Indexers;
 public class IndexersViewModel
 {
     public string NameServer { get; set; }
-    public List<BlockcoreIndexers> Indexers { get; set; }
+    public List<BlockcoreIndexersViewModel> Indexers { get; set; }
 
 }

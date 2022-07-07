@@ -1,5 +1,4 @@
-﻿using Blockcore.Status.Entities.Indexer;
-using BlockcoreStatus.ViewModels.Indexers;
+﻿using BlockcoreStatus.ViewModels.Indexers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

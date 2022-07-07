@@ -19,77 +19,6 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
                 .UseCollation("NOCASE")
                 .HasAnnotation("ProductVersion", "6.0.6");
 
-            modelBuilder.Entity("Blockcore.Status.Entities.Indexer.BlockcoreIndexers", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("CountryCode")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<int>("FailedPings")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Isp")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<double>("Lat")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Lon")
-                        .HasColumnType("REAL");
-
-                    b.Property<bool>("Online")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Org")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Query")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("RegionName")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Timezone")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.Property<string>("Zip")
-                        .HasColumnType("TEXT")
-                        .UseCollation("NOCASE");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BlockcoreIndexers");
-                });
-
             modelBuilder.Entity("BlockcoreStatus.Entities.Admin.AppDataProtectionKey", b =>
                 {
                     b.Property<int>("Id")
@@ -203,7 +132,7 @@ namespace Blockcore.Status.DataLayer.SQLite.Migrations
                     b.HasIndex("ExpiresAtTime")
                         .HasDatabaseName("Index_ExpiresAtTime");
 
-                    b.ToTable("AppSqlCache", "dbo");
+                    b.ToTable("AppSqlCache");
                 });
 
             modelBuilder.Entity("BlockcoreStatus.Entities.Admin.Role", b =>

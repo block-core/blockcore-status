@@ -14,7 +14,7 @@ public class AppSqlCacheConfiguration : IEntityTypeConfiguration<AppSqlCache>
         }
 
         // For Microsoft.Extensions.Caching.SqlServer
-        builder.ToTable("AppSqlCache", "dbo");
+        //builder.ToTable("AppSqlCache", "dbo");
         builder.HasIndex(e => e.ExpiresAtTime).HasDatabaseName("Index_ExpiresAtTime");
         builder.Property(e => e.Id).HasMaxLength(449);
         builder.Property(e => e.Value).IsRequired();
