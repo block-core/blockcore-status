@@ -31,8 +31,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.AddControllersWithViews(options => { options.Filters.Add(typeof(ApplyCorrectYeKeFilterAttribute)); });
     services.AddRazorPages();
     services.AddHostedService<UpdateGithubDataHostedService>();
-    services.AddHostedService<UpdateIndexersHostedService>();
-    
+
     services.AddSwaggerGen(options =>
     {
         options.SwaggerDoc("status", new OpenApiInfo

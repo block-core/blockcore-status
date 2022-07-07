@@ -16,10 +16,10 @@ public class IndexersController : Controller
         _indexer = indexer ?? throw new ArgumentNullException(nameof(indexer));
     }
 
-    [HttpGet("[action]")]
-    public async Task<IActionResult> GetAllIndexers()
+    [HttpGet]
+    public async Task<IActionResult> Get()
     {
-        var result = await _indexer.GetAllIndexerFromDB();
+        var result = await _indexer.GetAllIndexer();
         if (result == null)
         {
             return NotFound();

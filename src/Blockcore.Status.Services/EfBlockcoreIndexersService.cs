@@ -17,17 +17,11 @@ namespace BlockcoreStatus.Services;
 public class EfBlockcoreIndexersService : IBlockcoreIndexersService
 {
 
-    private readonly IBlockcoreChainsService _blockcoreChains;
-    private readonly DbSet<BlockcoreIndexers> blockcoreIndexers;
 
-    private readonly IUnitOfWork _uow;
     private readonly IOptionsSnapshot<SiteSettings> _siteOptions;
 
-    public EfBlockcoreIndexersService(IUnitOfWork uow, IBlockcoreChainsService blockcoreChains, IOptionsSnapshot<SiteSettings> siteOptions)
+    public EfBlockcoreIndexersService(IOptionsSnapshot<SiteSettings> siteOptions)
     {
-        _uow = uow ?? throw new ArgumentNullException(nameof(uow));
-        _blockcoreChains = blockcoreChains;
-        blockcoreIndexers = _uow.Set<BlockcoreIndexers>();
         _siteOptions = siteOptions ?? throw new ArgumentNullException(nameof(siteOptions));
 
     }
@@ -61,111 +55,12 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
         }
     }
 
-    public async Task AddOrUpdateIndexerToDB()
-    {
-        var blockcore_indexer_list = new List<string>();
 
-        blockcore_indexer_list.AddRange(from item in await _blockcoreChains.GetAllChains()
-                                        let blockcoreIndexer = $"https://{item.symbol.ToLower(new CultureInfo("en-US", false))}.indexer.blockcore.net"
-                                        where !blockcore_indexer_list.Contains(blockcoreIndexer) &&
-                                        !string.Equals(item.symbol, "BTC", StringComparison.Ordinal) && !string.Equals(item.symbol, "HOME", StringComparison.Ordinal)
-                                        select blockcoreIndexer);
-        blockcore_indexer_list.Add("https://homecoin.indexer.blockcore.net");
-
-
-        foreach (var url in blockcore_indexer_list.OrderBy(c => c))
-        {
-            var indexer = new BlockcoreIndexers();
-            indexer.Url = url;
-            using (HttpClient _httpClient = new HttpClient())
-            {
-                try
-                {
-                    var responseMessage = await _httpClient.GetAsync(new Uri(url + "/api/stats/heartbeat"));
-                    indexer.Online = responseMessage.IsSuccessStatusCode;
-                }
-                catch
-                {
-                    indexer.Online = false;
-                }
-            }
-
-            if (indexer.Online)
-            {
-                var location = await GetIndexerLocation(url);
-                if (location != null)
-                {
-                    if (string.Equals(location.status, "success", StringComparison.Ordinal))
-                    {
-                        indexer.Status = location.status;
-                        indexer.Org = location.org;
-                        indexer.Country = location.country;
-                        indexer.CountryCode = location.countryCode;
-                        indexer.Region = location.region;
-                        indexer.RegionName = location.regionName;
-                        indexer.City = location.city;
-                        indexer.Zip = location.zip;
-                        indexer.Lat = location.lat;
-                        indexer.Lon = location.lon;
-                        indexer.Timezone = location.timezone;
-                        indexer.Isp = location.isp;
-                        indexer.Query = location.query;
-                    }
-                }
-                indexer.FailedPings = 0;
-            }
-            else
-            {
-                indexer.FailedPings = 1;
-            }
-            var isExist = blockcoreIndexers.Where(c => c.Url == url);
-            if (await isExist.AnyAsync())
-            {
-                var _indexer = await isExist.FirstOrDefaultAsync();
-                if (_indexer != null)
-                {
-                    _indexer.Online = indexer.Online;
-                    _indexer.Status = indexer.Status;
-                    _indexer.Org = indexer.Org;
-                    _indexer.Country = indexer.Country;
-                    _indexer.CountryCode = indexer.CountryCode;
-                    _indexer.Region = indexer.Region;
-                    _indexer.RegionName = indexer.RegionName;
-                    _indexer.City = indexer.City;
-                    _indexer.Zip = indexer.Zip;
-                    _indexer.Lat = indexer.Lat;
-                    _indexer.Lon = indexer.Lon;
-                    _indexer.Timezone = indexer.Timezone;
-                    _indexer.Isp = indexer.Isp;
-                    _indexer.Query = indexer.Query;
-                    if (_indexer.FailedPings <= 50)
-                    {
-                        _indexer.FailedPings += indexer.FailedPings;
-                    }
-                    blockcoreIndexers.Update(_indexer);
-                }
-            }
-            else
-            {
-                blockcoreIndexers.Add(indexer);
-            }
-            await _uow.SaveChangesAsync();
-            await Task.Delay(1000);
-
-        }
-
-
-    }
-
-    public async Task<List<IndexersViewModel>> GetAllIndexerFromDB()
+    public async Task<List<IndexersViewModel>> GetAllIndexer()
     {
         try
         {
             var allIndexers = new List<IndexersViewModel>();
-
-            var blockcoreDomainIndexers = await blockcoreIndexers.ToListAsync();
-
-            allIndexers.Add(new IndexersViewModel() { NameServer = "blockcore.net", Indexers = blockcoreDomainIndexers });
 
             string dns_service = _siteOptions.Value.BlockcoreDNS.Url;
             var ns_list = new List<DNSServiceViewModel>();
@@ -180,7 +75,6 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
                     }
                 }
             }
-
 
             foreach (var ns in ns_list.Select(c => c.DnsServer))
             {

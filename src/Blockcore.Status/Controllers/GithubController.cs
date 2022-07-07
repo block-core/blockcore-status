@@ -18,7 +18,7 @@ public class GithubController : Controller
 
 
     [HttpGet("[action]/{name}")]
-    public async Task<IActionResult> GetOrganizationInfo(string name)
+    public async Task<IActionResult> OrganizationInfo(string name)
     {
         var org = await _github.GetOrganizationByName(name, false);
         if (org == null)
@@ -30,7 +30,7 @@ public class GithubController : Controller
 
 
     [HttpGet("[action]/{owner}/{page}")]
-    public async Task<IActionResult> GetRepositories(string owner, int page = 1)
+    public async Task<IActionResult> Repositories(string owner, int page = 1)
     {
         var orgInfo = await _github.GetOrganizationByName(owner, false);
         if (orgInfo != null)
@@ -49,7 +49,7 @@ public class GithubController : Controller
 
 
     [HttpGet("[action]/{owner}/{name}")]
-    public async Task<IActionResult> GetRepositoryInfo(string owner, string name)
+    public async Task<IActionResult> RepositoryInfo(string owner, string name)
     {
         var repo = await _github.GetRepositoryByNameFromDB(owner, name);
         if (repo == null)
@@ -61,7 +61,7 @@ public class GithubController : Controller
 
 
     [HttpGet("[action]/{owner}/{name}")]
-    public async Task<IActionResult> GetLatestRepositoryRelease(string owner, string name)
+    public async Task<IActionResult> LatestRepositoryRelease(string owner, string name)
     {
         var releases = await _github.GetLatestRepositoryReleaseFromDB(owner, name);
         if (releases == null)

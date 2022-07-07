@@ -4,7 +4,7 @@ services:
   
   blockcore-status:
     container_name: blockcore-status
-    image: blockcore/status:1.0.1
+    image: blockcore/status:1.0.2
     mem_limit: 1024m
     cpus: 0.200
     environment:

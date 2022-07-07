@@ -12,9 +12,8 @@ public interface IBlockcoreIndexersService
     Task<bool> PingIndexer(string indexerUrl);
     Task<IndexerLocationViewModel> GetIndexerLocation(string indexerUrl);
 
-    //DB
-    Task AddOrUpdateIndexerToDB();
-    Task<List<IndexersViewModel>> GetAllIndexerFromDB();
+
+    Task<List<IndexersViewModel>> GetAllIndexer();
 
 
 

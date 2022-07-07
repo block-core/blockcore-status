@@ -16,8 +16,8 @@ public class ChainsController : Controller
         _chain = chain ?? throw new ArgumentNullException(nameof(chain));
     }
 
-    [HttpGet("[action]")]
-    public async Task<IActionResult> GetAllChains()
+    [HttpGet]
+    public async Task<IActionResult> Get()
     {
         var result = await _chain.GetAllChains();
         if (result == null)

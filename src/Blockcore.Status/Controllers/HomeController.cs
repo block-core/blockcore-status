@@ -38,7 +38,7 @@ public class HomeController : Controller
             OrganizationsList.Add(item.Login);
         }
         var chains = await _chain.GetAllChains();
-        var indexers = await _indexer.GetAllIndexerFromDB();
+        var indexers = await _indexer.GetAllIndexer();
 
 
         var model = new HomeViewModel()
@@ -57,7 +57,7 @@ public class HomeController : Controller
     {
         var pageNumber = model.Page ?? 1;
         //var indexers = await _indexer.GetIndexerFromDB(pageNumber);
-        var indexers = await _indexer.GetAllIndexerFromDB();
+        var indexers = await _indexer.GetAllIndexer();
 
         if (indexers == null || !indexers.Any())
             return Content("no-more-info");
@@ -67,7 +67,7 @@ public class HomeController : Controller
     [AjaxOnly]
     public async Task<IActionResult> IndexersMarker()
     {
-        var indexers = await _indexer.GetAllIndexerFromDB();
+        var indexers = await _indexer.GetAllIndexer();
         var IndexersList = new List<BlockcoreIndexers>();
         foreach (var item in indexers)
         {
