@@ -55,7 +55,7 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
     }
 
 
-    public async Task<List<IndexersViewModel>> GetAllIndexer()
+    public async Task<List<IndexersViewModel>> GetAllIndexer(bool incloudProgress = false)
     {
         try
         {
@@ -68,14 +68,14 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
             {
                 foreach (var ns in all_ns)
                 {
-                    if (await PingIndexer(ns.DnsServer + "/api/dns/ipaddress"))
+                    if (await PingIndexer(ns.Url + "/api/dns/ipaddress"))
                     {
                         ns_list.Add(ns);
                     }
                 }
             }
 
-            foreach (var ns in ns_list.Select(c => c.DnsServer))
+            foreach (var ns in ns_list.Select(c => c.Url))
             {
                 var ns_indexer_list = new List<BlockcoreIndexersViewModel>();
                 var services = await new JsonToObjects<List<dynamic>>().DownloadAndConverToObjectAsync(ns + "/api/dns/services/service/Indexer");
@@ -83,6 +83,36 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
                 {
                     var _indexer = new BlockcoreIndexersViewModel() { Url = indexer.domain, Online = indexer.online };
                     var location = await GetIndexerLocation("https://" + indexer.domain);
+
+                    if (incloudProgress)
+                    {
+                        try
+                        {
+                            var stats = await new JsonToObjects<dynamic>().DownloadAndConverToObjectAsync("https://" + indexer.domain + "/api/stats");
+                            if (stats.progress != null)
+                            {
+                                _indexer.BlocksLeftToSync = stats.blocksLeftToSync;
+                                _indexer.SyncBlockIndex = stats.syncBlockIndex;
+
+                                if (_indexer.BlocksLeftToSync >= 5)
+                                {
+                                    _indexer.Progress = "Syncing / Progress: " + stats.progress;
+                                }
+                                else
+                                {
+                                    _indexer.Progress = "Online / Progress: " + stats.progress;
+                                }
+                            }
+                            else
+                            {
+                                _indexer.Progress = "Error";
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            _indexer.Progress = "Error";
+                        }
+                    }
                     if (location != null)
                     {
                         if (string.Equals(location.status, "success", StringComparison.Ordinal))
@@ -113,5 +143,6 @@ public class EfBlockcoreIndexersService : IBlockcoreIndexersService
             return null;
         }
     }
+
 
 }

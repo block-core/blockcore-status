@@ -12,7 +12,7 @@ public interface IBlockcoreIndexersService
     Task<IndexerLocationViewModel> GetIndexerLocation(string indexerUrl);
 
 
-    Task<List<IndexersViewModel>> GetAllIndexer();
+    Task<List<IndexersViewModel>> GetAllIndexer(bool incloudProgress=false);
 
 
 

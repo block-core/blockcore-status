@@ -17,9 +17,9 @@ public class IndexersController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(bool incloudProgress)
     {
-        var result = await _indexer.GetAllIndexer();
+        var result = await _indexer.GetAllIndexer(incloudProgress);
         if (result == null)
         {
             return NotFound();

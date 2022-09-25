@@ -10,6 +10,7 @@
     "url": "https://github.com/block-core/blockcore-status.git"
   },
   "dependencies": {
+    "@blockcore/dns": "^0.0.4",
     "@forevolve/bootstrap-dark": "^2.1.0",
     "bootstrap": "^4.3.1",
     "components-font-awesome": "^5.9.0",

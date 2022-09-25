@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<NoWarn>$(NoWarn);NU1504;NU1505;NU1701</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blockcore.Status.Common\Blockcore.Status.Common.csproj" />

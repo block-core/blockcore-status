@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace Blockcore.Status.ViewModels.Indexers;
 public class DNSServiceViewModel
 {
-    [JsonProperty("dns-server")]
-    public string DnsServer { get; set; }
+    [JsonProperty("url")]
+    public string Url { get; set; }
 }

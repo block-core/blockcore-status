@@ -38,7 +38,7 @@ public class HomeController : Controller
             OrganizationsList.Add(item.Login);
         }
         var chains = await _chain.GetAllChains();
-        var indexers = await _indexer.GetAllIndexer();
+        var indexers = await _indexer.GetAllIndexer(true);
 
 
         var model = new HomeViewModel()
