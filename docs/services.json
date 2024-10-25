@@ -1,0 +1,51 @@
+{
+    "website": {
+      "name": "blockcore.net",
+      "url": "https://www.blockcore.net",
+      "type": "website"
+    },
+    "services": [
+      {
+        "name": "docs.blockcore.net",
+        "url": "https://docs.blockcore.net",
+        "type": "service"
+      } 
+    ],
+     "repositories": [
+      {
+        "name": "Blockcore",
+        "url": "https://github.com/block-core/blockcore",
+        "type": "repository"
+      },
+      {
+        "name": "Blockcore wallet",
+        "url": "https://github.com/block-core/blockcore-wallet",
+        "type": "repository"
+      }
+      ,
+      {
+        "name": "Blockcore notes",
+        "url": "https://github.com/block-core/blockcore-notes",
+        "type": "repository"
+      }
+      ,
+      {
+        "name": "Blockcore nodes",
+        "url": "https://github.com/block-core/blockcore-nodes",
+        "type": "repository"
+      }
+      ,
+      {
+        "name": "Blockcore explorer",
+        "url": "https://github.com/block-core/blockcore-explorer",
+        "type": "repository"
+      }
+      ,
+      {
+        "name": "Blockcore indexer",
+        "url": "https://github.com/block-core/blockcore-indexer",
+        "type": "repository"
+      }
+    ]
+  }
+  

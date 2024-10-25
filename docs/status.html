@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockcore Status</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #083b46;
+            margin-bottom: 40px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+        }
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            gap: 15px;
+        }
+        .filter-label {
+            font-size: 1em;
+            color: #083b46;
+        }
+        .filter-input {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            width: 180px;
+            max-width: fill-available;
+        }
+        .filter-input:focus {
+            border-color: #009fb5;
+            box-shadow: 0 0 5px rgba(0, 159, 181, 0.5);
+        }
+        .filter-button {
+            background-color: #009fb5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .filter-button:hover {
+            background-color: #007a8e;
+        }
+        .service-section {
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .service-title {
+            font-size: 1.5em;
+            color: #009fb5;
+            border-bottom: 2px solid #009fb5;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+        .status-bar-item {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            background-color: #d3d3d3;
+            margin-right: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .status-bar-item.active {
+            background-color: #28a745;
+            transform: scale(1.1);
+        }
+        .status-bar-item.inactive {
+            background-color: #dc3545;
+        }
+        .status-details {
+            display: none;
+            background-color: #f9f9f9;
+            border-left: 4px solid #009fb5;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            animation: slideIn 0.5s forwards ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .status-details.show {
+            display: block;
+            max-height: 500px;
+            transition: max-height 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="blockcore.png" alt="Blockcore" class="logo">
+        <h1>Blockcore Status</h1>
+
+        <div class="filter-section">
+            <label for="startDate" class="filter-label">Start Date:</label>
+            <input type="date" id="startDate" class="filter-input">
+            <label for="endDate" class="filter-label">End Date:</label>
+            <input type="date" id="endDate" class="filter-input">
+            <button class="filter-button" onclick="filterStatus()">Filter</button>
+        </div>
+
+        <div id="serviceStatuses"></div>
+    </div>
+
+    <script>
+      let statusData = {};
+
+      function preventCache(url) {
+        const timestamp = new Date().getTime();
+        return `${url}?t=${timestamp}`;
+      }
+
+      async function loadStatusData() {
+        try {
+          const response = await fetch(preventCache("https://block-core.github.io/status/status.json"));
+          const data = await response.json();
+          statusData = data["Blockcore"] || []; 
+          displayStatuses();
+        } catch (error) {
+          console.error("Error loading status data:", error);
+        }
+      }
+
+      function displayStatuses(startDate = null, endDate = null) {
+        const container = document.getElementById("serviceStatuses");
+        container.innerHTML = "";
+
+        const services = [...new Set(statusData.map((status) => status.name))];
+
+        services.forEach((service) => {
+          const serviceStatuses = statusData
+            .filter((status) => status.name === service)
+            .filter((status) => {
+              const statusDate = new Date(status.timestamp);
+              return (
+                (!startDate || statusDate >= startDate) &&
+                (!endDate || statusDate <= endDate)
+              );
+            });
+
+          const serviceDiv = document.createElement("div");
+          serviceDiv.classList.add("service-section");
+          serviceDiv.innerHTML = `<h2 class="service-title">${service}</h2>`;
+
+          const scrollContainer = document.createElement("div");
+          scrollContainer.classList.add("scroll-container");
+
+          serviceStatuses.forEach((status) => {
+            const statusDiv = document.createElement("div");
+            statusDiv.classList.add(
+              "status-bar-item",
+              status.isActive ? "active" : "inactive"
+            );
+
+            statusDiv.addEventListener("click", () => {
+              showDetails(status, serviceDiv);
+              statusDiv.classList.add("selected");
+
+              setTimeout(() => {
+                statusDiv.classList.remove("selected");
+              }, 5000);
+            });
+
+            scrollContainer.appendChild(statusDiv);
+          });
+
+          serviceDiv.appendChild(scrollContainer);
+          container.appendChild(serviceDiv);
+        });
+      }
+
+      function showDetails(status, parentElement) {
+        const existingDetails = parentElement.querySelector(".status-details");
+        if (existingDetails) {
+          existingDetails.classList.add("fade-out");
+          setTimeout(() => {
+            existingDetails.remove();
+          }, 500);
+        }
+
+        const detailsBox = document.createElement("div");
+        detailsBox.classList.add("status-details", "show");
+        detailsBox.innerHTML = `
+          <strong>Service:</strong> ${status.name}<br>
+          <strong>URL:</strong> <a href="${status.url}" target="_blank">${status.url}</a><br>
+          <strong>Status:</strong> ${status.isActive ? "Operational" : "Down"}<br>
+          <strong>Time:</strong> ${new Date(status.timestamp).toLocaleString()}
+        `;
+
+        parentElement.appendChild(detailsBox);
+
+        setTimeout(() => {
+          detailsBox.classList.remove("show");
+          setTimeout(() => {
+            detailsBox.remove();
+          }, 500);
+        }, 5000);
+      }
+
+      function filterStatus() {
+        const startDateInput = document.getElementById("startDate").value;
+        const endDateInput = document.getElementById("endDate").value;
+
+        const startDate = startDateInput ? new Date(startDateInput) : null;
+        const endDate = endDateInput ? new Date(endDateInput) : null;
+
+        displayStatuses(startDate, endDate);
+      }
+
+      setInterval(loadStatusData, 3600000);
+
+      window.onload = () => {
+        loadStatusData();
+      };
+    </script>
+</body>
+</html>

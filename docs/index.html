@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockcore Service status</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 0;
+        position: relative;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        color: #083b46;
+        margin-bottom: 40px;
+      }
+      .logo {
+        display: block;
+        margin: 0 auto;
+        width: 100px;
+      }
+      .category-title {
+        font-size: 1.5em;
+        color: #009fb5;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #009fb5;
+        padding-bottom: 5px;
+        text-align: left;
+        margin-top: 20px;
+      }
+      .service-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .service-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .service-name {
+        font-size: 1.2em;
+      }
+      .last-checked {
+        font-size: 0.9em;
+        color: #666;
+      }
+      .status-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+      .status-indicator {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: green;
+        position: relative;
+        z-index: 1;
+      }
+      .waves {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(0, 255, 0, 0.3);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: waves 3s infinite ease-in-out;
+        z-index: -1;
+      }
+      @keyframes waves {
+        0% {
+          transform: scale(0.2);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+      /* Internet status */
+      .internet-status {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .internet-status-circle {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin-left: 10px;
+        background-color: green;
+      }
+      .internet-status-text {
+        opacity: 0;
+        white-space: nowrap;
+        transition: opacity 0.3s ease;
+      }
+      .internet-status:hover .internet-status-text {
+        opacity: 1;
+      }
+      /* Timer */
+      #countdown {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      /* Loading Screen */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .loading-content {
+        text-align: center;
+      }
+      .loading-content .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #009fb5;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .loading-content p {
+        font-size: 16px;
+        color: #083b46;
+        margin-top: 10px;
+      }
+
+      .repo-card {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .repo-name {
+        font-size: 1.3em;
+        color: #083b46;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .repo-stats {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        margin-right: 20px;
+        font-size: 1em;
+        color: #666;
+      }
+
+      /* Make sure it's responsive */
+      @media (max-width: 600px) {
+        .repo-stats {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
+    </div>
+
+    <!-- Internet status -->
+    <div class="internet-status" id="internet-status">
+      <div class="internet-status-text" id="internet-status-text">
+        You are online
+      </div>
+      <div class="internet-status-circle" id="internet-status-circle"></div>
+    </div>
+
+    <div class="container">
+      <img src="blockcore.png" alt="Blockcore" class="logo" />
+      <h1>Blockcore Service status</h1>
+      <div id="countdown">Next check in: 600 seconds</div>
+
+      <div class="category-title">Website</div>
+      <div id="website-container"></div>
+
+      <div class="category-title">Services</div>
+      <div id="services-container"></div>
+
+      <div class="category-title">Repositories</div>
+      <div id="repos-container"></div>
+    </div>
+
+    <script>
+      // Show loading screen until content is loaded
+      window.addEventListener("load", () => {
+        document.getElementById("loading-screen").style.display = "none";
+      });
+
+      // Real-time internet status checking
+      // function checkInternetConnection() {
+      //     const statusCircle = document.getElementById('internet-status-circle');
+      //     const statusText = document.getElementById('internet-status-text');
+
+      //     setInterval(() => {
+      //         if (navigator.onLine) {
+      //             statusCircle.style.backgroundColor = 'green';
+      //             statusText.textContent = 'You are online';
+      //         } else {
+      //             statusCircle.style.backgroundColor = 'red';
+      //             statusText.textContent = 'You are offline';
+      //         }
+      //     }, 1000); // Check every second
+      // }
+
+      // More detailed internet check with external API
+      const checkOnlinestatus = async () => {
+        const statusElement = document.getElementById("internet-status-text");
+        const statusCircle = document.getElementById("internet-status-circle");
+        try {
+          const response = await fetch("https://httpbin.org/get", {
+            method: "GET",
+            cache: "no-cache",
+          });
+          if (response.ok) {
+            statusElement.textContent = "You are online!";
+            statusCircle.style.backgroundColor = "green";
+          } else {
+            throw new Error("Network response was not ok.");
+          }
+        } catch (error) {
+          console.log("Fetch error:", error);
+          statusElement.textContent = "You are offline!";
+          statusCircle.style.backgroundColor = "red";
+        }
+      };
+
+      // Check the initial status
+      checkOnlinestatus();
+
+      // Poll every 30 seconds for more detailed check
+      setInterval(checkOnlinestatus, 10000);
+
+      // Poll every second for basic online/offline check
+      // checkInternetConnection();
+
+      // Add event listeners to update status when online or offline status changes
+      window.addEventListener("online", checkOnlinestatus);
+      window.addEventListener("offline", checkOnlinestatus);
+
+      let countdown = 600;
+
+      // Countdown timer
+      function startCountdown() {
+        const countdownElement = document.getElementById("countdown");
+        const interval = setInterval(() => {
+          countdown--;
+          countdownElement.textContent = `Next check in: ${countdown} seconds`;
+
+          // Set yellow status when countdown reaches 0
+          if (countdown === 0) {
+            document
+              .querySelectorAll(".status-indicator")
+              .forEach((statusIndicator) => {
+                statusIndicator.style.backgroundColor = "yellow";
+              });
+            clearInterval(interval);
+            loadAndCheckstatuses();
+            countdown = 600;
+            startCountdown(); // restart countdown
+          }
+        }, 1000);
+      }
+
+      // Prevent caching by adding a timestamp to URL
+      function preventCache(url) {
+        const timestamp = new Date().getTime();
+        return `${url}?t=${timestamp}`;
+      }
+
+      // Create service card UI
+      function createServiceCard(name, timeId, statusId, waveId) {
+        return `
+            <div class="service-card">
+                <div class="service-info">
+                    <div class="service-name">${name}</div>
+                    <div class="last-checked">Last checked: <span id="${timeId}">--:--:--</span></div>
+                </div>
+                <div class="status-container">
+                    <div class="status-indicator" id="${statusId}"></div>
+                    <div class="waves wave-1" id="${waveId}"></div>
+                </div>
+            </div>`;
+      }
+
+      // Update status and time
+      function updatestatus(serviceId, timeId, waveId, isOperational) {
+        const statusIndicator = document.getElementById(serviceId);
+        const timeElement = document.getElementById(timeId);
+        const waveElement = document.getElementById(waveId);
+        const currentTime = new Date().toLocaleTimeString();
+        timeElement.textContent = currentTime;
+
+        if (isOperational) {
+          statusIndicator.style.backgroundColor = "green";
+          waveElement.style.backgroundColor = "rgba(0, 255, 0, 0.3)";
+        } else {
+          statusIndicator.style.backgroundColor = "red";
+          waveElement.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
+        }
+      }
+
+      // Check service status with cache prevention
+      async function checkService(url, serviceId, timeId, waveId) {
+        try {
+          const response = await fetch(preventCache(url));
+          updatestatus(serviceId, timeId, waveId, response.ok);
+        } catch (error) {
+          updatestatus(serviceId, timeId, waveId, false);
+        }
+      }
+
+      // Check WebSocket relay status
+      function checkRelay(url, relayId, timeId, waveId) {
+        const ws = new WebSocket(url);
+        ws.onopen = () => updatestatus(relayId, timeId, waveId, true);
+        ws.onerror = () => updatestatus(relayId, timeId, waveId, false);
+        ws.onclose = () => updatestatus(relayId, timeId, waveId, false);
+      }
+      // Fetch GitHub repository details
+      async function fetchGitHubRepoDetails(repoUrl) {
+        const apiUrl = repoUrl.replace(
+          "https://github.com/",
+          "https://api.github.com/repos/"
+        );
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          console.error(
+            `Failed to fetch repository info: ${response.statusText}`
+          );
+          return null;
+        }
+        return response.json();
+      }
+
+      function createRepoCard(
+        repoName,
+        stars,
+        forks,
+        lastUpdate,
+        contributors
+      ) {
+        return `
+    <div class="repo-card">
+        <div class="repo-info">
+            <div class="repo-name">${repoName}</div>
+            <div class="repo-stats">
+                <div class="stat-item"><strong>Stars:</strong> ${stars}</div>
+                <div class="stat-item"><strong>Forks:</strong> ${forks}</div>
+                <div class="stat-item"><strong>Last Updated:</strong> ${lastUpdate}</div>
+                <div class="stat-item"><strong>Contributors:</strong> ${contributors}</div>
+            </div>
+        </div>
+    </div>`;
+      }
+
+      // Fetch contributor count
+      async function fetchContributors(repoUrl) {
+        const apiUrl =
+          repoUrl.replace(
+            "https://github.com/",
+            "https://api.github.com/repos/"
+          ) + "/contributors";
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          console.error(`Failed to fetch contributors: ${response.statusText}`);
+          return 0;
+        }
+        const data = await response.json();
+        return data.length;
+      }
+      // Load and check statuses from JSON
+      async function loadAndCheckstatuses() {
+        const websiteContainer = document.getElementById("website-container");
+        const servicesContainer = document.getElementById("services-container");
+ 
+        try {
+          const response = await fetch(preventCache("services.json"));
+          const data = await response.json();
+
+          // Clear containers
+          websiteContainer.innerHTML = "";
+          servicesContainer.innerHTML = "";
+ 
+          // Website
+          const website = data.website;
+          websiteContainer.innerHTML = createServiceCard(
+            website.name,
+            "website-time",
+            "website-status",
+            "website-wave"
+          );
+          checkService(
+            website.url,
+            "website-status",
+            "website-time",
+            "website-wave"
+          );
+
+          // Services
+          data.services.forEach((service, index) => {
+            const timeId = `service-${index}-time`;
+            const statusId = `service-${index}-status`;
+            const waveId = `service-${index}-wave`;
+            servicesContainer.innerHTML += createServiceCard(
+              service.name,
+              timeId,
+              statusId,
+              waveId
+            );
+            checkService(service.url, statusId, timeId, waveId);
+          });
+ 
+           
+        } catch (error) {
+          console.error("Error loading services.json:", error);
+        }
+      }
+
+      // Load and check repository statuses from JSON
+      async function loadAndCheckRepos() {
+        const reposContainer = document.getElementById("repos-container");
+        reposContainer.innerHTML = "";
+
+        try {
+          const response = await fetch("services.json");
+          const data = await response.json();
+          const repos = data.repositories;
+
+          // Fetch repository details and render them
+          for (const repo of repos) {
+            const repoData = await fetchGitHubRepoDetails(repo.url);
+            const contributors = await fetchContributors(repo.url);
+            if (repoData) {
+              const lastUpdate = new Date(
+                repoData.updated_at
+              ).toLocaleDateString();
+              reposContainer.innerHTML += createRepoCard(
+                repoData.name,
+                repoData.stargazers_count,
+                repoData.forks_count,
+                lastUpdate,
+                contributors
+              );
+            }
+          }
+        } catch (error) {
+          console.error("Error loading repositories:", error);
+        }
+      }
+      // Initial load and start countdown
+      loadAndCheckstatuses();
+      loadAndCheckRepos();
+      startCountdown();
+    </script>
+  </body>
+</html>
