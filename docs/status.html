@@ -161,7 +161,7 @@
 
       async function loadStatusData() {
         try {
-          const response = await fetch(preventCache("https://block-core.github.io/status/status.json"));
+          const response = await fetch(preventCache("https://api.status.blockcore.net/status.json"));
           const data = await response.json();
           statusData = data["Blockcore"] || []; 
           displayStatuses();
